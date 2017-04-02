@@ -2,7 +2,7 @@
 
 ### necessary file locations:
 
-> - angularjs
+> - [angularjs](angularjs)
 > - - [angularjs/test_clock.html](angularjs/test_clock.html)
 > - - [angularjs/test_directive.html](angularjs/test_directive.html)
 > - - [angularjs/test_expression.html](angularjs/test_expression.html)
