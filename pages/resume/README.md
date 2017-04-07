@@ -1,5 +1,2 @@
 ### 简历
-
-- [zhilian_20170304.html](zhilian_20170304.html)
-- [zhilian_20170320.html](zhilian_20170320.html)
-
+很抱歉，简历已删除，不再公开。
