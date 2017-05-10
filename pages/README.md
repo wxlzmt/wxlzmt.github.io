@@ -38,6 +38,7 @@
 > - [simple](simple)
 > - - [simple/auto_circles.html](simple/auto_circles.html)
 > - - base64编码/解码  [simple/base64.html](simple/base64.html)
+> - - [simple/apiLinks.html](simple/apiLinks.html)
 
 > - [test](test)
 > - - 自定义滚动条  [test/custom_scroll_bar.html](test/custom_scroll_bar.html)
