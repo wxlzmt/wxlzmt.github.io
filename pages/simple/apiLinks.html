@@ -4,35 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>api links</title>
-
-<link rel="stylesheet" href="../../css/bootstrap.min.css">
-
-<style type="text/css">
-ul{
-	float: left;
-}
-li{
-	display: block;
-}
-a{
-	color: #0088cc;
-	text-decoration: none;
-}
-.divTitle{
-	padding-left:10px;
-}
-.divPiece{
-	padding:1px;
-	overflow-wrap: break-word;
-	overflow: hidden;
-	border:1px solid #FFFAFA;
-}
-.divPiece:hover{
-	border-color: rgba(215, 225, 232, 0.7);
-    outline: 1px;
-}
-</style>
-
 <script type="text/javascript">
 function load(){
 	//数据
@@ -458,7 +429,7 @@ function load(){
 		var lenPieces = dataRow.pieces==null?0:dataRow.pieces.length;
 		for(var j=0;j<lenPieces;j++){
 			var row_div = document.createElement("div");
-			row_div.className = "col-xs-6 col-sm-4 col-md-3 col-lg-2 divPiece";
+			row_div.className = "col-xs-6 col-sm-4 col-md-3 col-lg-2 div_piece";
 			var dataPiece = dataRow.pieces[j];
 			var title_div=document.createElement("div");
 			title_div.className="divTitle";
@@ -511,6 +482,38 @@ function hideMask(){
 	document.getElementById("idDivMask").style.display="none";
 }
 </script>
+
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<style type="text/css">
+body{
+	font-family:'微软雅黑','Helvetica Neue','Helvetica','Arial','sans-serif';
+}
+ul{
+	float: left;
+}
+li{
+	display: block;
+}
+a{
+	color: #0088cc;
+	text-decoration: none;
+}
+.divTitle{
+	padding-left:10px;
+}
+.div_piece{
+	padding:1px;
+	overflow-wrap: break-word;
+	overflow: hidden;
+	border:1px solid #FFFAFA;
+}
+.div_piece:hover{
+	border-color: rgba(215, 225, 232, 0.7);
+    outline: 1px;
+}
+
+
+</style>
 
 </head>
 <body onload="load();" >
