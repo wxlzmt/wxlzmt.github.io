@@ -46,6 +46,26 @@
 	};
 })();
 
+function genData(val){
+	var obj = JSON.parse(val);
+	if(obj && obj.total>0 && obj.results>0){
+		var dom_container = document.getElementById("idContainer");
+		var dom_ul = document.createElement("ul");
+		for(var i=0;i<obj.results.length;i++){
+			var o = obj.results[i];
+			var dom_li = document.createElement("li");
+			var dom_a = document.createElement("a");
+			dom_a.href = o.latest;
+			dom_a.title = o.latest;
+			dom_a.target = "_blank";
+			dom_a.innerHTML = o.name;
+			dom_li.appendChild(dom_a);
+			dom_ul.appendChild(dom_li);
+		}
+		dom_container.appendChild(dom_ul);
+	}
+}
+
 function load(){
 	$$.ajax({
 		url:"../../resource/cdnjs.cloudflare.com.json",
@@ -53,6 +73,11 @@ function load(){
 			console.log(retVal);
 			console.log(status);
 			console.log(statusText);
+			try{
+				genData(retVal);
+			}catch(e){
+				console.log(e);
+			}
 			//end
 			hideMask();
 		}
