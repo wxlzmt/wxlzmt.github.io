@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>api links</title>
+<script type="text/javascript">
+(function(){
+	var getXHRInstance = function () {
+	  var xhr = null;
+	  if (window.XMLHttpRequest) { // code for IE7, Firefox, Opera, etc.
+		xhr = new XMLHttpRequest();
+	  } else if (window.ActiveXObject) { // code for IE6, IE5
+		xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	  return xhr;
+	};
+	var ajax = function(obj) {
+	  if(obj!=null){
+		  var options = obj;
+		  if(typeof(options)=="string"){
+			  options = {url:obj};
+		  }else if(typeof(options)=="object"){
+			  var xmlhttp = getXHRInstance();
+			  var state_Change = function () {
+				if (xmlhttp.readyState == 4) { // 4 = "loaded"
+				  if (xmlhttp.status == 200) { // 200 = "OK"
+					if(options.success && typeof(options.success)=="function"){
+						(options.success)(xmlhttp.responseText,xmlhttp.status,xmlhttp.statusText);
+					}
+				  }
+				}
+			  }
+			  if (xmlhttp != null) {
+				xmlhttp.onreadystatechange = state_Change;
+				var _method = options.method?options.method:"GET";
+				xmlhttp.open(_method, options.url, true);
+				xmlhttp.send(options.data);
+			  }
+		  }
+	  }
+	}
+	//注册方法
+	window.$$ = {
+		"ajax":ajax
+	};
+})();
+
+function load(){
+	$$.ajax({
+		url:"../../resource/cdnjs.cloudflare.com.json",
+		success:function(retVal,status,statusText){
+			console.log(retVal);
+			console.log(status);
+			console.log(statusText);
+			//end
+			hideMask();
+		}
+	});
+}
+function hideMask(){
+	document.getElementById("idDivMask").style.display="none";
+}
+</script>
+
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<style type="text/css">
+body{
+	font-family:'微软雅黑','Helvetica Neue','Helvetica','Arial','sans-serif';
+}
+ul{
+	float: left;
+}
+li{
+	display: block;
+}
+a{
+	color: #0088cc;
+	text-decoration: none;
+}
+.divTitle{
+	padding-left:10px;
+}
+.div_piece{
+	padding:1px;
+	overflow-wrap: break-word;
+	overflow: hidden;
+	border:1px solid #FFFAFA;
+}
+.div_piece:hover{
+	border-color: rgba(215, 225, 232, 0.7);
+    outline: 1px;
+}
+
+
+</style>
+
+</head>
+<body onload="load();" >
+	<!-- 遮罩(防止页面闪烁) ,页面载入并计算完成之后,会隐藏掉 -->
+	<div id="idDivMask" style="display:block;width:100%;height:100%;position:absolute;top:0px;left:0px; 
+	 z-index:999999; background-color: white;" >
+	 </div>
+	
+	<div class="container">
+	<center><h1>cdn links</h1></center>
+	<hr/>
+	<div id="idContainer" class="container">
+		<!-- 内容由js动态生成 -->
+	</div>
+	<hr/>
+	</div>
+</body>
+</html>

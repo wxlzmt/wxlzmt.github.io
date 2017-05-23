@@ -51,31 +51,16 @@
 		var ss = d.getSeconds()<10?("0"+d.getSeconds()):d.getSeconds();
 		return yyyy+s1+mo+s1+dd+" "+hh+s2+mi+s2+ss;
 	}
-
-	var patt = new RegExp("console\\.log","g");
-	function clickBt2(){
-		function str_console_log_print(str){
-				console.log(str);//控制台输出
-				var original = $("#idDivPrint").html();
-				var newHtml = original+"<br/>"+str;
-				$("#idDivPrint").html(newHtml);//页面输出(append方式)
-			}
-			var val = $("#idTextAreaInput1").val();
-			if(val!=null && ""!=val){
-				val = (new String(val)).replace(patt,"str_console_log_print");
-				//console.log(val);
-				eval(val);//运算
-			}
-		}
-		function createHTMLNode(){
-			$("#idDivCanvasInputHtmlTag").html("");
-			$("#idDivCanvasInputHtmlTag").html($("#idTextAreaInput2").val());
-		}
-		function clearBt(){
-			$("#idDivPrint").html("");
-		}
-	</script>
-	<title>html js 测试工具</title>
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+<title>test</title>
 <style type="text/css">
 	.row-cell{
 		display: table-row;
@@ -91,51 +76,8 @@
 		<div style="display: table-row;width:100%;">
 			<!--菜单导航区域-->
 			<div class="row-cell">
-
+				<iframe name="ifr" src="https://api.cdnjs.com/libraries" ></iframe>
 			</div>
-		</div>
-		<div style="display:table-row;width:100%;">
-			<table style="width:1000px;padding-left:10px;padding-top:15px;">
-				<!-- 输入html标签 -->
-				<tr><td colspan="2" align="left" >输入HTML标签↓</td></tr>
-				<tr>
-					<td width="940">
-						<textarea id="idTextAreaInput2" cols="100" rows="10" style="width: 100%; height: 150px;"></textarea>
-					</td>
-					<td>
-						<button onclick="createHTMLNode();">生成HTML</button>
-					</td>
-				</tr>
-				<!-- html执行效果 -->
-				<tr><td colspan="2" align="left" >HTML标签执行效果↓</td></tr>
-				<tr>
-					<td colspan="2" style="padding:10px;border:1px solid transparent;">
-						<div id="idDivCanvasInputHtmlTag" style="width: 995px; height: auto;">
-							<!--放一些代码-->
-						</div>
-					</td>
-				</tr>
-				<tr><td colspan="2" align="left" >输入js脚本↓</td></tr>
-				<tr>
-					<td>
-						<textarea id="idTextAreaInput1" cols="100" rows="10" style="width: 995px; height: 150px;"></textarea>
-					</td>
-					<td align="right">
-						<button onclick="clickBt2();">执行js脚本</button>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="left">
-						<button onclick="clearBt();">清空控制台↓</button>
-					</td>
-				</tr>
-
-				<tr>
-					<td colspan="2">
-						<div id="idDivPrint" style="overflow-y:scroll;width:1000px;height:400px;background-color:#99FFFF;"></div>
-					</td>
-				</tr>
-			</table>
 		</div>
 	</div>
 </body>
