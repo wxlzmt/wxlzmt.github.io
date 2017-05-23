@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>api links</title>
+<title>js cdn links</title>
 <script type="text/javascript">
 (function(){
 	var getXHRInstance = function () {
@@ -48,7 +48,7 @@
 
 function genData(val){
 	var obj = JSON.parse(val);
-	if(obj && obj.total>0 && obj.results>0){
+	if(obj!= null && obj.total>0){
 		var dom_container = document.getElementById("idContainer");
 		var dom_ul = document.createElement("ul");
 		for(var i=0;i<obj.results.length;i++){
@@ -64,6 +64,8 @@ function genData(val){
 		}
 		dom_container.appendChild(dom_ul);
 	}
+	var dom_count = document.getElementById("idTotalCount");
+	dom_count.innerHTML = "共"+obj.total+"条";
 }
 
 function load(){
@@ -128,7 +130,8 @@ a{
 	 </div>
 	
 	<div class="container">
-	<center><h1>cdn links</h1></center>
+	<h1>js cdn links</h1>
+	<h4 id="idTotalCount"></h4>
 	<hr/>
 	<div id="idContainer" class="container">
 		<!-- 内容由js动态生成 -->
