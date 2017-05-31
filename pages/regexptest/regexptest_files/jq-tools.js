@@ -51,12 +51,12 @@ var tools = {
         },
         saveCode: function () {
             if (!document.all) {
-                alert('´Ë¹¦ÄÜÔÚIEÓĞĞ§');
+                alert('æ­¤åŠŸèƒ½åœ¨IEæœ‰æ•ˆ');
                 return;
             }
             var win = window.open('', '', 'top=10000,left=10000');
             win.document.write(document.all.content.innerText)
-            win.document.execCommand('SaveAs', '', 'ÎÄ¼şÃû³Æ.htm')
+            win.document.execCommand('SaveAs', '', 'æ–‡ä»¶åç§°.htm')
             win.close();
         },
         init: function () {
@@ -151,7 +151,7 @@ var tools = {
             moviePath: path + "/tool/ZeroClipboard.swf"
         });
         clip.on('complete', function (client, args) {
-            alert("ÒÑ³É¹¦¸´ÖÆµ½¼ôÌù°å£¡");
+            alert("å·²æˆåŠŸå¤åˆ¶åˆ°å‰ªè´´æ¿ï¼");
         });
     },
     checkbox: function (t) {
@@ -202,7 +202,7 @@ var tools = {
                 tempopenstyle = tempopenstyle;
             }
             if (istest) {
-                if (address == "http://" || !address) { $("#errorinfo").text("ÇëÊäÈëURL£¡").show(); return; }
+                if (address == "http://" || !address) { $("#errorinfo").text("è¯·è¾“å…¥URLï¼").show(); return; }
                 window.open(address, op_selfopen, tempopenstyle);
                 return;
             }
@@ -226,24 +226,24 @@ var tools = {
     },
     regex: {
         regCommon: {
-            chines: "[\\u4e00-\\u9fa5]", //ÖĞÎÄ
-            doubleByte: "[^\\x00-\\xff]", //Ë«×Ö½Ú£¨°üº¬ÖĞÎÄ£©
-            nullLine: "\\s", //¿Õ°×ĞĞ
-            email: "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}", //ÓÊÏä
-            url: "^((https|http|ftp|rtsp|mms)?:\\/\\/)[^\\s]+", //ÍøÖ·£¨Ö»ÑéÖ¤ÊÇ·ñ°üº¬Ä³Ğ©Ç°×º£©
-            phone: "0?(13|14|15|18)[0-9]{9}", //¹úÄÚÊÖ»ú
-            tel: "[0-9-()£¨£©]{7,18}", //¹úÄÚµç»°
-            nFloat: "-([1-9]\\d*.\\d*|0.\\d*[1-9]\\d*)", //¸º¸¡µãÊı
-            interger: "-?[1-9]\\d*", //ÕûĞÍ
-            pFloat: "[1-9]\\d*.\\d*|0.\\d*[1-9]\\d*", //Õı¸¡µãÊı [1-9]\d*\.\d+|0\.\d*[1-9]\d*
-            qq: "[1-9]([0-9]{5,11})", //QQºÅ
-            postal: "\\d{6}", //¹úÄÚÓÊÕş±àÂë
-            ip4: "(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)", //ipµØÖ·
-            cardId: "\\d{17}[\\d|x]|\\d{15}", //Éí·İÖ¤ºÅÂë
-            date: "\\d{4}(\\-|\\/|.)\\d{1,2}\\1\\d{1,2}", //ÈÕÆÚ
-            pInterger: "[1-9]\\d*", //ÕıÕûÊı
-            nInterger: "-[1-9]\\d*", //¸ºÕûÊı
-            userName: "[A-Za-z0-9_\\-\\u4e00-\\u9fa5]+"//ÓÃ»§Ãû
+            chines: "[\\u4e00-\\u9fa5]", //ä¸­æ–‡
+            doubleByte: "[^\\x00-\\xff]", //åŒå­—èŠ‚ï¼ˆåŒ…å«ä¸­æ–‡ï¼‰
+            nullLine: "\\s", //ç©ºç™½è¡Œ
+            email: "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}", //é‚®ç®±
+            url: "^((https|http|ftp|rtsp|mms)?:\\/\\/)[^\\s]+", //ç½‘å€ï¼ˆåªéªŒè¯æ˜¯å¦åŒ…å«æŸäº›å‰ç¼€ï¼‰
+            phone: "0?(13|14|15|18)[0-9]{9}", //å›½å†…æ‰‹æœº
+            tel: "[0-9-()ï¼ˆï¼‰]{7,18}", //å›½å†…ç”µè¯
+            nFloat: "-([1-9]\\d*.\\d*|0.\\d*[1-9]\\d*)", //è´Ÿæµ®ç‚¹æ•°
+            interger: "-?[1-9]\\d*", //æ•´å‹
+            pFloat: "[1-9]\\d*.\\d*|0.\\d*[1-9]\\d*", //æ­£æµ®ç‚¹æ•° [1-9]\d*\.\d+|0\.\d*[1-9]\d*
+            qq: "[1-9]([0-9]{5,11})", //QQå·
+            postal: "\\d{6}", //å›½å†…é‚®æ”¿ç¼–ç 
+            ip4: "(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)", //ipåœ°å€
+            cardId: "\\d{17}[\\d|x]|\\d{15}", //èº«ä»½è¯å·ç 
+            date: "\\d{4}(\\-|\\/|.)\\d{1,2}\\1\\d{1,2}", //æ—¥æœŸ
+            pInterger: "[1-9]\\d*", //æ­£æ•´æ•°
+            nInterger: "-[1-9]\\d*", //è´Ÿæ•´æ•°
+            userName: "[A-Za-z0-9_\\-\\u4e00-\\u9fa5]+"//ç”¨æˆ·å
         },
         checkReg: function () {
             var f = RegexPal.fields,
@@ -319,7 +319,7 @@ var tools = {
                 }
                 $("#result").show();
                 $("#result textarea").val(str);
-                $("#result p").html("Æ¥Åäµ½ <strong>" + arr.length + "</strong> Ìõ½á¹û£º");
+                $("#result p").html("åŒ¹é…åˆ° <strong>" + arr.length + "</strong> æ¡ç»“æœï¼š");
             });
         },
         languageCode: {
@@ -351,13 +351,13 @@ var tools = {
     },
     transcoding: {
         fullhalf: {
-            ///È«½Ç¿Õ¸ñÎª12288£¬°ë½Ç¿Õ¸ñÎª32
-            ///ÆäËû×Ö·û°ë½Ç(33-126)ÓëÈ«½Ç(65281-65374)µÄ¶ÔÓ¦¹ØÏµÊÇ£º¾ùÏà²î65248
-            //°ë½Ç×ª»»ÎªÈ«½Çº¯Êı
+            ///å…¨è§’ç©ºæ ¼ä¸º12288ï¼ŒåŠè§’ç©ºæ ¼ä¸º32
+            ///å…¶ä»–å­—ç¬¦åŠè§’(33-126)ä¸å…¨è§’(65281-65374)çš„å¯¹åº”å…³ç³»æ˜¯ï¼šå‡ç›¸å·®65248
+            //åŠè§’è½¬æ¢ä¸ºå…¨è§’å‡½æ•°
             ToFull: function () {
                 var txtstring = $('#content').val();
                 if (txtstring == '') {
-                    alert("ÇëÊäÈëÒª×ª»»µÄ×Ö·û´®");
+                    alert("è¯·è¾“å…¥è¦è½¬æ¢çš„å­—ç¬¦ä¸²");
                     return;
                 }
                 var tmp = "";
@@ -373,11 +373,11 @@ var tools = {
                 }
                 $('#result').val(tmp);
             },
-            //È«½Ç×ª»»Îª°ë½Çº¯Êı
+            //å…¨è§’è½¬æ¢ä¸ºåŠè§’å‡½æ•°
             ToHalf: function () {
                 var str = $('#content').val();
                 if (str == '') {
-                    alert('ÇëÊäÈëÒª×ª»»µÄ×Ö·û');
+                    alert('è¯·è¾“å…¥è¦è½¬æ¢çš„å­—ç¬¦');
                     return;
                 }
                 var tmp = "";
@@ -514,7 +514,7 @@ var tools = {
                     button_width: 213,
                     button_height: 80,
                     button_placeholder_id: "buttonPlaceHolder",
-                    //button_text: "Ñ¡Ôñ¶şÎ¬ÂëÍ¼Æ¬",
+                    //button_text: "é€‰æ‹©äºŒç»´ç å›¾ç‰‡",
                     button_text_style: "",
                     /*button_text_top_padding: 3,
                     button_text_left_padding: 12,*/
@@ -533,11 +533,11 @@ var tools = {
                 jQuery("#txtarea").focus(function () {
                     var v = jQuery(this).val();
                     $(this).removeClass("col-gray");
-                    if (v == '200×Ö·ûÒÔÄÚ') jQuery(this).val('')
+                    if (v == '200å­—ç¬¦ä»¥å†…') jQuery(this).val('')
                 }).blur(function () {
                     var v = jQuery(this).val();
                     if (v == '') {
-                        jQuery(this).val('200×Ö·ûÒÔÄÚ');
+                        jQuery(this).val('200å­—ç¬¦ä»¥å†…');
                         $(this).addClass("col-gray");
                     }
                 }).keyup(function () {
@@ -718,7 +718,7 @@ var tools = {
                 if (language == 2) {
                     var words = text.match(/\S+/g);
                 } else {
-                    var words = text.replace(/[,;.!:¡ª\/]/g, ' ').replace(/[^a-zA-Z\d\s&:]/g, '').match(/\S+/g);
+                    var words = text.replace(/[,;.!:â€”\/]/g, ' ').replace(/[^a-zA-Z\d\s&:]/g, '').match(/\S+/g);
                 }
                 return (words !== null ? words.length : 0);
             },
@@ -792,9 +792,9 @@ var tools = {
         },
         httptest: function () {
             var pramsHtml = '<div class="portTestWrap clearfix pt20">';
-            pramsHtml += '<div class="Porname"><input type="text" class="TitInput _WrapHid w240" name="paramsname" value="{0}" /><b class="search-hint CentHid mt5" style="display:{2}">²ÎÊıÃû</b></div>';
-            pramsHtml += '<div class="Porname ml10"><input type="text" class="TitInput _WrapHid w360" name="paramsval" value="{1}" /><b class="search-hint CentHid mt5" style="display:{2}">Öµ</b></div>';
-            pramsHtml += '<div class="fl pl10"><input type="button" value="É¾³ı" class="TitInBtn w70 removeparams" /></div></div>';
+            pramsHtml += '<div class="Porname"><input type="text" class="TitInput _WrapHid w240" name="paramsname" value="{0}" /><b class="search-hint CentHid mt5" style="display:{2}">å‚æ•°å</b></div>';
+            pramsHtml += '<div class="Porname ml10"><input type="text" class="TitInput _WrapHid w360" name="paramsval" value="{1}" /><b class="search-hint CentHid mt5" style="display:{2}">å€¼</b></div>';
+            pramsHtml += '<div class="fl pl10"><input type="button" value="åˆ é™¤" class="TitInBtn w70 removeparams" /></div></div>';
             $("#addparams").click(function () {
                 if ($("#isRAW").prop("checked")) {
                     $(".portTestWrap").remove();
@@ -847,7 +847,7 @@ var tools = {
             try {
             jQuery("#content").val(words.toString(CryptoJS.enc.Utf8));
             } catch (e) {
-            jQuery("#content").val("¸ñÊ½ÓĞÎó");
+            jQuery("#content").val("æ ¼å¼æœ‰è¯¯");
             }
             if (jQuery("#content").val()) $("#content").siblings().hide();
             });*/
@@ -926,7 +926,7 @@ var tools = {
                 var i = 0;
                 var base64test = /[^A-Za-z0-9\+\/\=]/g;
                 if (base64test.exec(input)) {
-                    return "²»ÊÇÓĞĞ§µÄBase64±àÂë";
+                    return "ä¸æ˜¯æœ‰æ•ˆçš„Base64ç¼–ç ";
                 }
                 input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
                 do {
@@ -951,10 +951,10 @@ var tools = {
             }
         },
         unicode: function () {
-            //ASCII ×ª»» Unicode
+            //ASCII è½¬æ¢ Unicode
             $("#asicctounicode").click(function () {
                 if (document.getElementById('content').value == '') {
-                    alert('ÎÄ±¾¿òÖĞÃ»ÓĞ´úÂë£¡');
+                    alert('æ–‡æœ¬æ¡†ä¸­æ²¡æœ‰ä»£ç ï¼');
                     return;
                 }
                 document.getElementById('result').value = '';
@@ -963,11 +963,11 @@ var tools = {
                 document.getElementById('content').focus();
                 if (jQuery("#result").val()) $("#result").siblings().hide();
             });
-            //Unicode ×ª»» ASCII
+            //Unicode è½¬æ¢ ASCII
             $("#unicodetoasicc").click(function () {
                 var code = document.getElementById('content').value.match(/&#(\d+);/g);
                 if (code == null) {
-                    alert('ÎÄ±¾¿òÖĞÃ»ÓĞºÏ·¨µÄUnicode´úÂë£¡'); document.getElementById('content').focus();
+                    alert('æ–‡æœ¬æ¡†ä¸­æ²¡æœ‰åˆæ³•çš„Unicodeä»£ç ï¼'); document.getElementById('content').focus();
                     return;
                 }
                 document.getElementById('result').value = '';
@@ -1096,18 +1096,18 @@ var tools = {
                 } else if (/^(-)?\d{1,13}$/.test(v)) {
                     v = v * 1;
                 } else {
-                    alert("Ê±¼ä´Á¸ñÊ½²»ÕıÈ·");
+                    alert("æ—¶é—´æˆ³æ ¼å¼ä¸æ­£ç¡®");
                     return;
                 }
                 var dateObj = new Date(v);
-                if (dateObj.format('yyyy') == "NaN") { /*alert("Ê±¼ä´Á¸ñÊ½²»ÕıÈ·");*/return; }
+                if (dateObj.format('yyyy') == "NaN") { /*alert("æ—¶é—´æˆ³æ ¼å¼ä¸æ­£ç¡®");*/return; }
                 var UnixTimeToDate = dateObj.getFullYear() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getDate() + ' ' + dateObj.getHours() + ':' + dateObj.getMinutes() + ':' + dateObj.getSeconds();
                 document.unix.unixtoutc8result.value = UnixTimeToDate;
             },
             human2unix: function () {
                 var _this = ted.unixtime;
                 var form = document.unix;
-                var year = form.year.value; if (!year) { /*alert("Ê±¼ä¸ñÊ½²»ÕıÈ·");*/return; }
+                var year = form.year.value; if (!year) { /*alert("æ—¶é—´æ ¼å¼ä¸æ­£ç¡®");*/return; }
                 var month = _this.stripLeadingZeroes(form.month.value);
                 var day = _this.stripLeadingZeroes(form.day.value);
                 var hour = _this.stripLeadingZeroes(form.hour.value);
@@ -1115,7 +1115,7 @@ var tools = {
                 var second = _this.stripLeadingZeroes(form.second.value);
                 year = year ? year : new Date().getFullYear(), month = month ? month - 1 : 0, day = day ? day : 1, hour = hour ? hour : (year == 1970 ? 8 : 0), minute = minute ? minute : 0, second = second ? second : 0;
                 var humanDate = new Date(Date.UTC(year, month, day, hour, minute, second));
-                if (humanDate.format('yyyy') == "NaN") { /*alert("Ê±¼ä¸ñÊ½²»ÕıÈ·");*/return; }
+                if (humanDate.format('yyyy') == "NaN") { /*alert("æ—¶é—´æ ¼å¼ä¸æ­£ç¡®");*/return; }
                 document.unix.utc8tounixresult.value = (humanDate.getTime() / 1000 - 8 * 60 * 60);
             },
             human2unix1: function () {
@@ -1131,7 +1131,7 @@ var tools = {
                 var minute = ndate.getMinutes();
                 var second = ndate.getSeconds();
                 var humanDate = new Date(Date.UTC(year, month, day, hour, minute, second));
-                if (humanDate.format('yyyy') == "NaN") { /*alert("Ê±¼ä¸ñÊ½²»ÕıÈ·");*/return; }
+                if (humanDate.format('yyyy') == "NaN") { /*alert("æ—¶é—´æ ¼å¼ä¸æ­£ç¡®");*/return; }
                 form.unixtoutc8result1.value = (humanDate.getTime() / 1000 - 8 * 60 * 60);
             },
             stripLeadingZeroes: function (input) {
@@ -1333,7 +1333,7 @@ var tools = {
 
         },
         htmlCodeCov: {
-            //html´úÂë×ª»»javascript´úÂë
+            //htmlä»£ç è½¬æ¢javascriptä»£ç 
             javascript: function () {
                 var input = document.getElementById("content").value;
                 if (input == "") {
@@ -1369,7 +1369,7 @@ var tools = {
 
             },
 
-            //html´úÂë×ª»»asp´úÂë
+            //htmlä»£ç è½¬æ¢aspä»£ç 
             asp: function () {
                 var input = document.getElementById("content").value;
                 if (input == "") {
@@ -1404,7 +1404,7 @@ var tools = {
                 }
             },
 
-            //html´úÂë×ª»»php´úÂë
+            //htmlä»£ç è½¬æ¢phpä»£ç 
             php: function () {
                 var input = document.getElementById("content").value;
                 if (input == "") {
@@ -1439,7 +1439,7 @@ var tools = {
                 }
             },
 
-            //html´úÂë×ª»»Jsp´úÂë
+            //htmlä»£ç è½¬æ¢Jspä»£ç 
             Jsp: function () {
                 var input = document.getElementById("content").value;
                 if (input == "") {
@@ -1474,7 +1474,7 @@ var tools = {
                 }
             },
 
-            //html´úÂë×ª»»Perl´úÂë
+            //htmlä»£ç è½¬æ¢Perlä»£ç 
             Perl: function () {
                 var input = document.getElementById("content").value;
                 if (input == "") {
@@ -1510,7 +1510,7 @@ var tools = {
             },
 
 
-            //html´úÂë×ª»»vbnet´úÂë
+            //htmlä»£ç è½¬æ¢vbnetä»£ç 
             vbnet: function () {
                 var input = document.getElementById("content").value;
                 if (input == "") {
@@ -1545,7 +1545,7 @@ var tools = {
                 }
             },
 
-            //html´úÂë×ª»»Sws´úÂë
+            //htmlä»£ç è½¬æ¢Swsä»£ç 
             Sws: function () {
                 var input = document.getElementById("content").value;
                 if (input == "") {
@@ -1580,7 +1580,7 @@ var tools = {
                 }
             },
 
-            //¿ªÊ¼×ª»»°´Å¥
+            //å¼€å§‹è½¬æ¢æŒ‰é’®
             htmlCov: function () {
                 var _this = hcj.htmlCodeCov;
                 var type = getid("html").value;
@@ -1592,7 +1592,7 @@ var tools = {
                     case "perl": _this.Perl(); break;
                     case "sws": _this.Sws(); break;
                     case "vbnet": _this.vbnet(); break;
-                    default: getid("result").value = '×ª»»´íÎó'; break;
+                    default: getid("result").value = 'è½¬æ¢é”™è¯¯'; break;
                 }
                 if (jQuery("#result").val()) $("#result").siblings().hide();
             },
@@ -1606,7 +1606,7 @@ var tools = {
                         options: $(this).find("ul.SearChoese-show"),
                         option: $(this).find("ul.SearChoese-show li a"),
                         t: "slide",
-                        callback: _this.htmlCov//ÏÂÀ­Ñ¡Ïî
+                        callback: _this.htmlCov//ä¸‹æ‹‰é€‰é¡¹
                     });
                 });
                 $("#clear").click(function () { tools.clear([getid("content"), getid("result")]) });
@@ -1710,7 +1710,7 @@ var tools = {
                     _this.jsonData.action = jQuery(this).attr("ref");
                     _this.jsonData.content = jQuery.trim(jQuery("#txtInitCode").val());
                     if (_this.jsonData.content == '') {
-                        alert('ÇëÊäÈëÒª×ª»»µÄÄÚÈİ');
+                        alert('è¯·è¾“å…¥è¦è½¬æ¢çš„å†…å®¹');
                         return;
                     }
                     switch (_this.jsonData.action) {
@@ -1793,7 +1793,7 @@ var tools = {
                 tools.clipfn(path);
                 $("#2csharp").click(function () {
                     if (!$("#jsonval").val().trim()) {
-                        alert("ÇëÌîĞ´JSON");
+                        alert("è¯·å¡«å†™JSON");
                         return false;
                     }
                     try {
@@ -1805,11 +1805,11 @@ var tools = {
                             res = _this.JSON2POJO.convert(v);
                         $("#result").val(res).siblings("b").hide();
                     } catch (e) {
-                        alert("Éú³ÉC#ÊµÌåÀàÒì³££¬Çë¼ì²éJSONÊÇ·ñ´íÎó¡£");
+                        alert("ç”ŸæˆC#å®ä½“ç±»å¼‚å¸¸ï¼Œè¯·æ£€æŸ¥JSONæ˜¯å¦é”™è¯¯ã€‚");
                     }
                 });
                 $("#testjson").click(function () {
-                    var testjson = '{\r\n    "name":"Õ¾³¤¹¤¾ß",\r\n    "url":"http://tool.chinaz.com",\r\n    "address":{\r\n        "city":"ÏÃÃÅ",\r\n        "country":"ÖĞ¹ú"\r\n    },\r\n    "arrayBrowser":[{\r\n        "name":"Google",\r\n        "url":"http://www.google.com"\r\n    },\r\n    {\r\n       "name":"Baidu",\r\n       "url":"http://www.baidu.com"\r\n   },\r\n   {\r\n       "name":"SoSo",\r\n       "url":"http://www.SoSo.com"\r\n   }]\r\n}';
+                    var testjson = '{\r\n    "name":"ç«™é•¿å·¥å…·",\r\n    "url":"http://tool.chinaz.com",\r\n    "address":{\r\n        "city":"å¦é—¨",\r\n        "country":"ä¸­å›½"\r\n    },\r\n    "arrayBrowser":[{\r\n        "name":"Google",\r\n        "url":"http://www.google.com"\r\n    },\r\n    {\r\n       "name":"Baidu",\r\n       "url":"http://www.baidu.com"\r\n   },\r\n   {\r\n       "name":"SoSo",\r\n       "url":"http://www.SoSo.com"\r\n   }]\r\n}';
                     $("#jsonval").val(testjson).siblings("b").hide();
                 });
                 $("#clear").click(function () {
@@ -1832,7 +1832,7 @@ var tools = {
                 _genTypeByProp: function (name, val) {
                     try {
                         if (typeof val == "string") {
-                            var regdt = /^(\d{4})(-|\/|Äê)(\d{2})(-|\/|ÔÂ)(\d{2})(ÈÕ)?(\s((\d{1,2}):)?((\d{1,2}):)?(\d{1,2})?)?$/
+                            var regdt = /^(\d{4})(-|\/|å¹´)(\d{2})(-|\/|æœˆ)(\d{2})(æ—¥)?(\s((\d{1,2}):)?((\d{1,2}):)?(\d{1,2})?)?$/
                             if (regdt.test(val.trim()))
                                 val = new Date(val);
                         }
@@ -1946,8 +1946,8 @@ var tools = {
                 _genTypeByProp: function (name, val) {
                     try {
                         if (typeof val == "string") {
-                            //xxxx(-|/|Äê)xx(-|/|ÔÂ)xx(-|/|ÈÕ) xx:xx:xx
-                            var regdt = /^(\d{4})(-|\/|Äê)(\d{2})(-|\/|ÔÂ)(\d{2})(ÈÕ)?(\s((\d{1,2}):)?((\d{1,2}):)?(\d{1,2})?)?$/
+                            //xxxx(-|/|å¹´)xx(-|/|æœˆ)xx(-|/|æ—¥) xx:xx:xx
+                            var regdt = /^(\d{4})(-|\/|å¹´)(\d{2})(-|\/|æœˆ)(\d{2})(æ—¥)?(\s((\d{1,2}):)?((\d{1,2}):)?(\d{1,2})?)?$/
                             if (regdt.test(val.trim()))
                                 val = new Date(val);
                         }
@@ -1995,17 +1995,17 @@ var tools = {
                 var dumper = new JKL.Dumper();
                 var xmlText = $("#xmljsonval").val();
                 if (!xmlText) {
-                    alert("ÇëÊäÈëXML×Ö·û´®");
+                    alert("è¯·è¾“å…¥XMLå­—ç¬¦ä¸²");
                     $("#xmljsonval").focus();
                     return false;
                 }
-                xmlText = xmlText.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, "\""); //HTML×ªÒå
+                xmlText = xmlText.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, "\""); //HTMLè½¬ä¹‰
                 var tree = xmlobjtree.parseXML(xmlText);
                 if (tree) {
                     if (!tree.html)
                         $("#result").val(dumper.dump(tree)).siblings("b").hide();
                     else {
-                        alert("Çë¼ì²éXMLÊÇ·ñ´íÎó¡£");
+                        alert("è¯·æ£€æŸ¥XMLæ˜¯å¦é”™è¯¯ã€‚");
                         $("#xmljsonval").focus();
                     }
                 }
@@ -2014,7 +2014,7 @@ var tools = {
             $("#2xml").click(function () {
                 var xmlobjtree = new XML.ObjTree();
                 if (!$("#xmljsonval").val()) {
-                    alert("ÇëÊäÈëJSON×Ö·û´®");
+                    alert("è¯·è¾“å…¥JSONå­—ç¬¦ä¸²");
                     $("#xmljsonval").focus();
                     return false;
                 }
@@ -2022,7 +2022,7 @@ var tools = {
                     var json = eval("(" + $("#xmljsonval").val() + ")");
                     $("#result").val(formatXml(xmlobjtree.writeXML(json))).siblings("b").hide();
                 } catch (e) {
-                    alert("×ªXMLÒì³££¬Çë¼ì²éJSONÊÇ·ñ´íÎó¡£");
+                    alert("è½¬XMLå¼‚å¸¸ï¼Œè¯·æ£€æŸ¥JSONæ˜¯å¦é”™è¯¯ã€‚");
                     $("#xmljsonval").focus();
                 }
             });
@@ -2063,7 +2063,7 @@ var tools = {
                 var splitchar = $("#splitchar").val() || /\t/;
                 var txt = $("#excelval").val();
                 if (!txt.trim()) {
-                    alert("ÇëÊäÈëEXCEL¸ñÊ½µÄ×Ö·û´®¡£");
+                    alert("è¯·è¾“å…¥EXCELæ ¼å¼çš„å­—ç¬¦ä¸²ã€‚");
                     return false;
                 }
                 var datas = txt.split("\n");
@@ -2125,12 +2125,12 @@ var tools = {
             }
         },
         jsonescape: {
-            //ctype: 1Ñ¹Ëõ  2×ªÒå  3Ñ¹Ëõ×ªÒå  4È¥³ı×ªÒå
+            //ctype: 1å‹ç¼©  2è½¬ä¹‰  3å‹ç¼©è½¬ä¹‰  4å»é™¤è½¬ä¹‰
             escapezip: function (ctype) {
                 var txtA = document.getElementById("jsonval");
                 var text = txtA.value;
                 if (!text.trim()) {
-                    alert("ÇëÊäÈëJSON×Ö·û´®¡£");
+                    alert("è¯·è¾“å…¥JSONå­—ç¬¦ä¸²ã€‚");
                     return false;
                 }
                 if (ctype == 1 || ctype == 3) {
@@ -2174,7 +2174,7 @@ var tools = {
                 var txtA = document.getElementById("jsonval");
                 var text = txtA.value.trim();
                 if (!text) {
-                    alert("ÇëÊäÈëJSON×Ö·û´®¡£");
+                    alert("è¯·è¾“å…¥JSONå­—ç¬¦ä¸²ã€‚");
                     return false;
                 }
                 txtA.value = _this.GB2312UnicodeConverter.ToGB2312(text);
@@ -2184,7 +2184,7 @@ var tools = {
                 var txtA = document.getElementById("jsonval");
                 var text = txtA.value.trim();
                 if (!text) {
-                    alert("ÇëÊäÈëJSON×Ö·û´®¡£");
+                    alert("è¯·è¾“å…¥JSONå­—ç¬¦ä¸²ã€‚");
                     return false;
                 }
                 txtA.value = _this.GB2312UnicodeConverter.ToUnicode(text);
@@ -2192,9 +2192,9 @@ var tools = {
             cntoenehar: function () {
                 var txtA = document.getElementById("jsonval");
                 var str = txtA.value;
-                str = str.replace(/\¡¯|\¡®/g, "'").replace(/\¡°|\¡±/g, "\"");
-                str = str.replace(/\¡¾/g, "[").replace(/\¡¿/g, "]").replace(/\£û/g, "{").replace(/\£ı/g, "}");
-                str = str.replace(/£¬/g, ",").replace(/£º/g, ":");
+                str = str.replace(/\â€™|\â€˜/g, "'").replace(/\â€œ|\â€/g, "\"");
+                str = str.replace(/\ã€/g, "[").replace(/\ã€‘/g, "]").replace(/\ï½›/g, "{").replace(/\ï½/g, "}");
+                str = str.replace(/ï¼Œ/g, ",").replace(/ï¼š/g, ":");
                 txtA.value = str;
             },
             init: function () {

@@ -72,9 +72,9 @@ function load(){
 	$$.ajax({
 		url:"../../resource/cdnjs.cloudflare.com.json",
 		success:function(retVal,status,statusText){
-			console.log(retVal);
-			console.log(status);
-			console.log(statusText);
+			//console.log(retVal);
+			//console.log(status);
+			//console.log(statusText);
 			try{
 				genData(retVal);
 			}catch(e){

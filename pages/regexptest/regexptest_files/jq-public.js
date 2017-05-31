@@ -1,4 +1,4 @@
-﻿// JavaScript Document
+// JavaScript Document
 $(function () {
     fn();
     $(window).on('resize', function () {
