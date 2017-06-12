@@ -23,6 +23,7 @@
 - [jquery-2.1.1.js](jquery-2.1.1.js)
 - [jquery.cookie.js](jquery.cookie.js)
 - [respond.min.js](respond.min.js)
+- [simple-ajax.js](simple-ajax.js)
 - [vue-1.0.14.js](vue-1.0.14.js)
 - [README.md](README.md)
 
