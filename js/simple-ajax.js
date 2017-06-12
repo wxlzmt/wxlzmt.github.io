@@ -33,9 +33,9 @@
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4 ) {
 				if(xmlHttp.status == 200){
-					opt.success(xmlHttp.retVal,xmlHttp.status,xmlHttp.statusText);
+					opt.success(xmlHttp.responseText,xmlHttp.status,xmlHttp.statusText);
 				}else{
-					opt.error(xmlHttp.retVal,xmlHttp.status,xmlHttp.statusText);
+					opt.error(xmlHttp.responseText,xmlHttp.status,xmlHttp.statusText);
 				}
             }
         };
