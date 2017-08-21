@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分数约分计算器</title>
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <style type="text/css">
+	.h1{
+		text-align:center;
+	}
+	.cc{
+		max-width: 500px;
+		min-width: 500px;
+	}
+	.cc>div{
+		margin-top: 20px;
+		
+	}
+  </style>
+  <script type="text/javascript">
+	function calc(_a,_b) {
+		var _ret = null;
+		var n = _a;
+		var num = parseInt(n);
+		if (isNaN(num) || num < 0) {
+			alert("参数1不是数字或其值小于0");
+			return _ret;
+		}
+		var n1 = _b;
+		var num2 = parseInt(n1);
+		if (isNaN(num2) || num2 < 0) {
+			alert("参数2不是数字或其值小于0");
+			return _ret;
+		}
+		for (var i = 1; (i < num) || (i == num); i++) {
+			if (num % i == 0) {
+				for (var j = 1; (j < num2) || (j == num2); j++) {
+					if (num2 % j == 0) {
+						if (i == j) {
+							var m = Math.max(i, j);
+						}
+
+						var z = num / m;
+						var f = num2 / m;
+						_ret = [z,f];
+					}
+				}
+			}
+		}
+		return _ret;
+	}
+	
+	function jisuan(){
+		document.getElementById("id_ret").innerHTML = "";
+		document.getElementById("idHideR1").value="";
+		document.getElementById("idHideR2").value="";
+		var a = document.getElementById("ida").value;
+		var b = document.getElementById("idb").value;
+		var ret = calc(a,b);
+		if(ret!=null && ret.length==2){
+			//计算成功;
+			document.getElementById("id_ret").innerHTML = ""+parseInt(a)+"&nbsp;:&nbsp;"+parseInt(b)+"&nbsp;=&nbsp;"+ret[0]+"&nbsp;:&nbsp;"+ret[1];
+			document.getElementById("idHideR1").value=ret[0];
+			document.getElementById("idHideR2").value=ret[1];
+		}
+	}
+	function shengcheng(){
+		document.getElementById("idx").innerHTML = "";
+		var r1 = parseInt(document.getElementById("idHideR1").value);
+		var r2 = parseInt(document.getElementById("idHideR2").value);
+		if(isNaN(r1) || isNaN(r2)){
+			alert("请先计算约分结果");
+			return;
+		}
+		var a = document.getElementById("ide").value;
+		var b = document.getElementById("idf").value;
+		var min = parseInt(a);
+		if (isNaN(min) || min < 0) {
+			alert("倍数最小值不是数字或其值小于0");
+			return;
+		}
+		var max = parseInt(b);
+		if (isNaN(max) || max < 0) {
+			alert("倍数最大值不是数字或其值小于0");
+			return;
+		}
+		if(min>max){
+			alert("最小倍数必须不大于最大倍数");
+			return;
+		}
+		var arr = [];
+		for(var i=min;i<=max;i++){
+			arr.push([r1*i,r2*i]);
+		}
+		var htm = "";
+		for(i in arr){
+			var ar = arr[i];
+			htm = htm + ar[0]+"&nbsp;:&nbsp;"+ar[1]+"<br/>";
+		}
+		document.getElementById("idx").innerHTML = htm;
+	}
+	function load(){
+		jisuan();
+		shengcheng();
+	}
+	function keyup1(e){
+		var ev = e || window.event;
+		if(ev.keyCode=="13"){
+			jisuan();
+		}
+	}
+	function keyup2(e){
+		var ev = e || window.event;
+		if(ev.keyCode=="13"){
+			shengcheng();
+		}
+	}
+  </script>
+</head>
+<body onload="load();">
+<h1 class="h1">分数约分计算器</h1>
+<div class="container cc">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+		<table style="width:100%;">
+			<tr>
+				<td align="right"  width="15%">A&nbsp;:&nbsp;B&nbsp;=&nbsp;</td>
+				<td align="center" width="31%"><input id="ida" name="a" type="text" class="form-control" style="width:100%;" value="640" onkeyup="keyup1();" /></td>
+				<td align="center" width="5%">&nbsp;:&nbsp;</td>
+				<td align="center" width="31%"><input id="idb" name="b" type="text" class="form-control" style="width:100%;" value="360" onkeyup="keyup1();" /></td>
+				<td align="center" width="18%"><button onclick="jisuan();" type="button" class="btn btn-primary" >计算</button></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+		<input type="hidden" id="idHideR1" />
+		<input type="hidden" id="idHideR2" />
+		<table style="width:100%;">
+			<tr>
+				<td align="right" width="15%">约分结果&nbsp;</td>
+				<td align="center" id="id_ret"></td>
+				<td width="18%"></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+		<table style="width:100%;">
+			<tr>
+				<td align="right"  width="15%">扩大倍数&nbsp;</td>
+				<td align="center" width="31%"><input id="ide" name="e" type="text" class="form-control" style="width:100%;" value="1" onkeyup="keyup2();" /></td>
+				<td align="center" width="5%">至</td>
+				<td align="center" width="31%"><input id="idf" name="f" type="text" class="form-control" style="width:100%;" value="20" onkeyup="keyup2();" /></td>
+				<td align="center" width="18%"><button onclick="shengcheng();" type="button" class="btn btn-primary">生成</button></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<table style="width:100%;">
+			<tr>
+				<td align="right"  width="15%"></td>
+				<td align="center" id="idx"></td>
+				<td width="18%"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>

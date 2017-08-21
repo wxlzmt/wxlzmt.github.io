@@ -6,5 +6,6 @@
 - [base64.html](base64.html)
 - [apiLinks.html](apiLinks.html)
 - [jsCdnLinks.html](jsCdnLinks.html)
+- [calc.html](calc.html)
 - [README.md](README.md)
 
