@@ -30,6 +30,7 @@
 > - 简历  [resume](resume)
 
 > - RGB转16进制  [rgb-16-radix/RGB_to_16radix.html](rgb-16-radix/RGB_to_16radix.html)
+> - RGB-16进制-颜色轮盘  [rgb16/rgb16.html](rgb16/rgb16.html)
 
 > - [scroll_load/files](scroll_load/files)
 > - [scroll_load/scrollAlertTest.html](scroll_load/scrollAlertTest.html)
