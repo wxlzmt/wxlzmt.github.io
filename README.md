@@ -1,6 +1,8 @@
 # GitHub Pages
 #### 主页:[https://wxlzmt.github.io/](https://wxlzmt.github.io/)
 
+[![Join the chat at https://gitter.im/wxlzmt-github-io/Lobby](https://badges.gitter.im/wxlzmt-github-io/Lobby.svg)](https://gitter.im/wxlzmt-github-io/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### descriptions
 
 > #### 个人的小仓库,放一些代码随笔以及一些web前端工具和站外URL链接.
