@@ -37,11 +37,12 @@
 > - [scroll_load/ScrollLoad.html](scroll_load/ScrollLoad.html)
 
 > - [simple](simple)
+> - - [simple/apiLinks.html](simple/apiLinks.html)
 > - - [simple/auto_circles.html](simple/auto_circles.html)
 > - - base64编码/解码  [simple/base64.html](simple/base64.html)
-> - - [simple/apiLinks.html](simple/apiLinks.html)
-> - - [simple/jsCdnLinks.html](simple/jsCdnLinks.html)
 > - - 分数约分计算器  [simple/calc.html](simple/calc.html)
+> - - js获取图片内容  [simple/get_img_content.html](simple/get_img_content.html)
+> - - [simple/jsCdnLinks.html](simple/jsCdnLinks.html)
 
 > - [test](test)
 > - - 自定义滚动条  [test/custom_scroll_bar.html](test/custom_scroll_bar.html)
