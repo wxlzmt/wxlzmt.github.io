@@ -15,7 +15,7 @@
 
 > - [font_awesome/Font_Awesome.html](font_awesome/Font_Awesome.html)
 
-> - [image_cut/cut.html](image_cut/cut.html)
+> - 图片裁剪  [image_cut/cut.html](image_cut/cut.html)
 
 > - 图片转BASE64编码  [img_to_base64/BASE64.html](img_to_base64/BASE64.html)
 
@@ -28,8 +28,6 @@
 > - 进制转换器  [radix_switch/radix_switch.html](radix_switch/radix_switch.html)
 
 > - 正则表达式在线测试  [regexptest/regexptest.html](regexptest/regexptest.html)
-
-> - 简历  [resume](resume)
 
 > - RGB转16进制  [rgb-16-radix/RGB_to_16radix.html](rgb-16-radix/RGB_to_16radix.html)
 > - RGB-16进制-颜色轮盘  [rgb16/rgb16.html](rgb16/rgb16.html)
