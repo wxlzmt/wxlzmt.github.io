@@ -15,6 +15,8 @@
 
 > - [font_awesome/Font_Awesome.html](font_awesome/Font_Awesome.html)
 
+> - [image_cut/cut.html](image_cut/cut.html)
+
 > - 图片转BASE64编码  [img_to_base64/BASE64.html](img_to_base64/BASE64.html)
 
 > - JSON格式化工具  [json_format/jsonformat.html](json_format/jsonformat.html)
