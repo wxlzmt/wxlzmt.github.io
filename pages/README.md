@@ -16,6 +16,7 @@
 > - [font_awesome/Font_Awesome.html](font_awesome/Font_Awesome.html)
 
 > - 图片裁剪  [image_cut/cut.html](image_cut/cut.html)
+> - 图片选择裁剪  [image_cut/cut_upload.html](image_cut/cut_upload.html)
 
 > - 图片转BASE64编码  [img_to_base64/BASE64.html](img_to_base64/BASE64.html)
 
