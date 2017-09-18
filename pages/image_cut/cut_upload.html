@@ -10,7 +10,7 @@
   	.clearfix:after{visibility:hidden;display:block;font-size:0;content: " ";clear:both;height:0;}   
 	.clearfix{*zoom:1;}
     .container {
-      min-width: 960px;
+      max-width: 960px;
       margin: 20px auto 40px auto;
     }
 
@@ -98,10 +98,8 @@
 	//w:宽度,h高度;
 	function initInstance(w,h){
 		$('#image').cropper({
-		  minContainerWidth:w,
-		  minContainerHeight:h,
 		  aspectRatio: 1/1,
-		  viewMode:3,
+		  viewMode:1,
 		  crop: function (e) {
             var data = $(this).cropper('getData');
 			var x = dealNo(data.x);
