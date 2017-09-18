@@ -10,7 +10,7 @@
   	.clearfix:after{visibility:hidden;display:block;font-size:0;content: " ";clear:both;height:0;}   
 	.clearfix{*zoom:1;}
     .container {
-      max-width: 960px;
+      min-width: 960px;
       margin: 20px auto 40px auto;
     }
 
@@ -76,8 +76,17 @@
 		reader.readAsDataURL(myfile);
         reader.onload = function(e) {
 			var src = e.target.result;
-			document.getElementById("image").src=src;
-			initInstance();
+			$("<img></img>").attr("src", src).load(function(){
+				/* 如果要获取图片的真实的宽度和高度有三点必须注意:
+				1、需要创建一个image对象：如这里的$("<img/>")
+				2、指定图片的src路径
+				3、一定要在图片加载完成后执行如.load()函数里执行
+				*/
+				realWidth = this.width;
+				realHeight = this.height;
+				$("#image").attr("src",src).css({"width":realWidth+"px","height":realHeight+"px"});
+				initInstance(realWidth,realHeight);
+			});
 		}
 	  }
     }
@@ -86,9 +95,11 @@
 		$('#image').cropper('destroy');
 		$(".preview").find("img").remove();
 	}
-	
-	function initInstance(){
+	//w:宽度,h高度;
+	function initInstance(w,h){
 		$('#image').cropper({
+		  minContainerWidth:w,
+		  minContainerHeight:h,
 		  aspectRatio: 1/1,
 		  viewMode:3,
 		  crop: function (e) {
@@ -137,14 +148,14 @@
 	<div class="row">
 		<p>裁图方法 Cropper v3.0.0 <a href="https://github.com/fengyuanchen/cropper">https://github.com/fengyuanchen/cropper</a> 本页面只是个测试用例</p>
 	</div>
-	<div class="row">
+	<div class="row" style="margin-bottom:10px;">
 		<div style="width:100%;float:left;" >
 			<input type="file" id="idFile" name="img" onchange="change(event);" style="width:100%;max-width:200px;"></input>
 		</div>	
 	</div>
 	<div class="row">
-		<div class="col col-6">
-			<img id="image" alt="请先上传Picture">
+		<div class="col col-12">
+			<img id="image" alt="请先上传图片">
 			<!--<img id="image" src="iphone-X.png" alt="Picture">-->
 		</div>
 	</div>
