@@ -13,6 +13,8 @@
 
 > - [echart3/echart3_demo.html](echart3/echart3_demo.html)
 
+> - [echart3/test_curve.html](echart3/test_curve.html)
+
 > - [font_awesome/Font_Awesome.html](font_awesome/Font_Awesome.html)
 
 > - 图片裁剪  [image_cut/cut.html](image_cut/cut.html)
