@@ -72,7 +72,10 @@ function getOption(){
         color: ['#3398DB'],
         tooltip : {
             trigger: 'axis',
-            formatter:"x：{b0}<br/>y：{c0}"
+            formatter:"y={c0}<br/>x={b0}",
+			axisPointer: {
+                type: 'cross'
+            }
         },
         toolbox: {
             feature: {
@@ -125,6 +128,13 @@ function getOption(){
             }
         ]
     };
+	var arr = getYMaxAndMin();
+	if(arr[0]!=null){
+		option0_0.yAxis[0].min = arr[0];
+	}
+	if(arr[1]!=null){
+		option0_0.yAxis[0].max = arr[1];
+	}
     return option0_0;
 }
 
@@ -184,6 +194,29 @@ function validateData(){
     return false;
 }
 
+//返回数组 长度为2,内容可能为null;
+function getYMaxAndMin(){
+	var arr = [null,null];
+	try{
+		var strMin = document.getElementById("idmin").value;
+		arr[0] = parseInt(strMin);
+	}catch(e){
+		console.log(e);
+	}
+	try{
+		var strMax = document.getElementById("idmax").value;
+		arr[1] = parseInt(strMax);
+	}catch(e){
+		console.log(e);
+	}
+	for(var i=0;i<arr.length;i++){
+		if(isNaN(arr[i])){
+			arr[i]=null;
+		}
+	}
+	return arr;
+}
+
 function destory(){
     for(var i=0 ; i<echartInstances.length;i++){
         var ins = echartInstances[i];
@@ -212,6 +245,12 @@ window.addEventListener("resize", function () {
                 <div class="div_tb_row">
                     <div class="i-layout-div div_tb_cell">
                         <textarea id="idarea" class="i-layout-div" style="width: 100%;resize:none;" placeholder="曲线数据数组">[3,2,2,44,453,23,23,34,545,565,76,87,8,76,45,43,45,34,56,7,687,87,98,67,67,56,45,435,23,445,45,65]</textarea>
+                    </div>
+					<div class="i-layout-div div_tb_cell" style="width:400px;padding-left: 10px;">
+                       <span>纵轴最小值：</span>
+					   <input type="text" id="idmin" value="0" style="width:80px;" />
+					   <span>纵轴最大值：</span>
+					   <input type="text" id="idmax" value="" style="width:80px;" />
                     </div>
                     <div class="i-layout-div div_tb_cell" align="center" style="width: 120px;padding-right: 20px;">
                         <button onclick="reloadData();" style="float: right;">刷新曲线图</button>
