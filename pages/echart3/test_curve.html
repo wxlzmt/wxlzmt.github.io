@@ -113,6 +113,7 @@ function getOption(){
         ],
         xAxis : [
             {
+				name:'x',
                 type : 'category',
                 boundaryGap:false,
                 data : getXDataArr()
@@ -120,6 +121,7 @@ function getOption(){
         ],
         yAxis : [
             {
+				name:'y',
                 type : 'value',
                 min:0
             }
@@ -129,6 +131,12 @@ function getOption(){
                 name:'曲线',
                 type:'line',
                 showSymbol:false,
+				symbolSize:1,
+				lineStyle:{
+					normal:{
+						width:1
+					}
+				},
                 data:getYDataArr()
             }
         ]
