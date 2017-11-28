@@ -122,8 +122,7 @@ function getOption(){
         yAxis : [
             {
 				name:'y',
-                type : 'value',
-                min:0
+                type : 'value'
             }
         ],
         series : [
@@ -220,7 +219,7 @@ function updateYAxis(){
 function updateYAxisAuto(){
 	var min=null,max=null;
 	if(_g_data_area!=null && _g_data_area.length==2){
-		if(_g_data_area[0]!=null || _g_data_area[1]!=null){
+
 			if(_g_data_area[0]==null){
 				_g_data_area[0]=0;
 			}
@@ -243,7 +242,7 @@ function updateYAxisAuto(){
 					max=d;
 				}
 			}		
-		}
+
 	}
 	doUpdateYAxis([min,max]);
 }
