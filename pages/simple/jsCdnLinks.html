@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>js cdn links</title>
-<script type="text/javascript" src="../../js/simple-ajax.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 function genData(val){
-	var obj = JSON.parse(val);
+	var obj = val;
 	if(obj!= null && obj.total>0){
 		var dom_container = document.getElementById("idContainer");
 		var dom_ul = document.createElement("ul");
@@ -29,19 +29,29 @@ function genData(val){
 }
 
 function load(){
-	$$.ajax({
-		url:"../../resource/cdnjs.cloudflare.com.json",
-		success:function(retVal,status,statusText){
-			try{
-				genData(retVal);
-			}catch(e){
-				console.log(e);
-			}
-			//end
-			hideMask();
-		}
+	var url = "https://api.cdnjs.com/libraries";
+	$.ajax({
+        dataType: 'jsonp',
+        url: url,
+        success: function(data){
+            //处理data数据
+			foo(data);
+        }
 	});
 }
+
+function foo(data){
+	console.log("called:foo!");
+	try{
+		genData(data);
+	}catch(e){
+		console.log(e);
+	}
+	//end
+	hideMask();
+	return true;
+}
+
 function hideMask(){
 	document.getElementById("idDivMask").style.display="none";
 }
@@ -78,7 +88,8 @@ li:hover{
 <body onload="load();" >
 	<!-- 遮罩(防止页面闪烁) ,页面载入并计算完成之后,会隐藏掉 -->
 	<div id="idDivMask" style="display:block;width:100%;height:100%;position:absolute;top:0px;left:0px; 
-	 z-index:999999; background-color: white;" >
+	 z-index:999999; background-color: white; text-align:center; " >
+	 <h1>正在载入...</h1>
 	 </div>
 	
 	<div class="container">
