@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<style>
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+</style>
+<body></body>
+<script src="../../js/d3.min.js"></script>
+<script>
+
+var margin = {top: 30, right: 30, bottom: 30, left: 30},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+	
+//x轴间隔;
+var x_data_length=26;//x轴取值个数;
+
+//用于限制随机生成的y轴数据的范围;
+var y_data_max=height/10;
+
+//x数据 映射 域
+var x = d3.scale.ordinal()//离散变换
+    .domain("ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""))
+    .rangePoints([0, width]);//用上面的离散的点,分隔此连续区间;
+	
+//x坐标轴	
+var xAxis = d3.svg.axis()
+    .scale(x)//x轴定义域;
+    .tickValues(x.domain())//参数是离散值,
+    .orient("bottom");
+
+//y轴数据是连续的
+var y = d3.scale.linear().domain([0,y_data_max]).range([height,0]);
+//domain域是显示在坐标轴上的,range域用于控制视图尺寸与数据之间的比例映射;
+
+var	yAxis = d3.svg.axis().scale(y).orient("left").ticks(20);//每隔20取一个值;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+	.append("g")
+	.attr("transform","translate(" + margin.left + ","+margin.top+")");
+
+//生成x轴	
+var gx = svg.append("g")
+    .attr("class", "x axis")
+	.attr("transform","translate(0,"+height+")")
+    .call(xAxis);
+	
+//y轴
+var gy = svg.append("g")
+	.attr("class","y axis")
+	.attr("transform","translate(0,0)")
+	.call(yAxis);
+
+//随机生成一些测试数据,范围是[0,y_data_max],
+getRandomData();
+console.log(dataset);
+
+
+//添加折线
+	var line = d3.svg.line()
+        .interpolate("linear")//连续折线
+		.x(function(d,i){return x.range()[i];})//x数据生成策略,从range获取
+        .y(function(d){return y(d);});//y数据生成策略,之间返回;
+		
+	var path=svg.append("path")
+        .attr("d",line(dataset))//传入line()中的数组,数组的每一个元素对应于d
+		.style("fill","#F00")
+		.style("fill","none")//不封闭填充
+		.style("stroke-width",1)
+		.style("stroke","#F00")
+		.style("stroke-opacity",0.9);
+
+//存储随机生成的数据;
+var dataset =[];
+function getRandomData(){
+	var dataNum=x_data_length;
+	dataset=[];
+	var i=1;
+	for(i=0;i<dataNum;i++){
+		//取值是[0,y_data_max];
+		dataset.push(Math.round(Math.random()*y_data_max));
+	}
+}
+
+
+</script>
+</html>

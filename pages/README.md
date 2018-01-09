@@ -11,6 +11,8 @@
 
 > - 代码着色高亮  [code_highlight/highlight.html](code_highlight/highlight.html)
 
+> - [d3](d3)
+
 > - [echart3/echart3_demo.html](echart3/echart3_demo.html)
 
 > - [echart3/test_curve.html](echart3/test_curve.html)

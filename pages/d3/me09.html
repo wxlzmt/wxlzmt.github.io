@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<style>
+.axis text {
+  font: 10px sans-serif;
+}
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis .minor line {
+  stroke: #777;
+  stroke-dasharray: 2,2;
+}
+
+table td{
+	cursor:pointer;
+}
+
+
+</style>
+<body>
+		<div>
+			<div id="div_canvas" style="float:none;"></div>
+		</div>
+	<button id="bt_show_all_chart">全部显示</button>
+	<button id="bt_hide_all_chart">全部隐藏</button>
+	<button id="bt_refresh" onclick="refresh();">仅用于测试:刷新随机测试数据</button>
+</body>
+<script src="../../js/d3.min.js"></script>
+<script>
+//测试数据;
+var data_json = {
+	"rangeX" : ["2010-01-01","2010-12-31"],
+	"rangeY" :[0,210],
+	"warning":173,
+	"threshold":195,
+	"title":"这是图的标题",
+	"values" : [
+      {
+		"name" : "myChart1",
+        "color" : "#09F",
+		"x" : ["2010-01-01","2010-02-01", "2010-03-01", "2010-04-01","2010-05-01","2010-06-01","2010-07-01"],
+        "y" : [200,37,48,100,33,15,99]
+      },
+      {
+		"name":"myChart2",
+		"color":"#CC0033",
+		"x" : ["2010-01-01","2010-02-01", "2010-03-01", "2010-04-01","2010-05-01","2010-06-01","2010-07-01"],
+		"y" : [172,66,200,20,82,40,110]
+	  },
+      {
+		"name":"myChart3",
+		"color":"#33CCCC",
+		"x" : ["2010-01-05","2010-02-01", "2010-03-01", "2010-04-01","2010-05-01","2010-06-01","2010-07-01"],
+		"y":[10,100,150,120,7,56,180]
+	  }
+   ]
+};
+
+console.log(data_json);
+
+//chartData是多组折线图;
+var chartData = eval(data_json);
+
+//做图函数,封装;
+function d3Chart(id){//参数是一个id值
+	this._margin={left:30,right:30,top:60,bottom:150};//边距margin
+	this._width=600;//全部的,最大的宽
+	this._height=500;//高
+	this._id_canvas="div_canvas";//画布所在容器的id值;需要传入,有默认值
+	this._data={};//初始json数据为空;
+	this._xScale;//x轴domain和range的变换
+	this._yScale;//y轴,同上;
+	this._timeFormat=d3.time.format("%m-%d");//x轴时间格式;可以设置;
+	this._svg;//这是<svg>
+	this._svg_data_canvas;//这是一个g标签对象,内 放置折线图;
+	this._g_canvas;//这是<svg>的子标签<g>
+	this._hide_all_chart;//id,传入绑定事件监听
+	this._show_all_chart;//id,同上;
+	this._interpolateType ="linear";//"step-after" ; /*这是折线图的样式,可以设置*/
+	this._legend_height=20;//图例的高度值;
+	this._display="block";//是否显示折线图;默认显示;
+	if(id){//若传入id值,则赋新值;
+		this._id_canvas=id;
+	}
+}
+//扩展内部方法;
+d3Chart.prototype={
+	width:function(w){
+		if(w){
+			this._width=w;
+		}else{
+			return this._width;
+		}
+	},
+	height:function(h){
+		if(h){
+			this._height=h - this._margin.top - this._margin.bottom;
+		}else{
+			return this._height;
+		}
+	},
+	margin:function(m){
+		if(m){
+			this._margin=m;	
+		}else{
+			return this._margin;
+		}
+	},
+	data:function(d){
+		if(d){
+			this._data=d;
+		}else{
+			return this._data;
+		}
+	},
+	canvasId:function(i){
+		if(i){
+			d3.select("#"+this._id_canvas).html("");//先,清空原容器内的东西;
+			this._id_canvas=i;//再赋新值;
+		}else{
+			return this._id_canvas;
+		}
+	},
+	timeFormat:function(t){//设置(获取)横轴时间的format,参数t是一个String;
+		if(t){
+			this._timeFormat=d3.time.format(t);
+		}else{
+			return this._timeFormat;
+		}
+	},
+	interpolateType:function(type){//参数是一个String ,默认值=linear ,表示折线图)
+		if(type){
+			this._interpolateType = type;
+		}else{
+			return this._interpolateType;
+		}
+	},
+	display:function(flag){//参数是boolean值;
+		if(flag==true){
+			this._display="block";
+		}else{
+			this._display="none";
+		}
+	},
+	drawAxis:function(){//画坐标轴;
+		//先移除svg,初次执行时,无效;
+		var canvas = d3.select("#"+this._id_canvas);
+		canvas.selectAll("svg").remove();
+		
+		var width = this._width-this._margin.left-this._margin.right;
+		var height = this._height-this._margin.top-this._margin.bottom;
+		
+		var x_scale = this._data.rangeX;//这是个数组
+		var y_scale = this._data.rangeY;//确定上下限;
+
+		var t0 = new Date(x_scale[0]);
+		var t1 = new Date(x_scale[1]);
+		this._xScale = d3.time.scale().domain([t0,t1]).range([0,width]).clamp(true);
+		this._yScale = d3.scale.linear().domain(y_scale).range([height,0]).clamp(true);
+		
+		//坐标轴与数据域之间的映射,建立坐标轴;
+		var xAxis = d3.svg.axis().scale(this._xScale).tickFormat(this._timeFormat).orient("bottom");
+		//var xAxis = d3.svg.axis().scale(x).tickValues(x.domain()).orient("bottom");
+		var yAxis = d3.svg.axis().scale(this._yScale).orient("left");//.ticks(default=10);
+
+		//<svg>标签
+		var svg =d3.select("#"+this._id_canvas).append("svg");
+		this._svg=svg;//注册给全局变量
+
+		//背景框,最大的那个框
+		svg.append("g").append("rect")
+			.attr("width",this._width)
+			.attr("height",this._height)
+			.attr("fill","none")
+			.attr("stroke","#E7E7E7");
+		//标题,最上面的
+		if(this._data.title){
+		svg.append("g").append("text")
+			.attr("transform","translate("+this._width/2+","+this._margin.top/2+")")
+			.text(this._data.title)
+			.style({'text-anchor': 'middle'});
+		}
+		
+		//生成一个<g>标签, 是<svg>的子标签
+		var g = svg.attr("width", width + this._margin.left + this._margin.right)
+			.attr("height", height + this._margin.top + this._margin.bottom)
+			.append("g")
+			.attr("transform","translate(" + this._margin.left + ","+this._margin.top+")");
+		this._g_canvas = g;//注册给全局变量
+		
+		
+		//y轴
+		var gy = g.append("g")
+			.attr("class","axis")
+			.attr("transform","translate(0,0)")//父标签已经translate,所以相对不需要再移动;
+			.call(yAxis);
+			
+		//生成x轴	
+		var gx = g.append("g")
+			.attr("class", "axis")
+			.attr("transform","translate(0,"+height+")")
+			.call(xAxis);
+			
+		//横线虚线
+		gy.selectAll("g").classed("minor", true);//css渲染为虚线;
+		gy.selectAll("line").attr("x2",width);//这是我强制画的虚线
+		//同上,竖向虚线;
+		gx.selectAll("g").classed("minor",true);
+		gx.selectAll("line").attr("y2",-height);
+
+
+		//生成一个放置折线图的容器;
+		this._svg_data_canvas = g.append("g");//.property("id","svg_data_canvas");
+	},
+	drawData:function(){//画图;
+		var x= this._xScale;
+		var y= this._yScale;
+		var width = this._width-this._margin.left-this._margin.right;
+		var height = this._height-this._margin.top-this._margin.bottom;
+		var svg_data_canvas = this._svg_data_canvas;
+		var interpolateType = this._interpolateType;//string
+		//先删掉,初次执行时,无效;
+		svg_data_canvas.selectAll("g").remove();
+
+		//图例存放的地方
+		var g_legend = this._svg.append("g")
+			.attr("transform","translate("+this._margin.left+","+eval(this._height-this._margin.bottom+20)+")");
+
+		var values = this._data.values;
+		for(var i=0;i<values.length;i++){
+			var color = values[i].color;
+			var name = values[i].name;
+			var data_y=values[i].y;
+			var data_x=values[i].x;
+			//为了把<path>和<circle>封装到同一个<g>内,并且不再有其它元素
+			var svg_canvas = svg_data_canvas.append("g").property("id",name).attr("opacity",1.0).style("display",this._display);
+			
+			//添加折线
+			var line = d3.svg.line()
+					.interpolate(interpolateType)//连续折线
+					.x(function(d,i){return x(new Date(data_x[i]));})//x数据生成策略,
+					.y(function(d,i){return y(d);});//y数据生成策略,
+			//<path>
+			var path = svg_canvas.append("path")
+					.attr("d",line(data_y))//传入line()中的数组,数组的每一个元素对应于d
+					.style("fill",color)
+					.style("fill","none")//不封闭填充
+					.style("stroke-width",1)
+					.style("stroke",color);
+			
+			//添加小圆点
+			var g_circle =svg_canvas.append("g");
+			var circle = g_circle.selectAll("circle")
+				.data(data_y)
+				.enter()
+				.append("circle")
+				.attr("cx",function(d,i){return x(new Date(data_x[i]));})
+				.attr("cy",function(d,i){return y(d);})
+				.attr("r",4)
+				.attr("fill",color);
+
+			//添加浮动提示
+			circle.append("title")
+				.text(function(d,i){return name+"("+data_x[i]+","+d+")";});
+
+			//图例
+			var info =g_legend.append("g")
+						.attr("transform","translate("+0+","+0+")");
+			//先算一下位置			
+			var lx =width/values.length*i;
+			//方块
+			var rect = info.append("rect")
+					.attr('width','20')
+					.attr('height',this._legend_height)
+					.attr("x",lx)
+					.attr("y",0)
+					.text(name)//用于注册点击事件;
+					.attr("fill",color)
+					.style("cursor","pointer");
+			//事件监听,点击 显示/隐藏 折线;
+			rect.on("click",function(){
+				var id =this.innerHTML;
+				var g =svg_data_canvas.select("#"+id);
+				var original = g.style("display");
+				if(original=="block"){
+					g.style("display","none");
+					g.selectAll("path").style("display","none");
+					g.selectAll("g").style("display","none");
+				}else{
+					g.style("display","block");
+					g.selectAll("path").style("display","block");
+					g.selectAll("g").style("display","block");
+				}
+			});
+			//文字提示
+			info.append("text")
+				.attr("x",eval(lx+22))
+				.attr("y",20)
+				.attr("fill",color)
+				.text(name);
+		}
+
+		//画警告线
+		if(this._data.warning){
+		var g_warn = this._g_canvas.append("g")
+			.attr("transform","translate(0,"+y(this._data.warning)+")");
+		g_warn.append("line")
+			.style({'stroke':'#CC9933','stroke-width':2})
+			.attr("x2",width).attr("y2",0);
+		g_warn.append("title").text(this._data.warning);
+		g_warn.append("text").text("警告").style({'font-size':'8px'}).attr("x",width).attr("y",4)
+			.attr("fill","#CC9933")
+			.append("title").text(this._data.warning);
+		}
+		//画阀值线
+		if(this._data.threshold){
+		var g_threshold = this._g_canvas.append("g")
+			.attr("transform","translate(0,"+y(this._data.threshold)+")");
+		g_threshold.append("line")
+			.style({'stroke':'#CC0000','stroke-width':2})
+			.attr("x2",width).attr("y2",0);
+		g_threshold.append("title").text(this._data.threshold);
+		g_threshold.append("text").text("阀值").style({'font-size':'8px'}).attr("x",width).attr("y",4)
+			.attr("fill","#CC0000")
+			.append("title").text(this._data.threshold);
+		}
+	},
+	showAll:function(id){//button点击,显示所有;
+		if(id){
+			this._show_all_chart = id;
+		}
+		var svg_data_canvas = this._svg_data_canvas;
+		d3.select("#"+this._show_all_chart).on("click",function(){
+			var g = svg_data_canvas.selectAll("g");
+			g.style("display","block");
+			g.selectAll("g").style("display","block");
+			g.selectAll("path").style("display","block");
+		});
+	},
+	hideAll:function(id){//button点击,隐藏所有
+		if(id){
+			this._hide_all_chart=id;
+		}
+		var svg_data_canvas = this._svg_data_canvas;
+		d3.select("#"+this._hide_all_chart).on("click",function(){
+			var g = svg_data_canvas.selectAll("g");
+			g.style("display","none");
+			g.selectAll("g").style("display","none");
+			g.selectAll("path").style("display","none");
+		});
+	},
+	refresh:function(data){
+		if(data){
+			this.data(data);
+			this.drawAxis();
+			this.drawData();
+			this.hideAll();//注册事件监听
+			this.showAll();
+		}
+	}
+}
+
+var myChart = new d3Chart("div_canvas");
+myChart.data(chartData);
+myChart.drawAxis();
+myChart.drawData();
+//注册事件监听
+myChart.hideAll("bt_hide_all_chart");
+myChart.showAll("bt_show_all_chart");
+
+function refresh(){
+	var data = _refresh();
+	myChart.refresh(data);
+}
+
+//仅仅用于测试:
+function _refresh(){
+//刷新数据
+	var obj_data =[];
+	for(var i =0 ;i<chartData.values.length;i++){
+		var val = [];
+		for(var j =0;j<chartData.values[i].y.length;j++){
+			val.push(Math.round(Math.random()*200));
+		}
+		var obj = new Object();
+		obj.color=chartData.values[i].color;
+		obj.name =chartData.values[i].name;
+		obj.x = chartData.values[i].x;
+		obj.y=val;
+		obj_data.push(obj);
+	}
+	var obj ={};
+	obj.rangeX = chartData.rangeX;
+	obj.rangeY = chartData.rangeY;
+	obj.warning = chartData.warning;
+	obj.threshold = chartData.threshold;
+	obj.title=chartData.title;
+	obj.values = obj_data;
+	console.log(obj);
+	
+	//此时obj就是新的json格式数据;
+	return obj;
+}
+
+
+</script>
+</html>

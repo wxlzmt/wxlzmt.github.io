@@ -1,0 +1,96 @@
+<html>
+<meta charset="utf-8"></meta>
+<script src="../../js/d3.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+function init(){
+	var width = 1050;
+	var height = 2100;
+	d3.select("#idSvg001").attr({'width':width,'height':height});
+	d3.select("#idRect001").attr({'width':width,'height':height});
+}
+function load(){
+    init();
+	draw();
+};
+function draw(){
+	var g = d3.select("svg").select("g");
+	var rows = 25;
+	var cols = 50;
+	var r = 10;
+	for (var i = 0; i < rows; i++) {
+		for (var j = 0; j < cols; j++) {
+			var x = eval(r+(i*4*r));
+			var y = eval(r+(j*4*r));
+			var g2 = g.append("g").attr({'transform':"translate("+x+","+y+")"});
+
+			var rect = g2.append("rect").attr({'width':eval(2*r),'height':eval(2*r),'fill':'red',"opacity":"0","stroke-width":r}).style({'cursor':'pointer'});
+			var cir = g2.append("circle").attr({"cx":r,"cy":r,"r":r,"stroke":"black","stroke-width":1,"fill":"none"});
+
+			g2.style({'cursor':'pointer'});
+			g2.attr("row",i).attr("col",j);
+
+			g2.on("mouseover",function(d,i){
+				var val = d3.select("#idDivConfig input[type='radio'][name='typeC']:checked").attr("value");
+				d3.select(this).select("circle").attr({'stroke-width':"3"});
+				if(val==1){
+					d3.select(this).select("circle").attr({'fill':'black'});
+					return;
+				} else if(val==2){
+					d3.select(this).select("circle").attr({'fill':'none'});
+					return;
+				}
+			});
+			g2.on("mouseout",function(d,i){
+				d3.select(this).selectAll("circle").attr({'stroke-width':"1"});
+			});
+			g2.on("click",function(d,i){
+				var c = d3.select(this).select("circle");
+				var fill = c.attr("fill");
+				if("none"!=fill){
+					c.attr({'fill':"none"});
+				}else{
+					c.attr({'fill':'black'});
+				}
+			});
+			
+		};
+	};
+}
+function toBlack(){
+	d3.selectAll("#idSvg001 circle").attr({'fill':'black'});
+}
+function toWhite(){
+	d3.selectAll("#idSvg001 circle").attr({'fill':'none'});
+}
+</script>
+<body onload = "load();">
+<h1>d3.js测试页</h1>
+<div id="idDivConfig">
+	<table  cellspacing="20px">
+		<tr>
+			<td>
+				<input type="radio" name="typeC" value="1" checked="true">路过变黑</input>
+			</td>
+			<td>
+				<input type="radio" name="typeC" value="2">路过变白</input>
+			</td>
+			<td>
+				<input type="radio" name="typeC" value="3">路过不变,点击才变色</input>
+			</td>
+			<td>
+				<button onclick="toBlack();">全变黑</button>
+			</td>
+			<td>
+				<button onclick="toWhite();">全变白</button>
+			</td>
+		</tr>
+	</table>
+</div>
+<svg id="idSvg001" >
+	<rect id="idRect001"  fill="none" stroke="#E7E7E7"></rect>
+	<g transform="translate(10,10)">
+		
+	</g>
+</svg>
+</body>
+</html>

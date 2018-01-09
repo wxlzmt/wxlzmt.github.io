@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<style>
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+</style>
+<body>
+<div id="div_canvas" ></div>
+<br/>
+<pre></pre>
+</body>
+<script src="../../js/d3.min.js"></script>
+<script>
+
+var margin = {top: 30, right: 30, bottom: 30, left: 30},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+var data_json = {
+   "charts" : [
+      {
+         "color" : "#09F",
+         "data" : [
+            {
+               "x_value" : "2010-01-01",
+               "y_value" : 200
+            },
+            {
+               "x_value" : "2010-02-01",
+               "y_value" : 37
+            },
+            {
+               "x_value" : "2010-03-01",
+               "y_value" : 48
+            },
+            {
+               "x_value" : "2010-04-01",
+               "y_value" : 100
+            }
+         ],
+         "name" : "myChart"
+      },
+      {},
+      {}
+   ]
+};
+console.log(data_json);
+//chartData是多组折线图;
+var chartData = eval(data_json).charts;
+console.log("charData=");
+console.log(chartData);
+
+//x,y,取值都是离散值;
+var data=[],data_x_value=[];
+for(var i=0;i<chartData[0].data.length;i++){
+	data.push(chartData[0].data[i]);
+	data_x_value.push(chartData[0].data[i].x_value);
+}
+
+//得到x轴数据,和y轴数据;
+console.log("axis data ="+data);
+
+//x数据 映射 域
+var x = d3.scale.ordinal()
+    .domain(data_x_value)
+    .rangePoints([0, width]);//用上面的离散的点,分隔此连续区间;
+
+//x坐标轴
+var xAxis = d3.svg.axis()
+    .scale(x)//x轴定义域;
+    .tickValues(x.domain())
+    .orient("bottom");
+
+//y轴数据是连续的
+var y = d3.scale.linear()
+	//动态控制y轴范围,使得折线图坐标轴利用率更高;
+	.domain([0,d3.max(data,function(d,i){return d.y_value;})])
+	.range([height,0]);
+//domain域是显示在坐标轴上的,range域用于控制视图尺寸与数据之间的比例映射;
+var	yAxis = d3.svg.axis().scale(y).orient("left").ticks(20);//每隔20取一个值;
+
+//svg其实是 <svg>标签内的<g>标签
+var svg = d3.select("#div_canvas").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+	.append("g")
+	.attr("transform","translate(" + margin.left + ","+margin.top+")");
+
+//生成x轴	
+var gx = svg.append("g")
+    .attr("class", "x axis")
+	.attr("transform","translate(0,"+height+")")
+    .call(xAxis);
+	
+//y轴
+var gy = svg.append("g")
+	.attr("class","y axis")
+	.attr("transform","translate(0,0)")
+	.call(yAxis);
+
+//添加折线
+var line = d3.svg.line()
+        .interpolate("linear")//连续折线
+		.x(function(d,i){return x(d.x_value);})//x数据生成策略,
+        .y(function(d,i){return y(d.y_value);});//y数据生成策略,
+		
+var path = svg.append("path")
+        .attr("d",line(data))//传入line()中的数组,数组的每一个元素对应于d
+		.style("fill","#F00")
+		.style("fill","none")//不封闭填充
+		.style("stroke-width",1)
+		.style("stroke","#F00")
+		.style("stroke-opacity",0.9);
+
+//添加小圆点
+var circle = svg.selectAll("circle")
+	.data(data)
+	.enter()
+	.append("circle")
+	.attr("cx",function(d,i){return x(d.x_value);})
+	.attr("cy",function(d,i){return y(d.y_value);})
+	.attr("r",5)
+	.attr("fill","#09F");
+
+//添加浮动提示
+circle.append("title")
+	.text(function(d){return d.y_value;});
+
+</script>
+</html>

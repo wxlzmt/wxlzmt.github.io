@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<style>
+.axis text {
+  font: 10px sans-serif;
+}
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis .minor line {
+  stroke: #777;
+  stroke-dasharray: 2,2;
+}
+
+</style>
+<body>
+<div id="div_canvas" ></div>
+<div id="div_notification"><div>
+</body>
+<script src="../../js/d3.min.js"></script>
+<script>
+
+var data_json = {
+	"x" : ["2010-01-01","2010-02-01", "2010-03-01", "2010-04-01"],
+	"values" : [
+      {
+		"name" : "myChart1",
+        "color" : "#09F",
+        "y" : [200,37,48,100]
+      },
+      {
+		"name":"myChart2",
+		"color":"#CC0033",
+		"y" : [172,66,200,20]
+	  },
+      {
+		"name":"myChart3",
+		"color":"#33CCCC",
+		"y":[10,100,150,120]
+	  }
+   ]
+};
+console.log(data_json);
+
+//chartData是多组折线图;
+var chartData = eval(data_json);
+
+canvas_init("div_canvas",chartData,960,500);
+
+//初始化,参数:(1 放入id值为div_canvas的容器中,2 x轴数据枚举,3 y轴值范围,4宽,5高);
+function canvas_init(selector_id,data,w,h){
+	var x_scale = data.x;
+	var y_scale_max = 200;
+	
+	var margin = {top: 30, right: 30, bottom: 30, left: 30},
+    width = w - margin.left - margin.right,
+    height = h - margin.top - margin.bottom;
+	
+	var x = d3.scale.ordinal().domain(x_scale).rangePoints([0,width]);
+	var y = d3.scale.linear().domain([0,y_scale_max]).range([height,0]);
+	
+	//坐标轴与数据域之间的映射,建立坐标轴;
+	var xAxis = d3.svg.axis().scale(x).tickValues(x.domain()).orient("bottom");
+	var yAxis = d3.svg.axis().scale(y).orient("left");//.ticks(default=10);
+
+	//生成一个<g>标签, 其实svg变量是<svg>根 ,的子标签<g>
+	var svg = d3.select("#"+selector_id).append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform","translate(" + margin.left + ","+margin.top+")");
+	
+	//生成x轴	
+	var gx = svg.append("g")
+		.attr("class", "x axis")
+		.attr("transform","translate(0,"+height+")")
+		.call(xAxis);	
+	//y轴
+	var gy = svg.append("g")
+		.attr("class","y axis")
+		.attr("transform","translate(0,0)")//父标签已经translate,所以相对不需要再移动;
+		.call(yAxis);
+	
+	//横线虚线
+	gy.selectAll("g").classed("minor", true);//css渲染为虚线;
+	gy.selectAll("line").attr("x2",width);//这是我强制画的虚线
+	
+	//画折线
+	draw_data(data.values,svg.append("g"),x,y);
+}
+
+//画折线
+function draw_data(values,svg,x,y){
+	for(var i=0;i<values.length;i++){
+		var color = values[i].color;
+		var name = values[i].name;
+		var data_y=values[i].y;
+		
+		//添加折线
+		var line = d3.svg.line()
+				.interpolate("linear")//连续折线
+				.x(function(d,i){return x.range()[i];})//x数据生成策略,
+				.y(function(d,i){return y(d);});//y数据生成策略,
+				
+		var path = svg.append("path")
+				.attr("d",line(data_y))//传入line()中的数组,数组的每一个元素对应于d
+				.style("fill",color)
+				.style("fill","none")//不封闭填充
+				.style("stroke-width",1)
+				.style("stroke",color)
+				//.style("stroke-opacity",0.9);
+
+		//添加小圆点
+		var circle = svg.append("g").selectAll("circle")
+			.data(data_y)
+			.enter()
+			.append("circle")
+			.attr("cx",function(d,i){return x.range()[i];})
+			.attr("cy",function(d,i){return y(d);})
+			.attr("r",4)
+			.attr("fill",color);
+
+		//添加浮动提示
+		circle.append("title")
+			.text(function(d,i){return "("+x.domain()[i]+" , "+d+")";});
+			
+		//写一下提示
+		note(name,color);
+	}
+}
+
+//标注一下颜色和图的对应关系;
+function note(name,color){
+	var div_note = d3.select("#div_notification").append("div");
+	div_note.append("div").style({'width':'100px','height':'20px','background-color':color}).html(name);
+}
+
+</script>
+</html>
