@@ -11,11 +11,9 @@
 - [draw03.html](draw03.html)
 - [draw04.html](draw04.html)
 - [draw05.html](draw05.html)
-
 - [drawPie01.html](drawPie01.html)
 - [drawPie02.html](drawPie02.html)
 - [drawPie03.html](drawPie03.html)
-
 - [me01.html](me01.html)
 - [me02.html](me02.html)
 - [me03.html](me03.html)
@@ -28,7 +26,6 @@
 - [me10.html](me10.html)
 - [me11.html](me11.html)
 - [me12.html](me12.html)
-
 - [svg_geometric_zooming.html](svg_geometric_zooming.html)
 - [zoom_drag.html](zoom_drag.html)
 - [zoom_example_01.html](zoom_example_01.html)
