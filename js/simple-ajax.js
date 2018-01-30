@@ -31,6 +31,7 @@
 			_url = opt.url + '?' + postData;
 		}
         xmlHttp.onreadystatechange = function () {
+        	//console.log(xmlHttp);
             if (xmlHttp.readyState == 4 ) {
 				if(xmlHttp.status == 200){
 					opt.success(xmlHttp.responseText,xmlHttp.status,xmlHttp.statusText);

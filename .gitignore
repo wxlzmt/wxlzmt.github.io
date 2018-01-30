@@ -24,5 +24,6 @@ start.bat
 #---------分割线---------
 
 #自定义忽略文件夹--start
-
+.settings
+.project
 #自定义忽略文件夹--end
