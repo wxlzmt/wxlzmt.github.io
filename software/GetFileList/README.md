@@ -1,4 +1,4 @@
-# all file list
+## directory
 
 - Runnable jar file [GetFileList.jar](GetFileList.jar)
 - source code [GetFileList.zip](GetFileList.zip)
