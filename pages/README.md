@@ -47,7 +47,8 @@
     - js获取图片内容  [simple/get_img_content.html](simple/get_img_content.html)
     - js cdn 链接  [simple/jsCdnLinks.html](simple/jsCdnLinks.html)
     - 在线渲染markdown  [simple/md_trans.html](simple/md_trans.html)
-
+    - 在线文本编辑器OnlineNotepad [contenteditable.html](contenteditable.html)
+	
 - [test](test)
     - 自定义滚动条  [test/custom_scroll_bar.html](test/custom_scroll_bar.html)
     - [test/test_box-shadow.html](test/test_box-shadow.html)
