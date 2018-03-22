@@ -22,6 +22,7 @@
 		var inputstr = $("#idInputArea").val();
 		if(inputstr!=null && inputstr!==""){
 			var len = getAppropriateLen(inputstr.length);
+			console.log("二维码边长:"+len);
 			try{
 				$('#code').qrcode({
 					render: "canvas", //另外还可以选用'table'方式
@@ -79,6 +80,19 @@
 	
 	function getAppropriateLen(txtLen){
 		var len = 0;
+		var max = $("#idInputArea").width();
+		if(!$("#idCheckAuto").prop('checked')){
+			var len = parseInt($("#idInputLen").val());
+			if(!isNaN(len)){
+				if(len>max){
+					len = max;
+				}else if(len<100){
+					len = 100;
+				}
+				return len;				
+			}
+		}
+		len = 0;
 		if(txtLen<=128){
 			len = 256;
 		}else if(txtLen<=256){
@@ -89,9 +103,20 @@
 			len = Math.round(txtLen/(512/400));
 		}
 		//最后略作矫正
-		var max = $("#idInputArea").width();
+		
 		if(len>max)len=max;
 		return len;
+	}
+	
+	function checkAuto(){
+		var isChecked = $("#idCheckAuto").prop('checked');
+		if(isChecked){
+			$("#idInputLen").prop("disabled",true);
+			$("#idGroupLen").hide();
+		}else{
+			$("#idInputLen").prop("disabled",false);
+			$("#idGroupLen").show();
+		}
 	}
 
 	var _url_params = {};
@@ -111,14 +136,39 @@
 <body>
 <div class="container">
 
-<h2>将字符串转为二维码</h2><hr />
+<h3>将字符串转为二维码</h3><hr />
+
+<div class="form-inline" style="margin-bottom:15px;">
+	<div class="form-group" >
+		<label>
+			<input type="checkbox" checked="checked" onclick="checkAuto();" id="idCheckAuto" />自动边长
+		</label>
+	</div>
+	<div class="form-group" id="idGroupLen" style="display:none;padding-left:25px;">
+		<label for="idInputLen">二维码边长:</label>
+		<input type="number" min="200" max="2000" step="10" value="200" disabled   id="idInputLen" class="input" />
+	</div>
+</div>
 
 <div class="form-group" >
 	<textarea id="idInputArea" class="form-control" rows="3" placeholder="在此输入文字..." ></textarea>
 </div>
 
-<div class="form-group" style="text-align: center;">
+
+<div  class="form-group" style="text-align:center;">
 	<button type="button" class="btn btn-primary" onclick="genCode()">生成二维码</button>
+</div>
+
+
+
+<div class="form-inline" style="margin-bottom:15px;">
+	<div class="form-group">
+		
+	</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<div class="form-group">
+		
+	</div>
 </div>
 
 <div class="form-group" style="text-align: center;">
