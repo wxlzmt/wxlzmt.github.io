@@ -17,7 +17,8 @@ function getRequestParams() {
       var str = url.substr(1);   
       strs = str.split("&");   
       for(var i = 0; i < strs.length; i ++) {   
-         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+        var arr = strs[i].split("=");
+		theRequest[arr[0]]=decodeURI(arr[1]);
       }
    }   
    return theRequest;

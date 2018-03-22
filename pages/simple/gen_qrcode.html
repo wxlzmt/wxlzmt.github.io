@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="字符串转为二维码">
+<meta name="keywords" content="二维码">
+<meta name="author" content="wxlzmt">
+<title>生成二维码</title>
+<script src="../../plugins/jquery/3.2.1/jquery.min.js"></script>
+<script src="../../plugins/jquery-qrcode/jquery.qrcode.min.js"></script>
+<script type="text/javascript">
+	function genCode(){
+		$('#code').html("");
+		var inputstr = $("#idInputArea").val();
+		if(inputstr!=null && inputstr!==""){
+			var len = getAppropriateLen(inputstr.length);
+			$('#code').qrcode({
+				render: "canvas", //另外还可以选用'table'方式
+				width: len, //宽度
+				height:len, //高度
+				text:toUtf8(inputstr) //任意内容
+			});
+		}
+		$("#idPInfo").html(inputstr);
+		$("#idDebugInfo").html("文字长度:"+inputstr.length);
+	}
+	
+	function getRequestParams() {   
+	   var url = location.search; //获取url中"?"符后的字串   
+	   var theRequest = new Object();
+	   if (url.indexOf("?") != -1) {   
+		  var str = url.substr(1);   
+		  strs = str.split("&");   
+		  for(var i = 0; i < strs.length; i ++) {
+			 var arr = strs[i].split("=");
+			 theRequest[arr[0]]=decodeURI(arr[1]);   
+		  }
+	   }   
+	   return theRequest;
+	}
+	
+	function toUtf8(str) {   
+		var out, i, len, c;   
+		out = "";   
+		len = str.length;   
+		for(i = 0; i < len; i++) {   
+			c = str.charCodeAt(i);   
+			if ((c >= 0x0001) && (c <= 0x007F)) {   
+				out += str.charAt(i);   
+			} else if (c > 0x07FF) {   
+				out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));   
+				out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));   
+				out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+			} else {   
+				out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));   
+				out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+			}   
+		}   
+		return out;   
+	}
+	
+	function getAppropriateLen(txtLen){
+		var len = 0;
+		if(txtLen<=128){
+			len = 256;
+		}else if(txtLen<=256){
+			len = 300;
+		}else if(txtLen<=512){
+			len = 400;
+		}else{
+			len = Math.round(txtLen/(512/400));
+		}
+		//最后略作矫正
+		var max = $("#idInputArea").width();
+		if(len>max)len=max;
+		return len;
+	}
+
+	var _url_params = {};
+	$(function(){
+		_url_params = getRequestParams();
+		if(_url_params.q!=null && _url_params.q!==""){
+			var q = _url_params.q;
+			$("#idInputArea").val(q);
+			genCode();
+		}
+	});
+</script>
+</head>
+
+<body>
+<div class="container">
+
+<h2>将字符串转为二维码</h2><hr />
+
+<div class="form-group" >
+	<textarea id="idInputArea" class="form-control" rows="3" placeholder="在此输入文字..." ></textarea>
+</div>
+
+<div class="form-group" style="text-align: center;">
+	<button type="button" class="btn btn-primary" onclick="genCode()">生成二维码</button>
+</div>
+
+<div class="form-group" style="text-align: center;">
+	<div id="code"></div>
+</div>
+
+<div class="form-group" >
+	<label>当前二维码内容:</label>
+	<p class="bg-info" id="idPInfo"></p>
+</div>
+
+<div class="form-group" >
+	<label>debug:</label>
+	<p class="bg-info" id="idDebugInfo"></p>
+</div>
+
+<hr />
+<p class="text-info">本页面可接收url参数,例:
+<a href="https://wxlzmt.github.io/pages/simple/gen_qrcode.html?q=123%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87456">gen_qrcode.html?q=123支持中文456</a>
+</p>
+</div>
+<link rel="stylesheet" href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css" />
+</body>
+</html>

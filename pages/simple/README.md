@@ -8,5 +8,6 @@
 - [jsCdnLinks.html](jsCdnLinks.html)
 - [在线渲染markdown md_trans.html](md_trans.html)
 - [在线文本编辑器OnlineNotepad contenteditable.html](contenteditable.html)
+- [字符串转二维码 gen_qrcode.html](gen_qrcode.html)
 - [README.md](README.md)
 
