@@ -7,23 +7,40 @@
 <meta name="keywords" content="二维码">
 <meta name="author" content="wxlzmt">
 <title>生成二维码</title>
+<style type="text/css">
+	p{
+		word-break: break-word;
+		word-wrap: break-word;/*firefox兼容语句*/
+	}
+</style>
 <script src="../../plugins/jquery/3.2.1/jquery.min.js"></script>
 <script src="../../plugins/jquery-qrcode/jquery.qrcode.min.js"></script>
 <script type="text/javascript">
 	function genCode(){
+		var error = null;
 		$('#code').html("");
 		var inputstr = $("#idInputArea").val();
 		if(inputstr!=null && inputstr!==""){
 			var len = getAppropriateLen(inputstr.length);
-			$('#code').qrcode({
-				render: "canvas", //另外还可以选用'table'方式
-				width: len, //宽度
-				height:len, //高度
-				text:toUtf8(inputstr) //任意内容
-			});
+			try{
+				$('#code').qrcode({
+					render: "canvas", //另外还可以选用'table'方式
+					width: len, //宽度
+					height:len, //高度
+					text:toUtf8(inputstr) //任意内容
+				});			
+			}catch(e){
+				console.log(e);
+				error = e;
+			}
 		}
-		$("#idPInfo").html(inputstr);
-		$("#idDebugInfo").html("文字长度:"+inputstr.length);
+		if(error==null){
+			$("#idPInfo").html(inputstr);
+			$("#idDebugInfo").html("文字长度:"+inputstr.length);
+		}else{
+			$("#idPInfo").html("");
+			$("#idDebugInfo").html("发生异常错误:"+error);
+		}
 	}
 	
 	function getRequestParams() {   
@@ -81,9 +98,11 @@
 	$(function(){
 		_url_params = getRequestParams();
 		if(_url_params.q!=null && _url_params.q!==""){
-			var q = _url_params.q;
-			$("#idInputArea").val(q);
-			genCode();
+			setTimeout(function(){
+				var q = _url_params.q;
+				$("#idInputArea").val(q);
+				genCode();			
+			},200);
 		}
 	});
 </script>
