@@ -83,7 +83,7 @@ return str;
 			<strong>内容源文本框:</strong> 
 			<input name="a4wei" type="checkbox" id="a4wei" value="1">
 			Ascii字符补齐4位<br>
-			<textarea name="source" id="source" cols="45" rows="5" onfocus="if(this.value==&#39;在这里粘贴或输入&#39;){this.value=&#39;&#39;;}">在这里粘贴或输入</textarea>
+			<textarea name="source" id="source" cols="45" rows="5" onfocus="if(this.value==&#39;在这里粘贴或输入&#39;){this.value=&#39;&#39;;}"  spellcheck="false" autocapitalize="off" autocorrect="off" >在这里粘贴或输入</textarea>
 			<!-- /listbox -->
 <p></p>
 		<p>
@@ -97,7 +97,7 @@ return str;
 		<p></p>
 		<p>
 			<strong>转换结果：</strong><br>
-			<textarea name="show2" id="show2" cols="45" rows="5" onclick="this.select();"></textarea>
+			<textarea name="show2" id="show2" cols="45" rows="5" onclick="this.select();"  spellcheck="false" autocapitalize="off" autocorrect="off" ></textarea>
 		</p>
 		<p class="word_dict"><br>
 			<strong>unicode编码可兼容所有语言的操作系统。</strong>&nbsp;<br>

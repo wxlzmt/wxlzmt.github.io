@@ -69,7 +69,7 @@ b,i,u{font-style:normal;font-weight:normal;text-decoration:none;}#input b{backgr
                 
              </div>  
             <div class="RegularSearWrite-wrap fr clearfix ml15" style="margin-top:25px;"> 
-                <span class="RegularSearWrite-left pr fl w412"><input type="text" class="RegularSearWrite-cont WrapHid w350 fz12" id="reptext"><a href="javascript:" title="清空" class="quickdelete _CentHid"></a><b class="search-hint CentHid fz12">输入要替换的文本</b></span>
+                <span class="RegularSearWrite-left pr fl w412"><input type="text" class="RegularSearWrite-cont WrapHid w350 fz12" id="reptext"  spellcheck="false" autocapitalize="off" autocorrect="off" ><a href="javascript:" title="清空" class="quickdelete _CentHid"></a><b class="search-hint CentHid fz12">输入要替换的文本</b></span>
                 <span class="RegularSearWrite-right fl"><input class="RegularSearWrite-btn fz12" type="button" id="repbtn" value="替换匹配文本"></span>
              </div>
         </div>
@@ -94,12 +94,12 @@ b,i,u{font-style:normal;font-weight:normal;text-decoration:none;}#input b{backgr
         <div class="auto smartField" id="input" style="height: 200px; background: rgb(255, 255, 255);">
                   <!--GuoLvWrap-begin-->
 			<pre id="inputBg" class=""></pre>
-            <textarea spellcheck="false" id="inputText" class="ResultContMainTxt h200" style="margin-left: 0px;"></textarea>
+            <textarea  spellcheck="false" autocapitalize="off" autocorrect="off"  id="inputText" class="ResultContMainTxt h200" style="margin-left: 0px;"></textarea>
                <!--GuoLvWrap-end-->
         </div>
         <div id="result" style=" display:none;">
         <p class="ptb10">匹配结果：</p>
-			<textarea class="ResultContMainTxt h200" style="width:99.75%"></textarea>
+			<textarea  spellcheck="false" autocapitalize="off" autocorrect="off"  class="ResultContMainTxt h200" style="width:99.75%"></textarea>
         </div>
 
 </div>

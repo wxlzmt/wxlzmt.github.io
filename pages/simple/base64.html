@@ -132,17 +132,17 @@ input, button, select, textarea {
 </style>
 </head>
 <body onload="load();" >
-	<textarea id="idArea1" class="cusArea"
+	<textarea id="idArea1" class="cusArea"  spellcheck="false" autocapitalize="off" autocorrect="off" 
 	placeholder="此处输入已被base64编码之后的字符串.例如:迅雷链接的thunder://后面的部分." ></textarea>
 	
 	<button class="cusBt" onclick="base64DecodeUtf8()" >base64解码(utf8)</button>
 	<input type="checkbox" id="idCheckBox" name="urlDecode" style=" margin-left:10px; " >对输出结果进行URL解码</input>
 	
-	<textarea id="idArea2" class="cusArea" 
+	<textarea id="idArea2" class="cusArea"  spellcheck="false" autocapitalize="off" autocorrect="off" 
 	placeholder="此处展示对上面的文本域中的文字进行base64解码之后的结果." ></textarea>
 	
 	<button class="cusBt" onclick="base64EncodeUtf8()" >base64编码(utf8)</button>
-	<textarea id="idArea3" readonly="readonly" class="cusArea" 
+	<textarea id="idArea3" readonly="readonly" class="cusArea"  spellcheck="false" autocapitalize="off" autocorrect="off" 
 	placeholder="此处展示对上面的文本域中的文字进行base64编码之后的结果.上面的文本域可输入."  ></textarea>
 	
 </body>
