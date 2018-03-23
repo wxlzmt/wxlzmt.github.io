@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="字符串转为二维码">
-<meta name="keywords" content="二维码">
+<meta name="description" content="生成二维码">
+<meta name="keywords" content="生成二维码,二维码">
 <meta name="author" content="wxlzmt">
 <title>生成二维码</title>
 <style type="text/css">
@@ -29,7 +29,13 @@
 					width: len, //宽度
 					height:len, //高度
 					text:toUtf8(inputstr) //任意内容
-				});			
+				});
+				var $canvas = $('#code>canvas');
+				if($canvas.length>0){
+					var src = $canvas[0].toDataURL();
+					$canvas.hide();
+					$("<img></img>").attr("src",src).appendTo("#code");
+				}
 			}catch(e){
 				console.log(e);
 				error = e;
@@ -136,7 +142,7 @@
 <body>
 <div class="container">
 
-<h3>将字符串转为二维码</h3><hr />
+<h3>将文字转为二维码</h3><hr />
 
 <div class="form-inline" style="margin-bottom:15px;">
 	<div class="form-group" >
@@ -168,13 +174,15 @@
 	<p class="bg-info" id="idPInfo"></p>
 </div>
 
-<div class="form-group" >
+<div class="form-group" style="display:none;">
 	<label>debug:</label>
 	<p class="bg-info" id="idDebugInfo"></p>
 </div>
 
 <hr />
-<p class="text-info">本页面可接收url参数,例:
+<p class="text-info">
+<strong>移动端长按二维码可分享、复制或保存为图片.</strong><br/>
+本页面可接收url参数,例如:
 <a href="https://wxlzmt.github.io/pages/simple/gen_qrcode.html?q=123%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87456">gen_qrcode.html?q=123支持中文456</a>
 </p>
 </div>
