@@ -56,6 +56,7 @@
     - base64图片预览  [test/test_image_decode.html](test/test_image_decode.html)
     - 测试HTML_js  [test/test_js.html](test/test_js.html)
     - URL encode/decode  [test/url_en_decode.html](test/url_en_decode.html)
+    - mini-cell-move [test/mini-cell-move/index.html](test/mini-cell-move/index.html)
 
 - 进度圈  [throbber/placeholder.html](throbber/placeholder.html)
 - [throbber/throbber_small.svg](throbber/throbber_small.svg)

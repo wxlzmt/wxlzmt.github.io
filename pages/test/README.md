@@ -5,4 +5,5 @@
 - [test_image_decode.html](test_image_decode.html)
 - [test_js.html](test_js.html)
 - [url_en_decode.html](url_en_decode.html)
+- [mini-cell-move/index.html](mini-cell-move/index.html)
 - [README.md](README.md)
