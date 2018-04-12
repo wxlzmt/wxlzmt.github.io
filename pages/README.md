@@ -52,6 +52,7 @@
 
 - [test](test)
     - 自定义滚动条  [test/custom_scroll_bar.html](test/custom_scroll_bar.html)
+	- div布局 [test/i-layout-div.html](test/i-layout-div.html)
     - [test/test_box-shadow.html](test/test_box-shadow.html)
     - base64图片预览  [test/test_image_decode.html](test/test_image_decode.html)
     - 测试HTML_js  [test/test_js.html](test/test_js.html)
