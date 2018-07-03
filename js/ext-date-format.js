@@ -1,7 +1,7 @@
 ;;;
 
 //引用代码:
-//<script type="text/javascript" src="https://raw.githubusercontent.com/wxlzmt/wxlzmt.github.io/master/js/ext-date-format.js"></script>
+//<script type="text/javascript" src="https://wxlzmt.github.io/js/ext-date-format.js"></script>
 
 
 // 对Date的扩展，将 Date 转化为指定格式的String
