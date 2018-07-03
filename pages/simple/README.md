@@ -9,5 +9,6 @@
 - [在线渲染markdown md_trans.html](md_trans.html)
 - [在线文本编辑器OnlineNotepad contenteditable.html](contenteditable.html)
 - [生成二维码 gen_qrcode.html](gen_qrcode.html)
+- [气泡(三角) toast.html](toast.html)
 - [README.md](README.md)
 

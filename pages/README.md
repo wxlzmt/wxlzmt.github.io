@@ -49,6 +49,7 @@
     - 在线渲染markdown  [simple/md_trans.html](simple/md_trans.html)
     - 在线文本编辑器OnlineNotepad [contenteditable.html](simple/contenteditable.html)
 	- 生成二维码 [gen_qrcode.html](simple/gen_qrcode.html)
+	- 气泡(三角) [toast.html](simple/toast.html)
 
 - [test](test)
     - 自定义滚动条  [test/custom_scroll_bar.html](test/custom_scroll_bar.html)
