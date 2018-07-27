@@ -2,7 +2,8 @@
 
 ```javascript
 <script type="module">
-	import gbk from './gbk.js';
+	//import gbk from './gbk.js';
+	import gbk from 'https://wxlzmt.github.io/js/gbk.js';
 	window.gbk = gbk;
 
 	var s1 = "中文aaa/bbb啊啊啊";
