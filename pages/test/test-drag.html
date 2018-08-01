@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-transform,no-cache"/>
+    <title>测试拖放</title>
+    <style type="text/css">
+        .box {
+            width: 198px;
+            height: 66px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+            display: block;
+            margin: 20px 0px 20px 0px;
+        }
+    </style>
+    <script type="text/javascript">
+        //被拖动到的容器首先要允许接收拖动过来的节点
+        function allowDrop(ev) {
+            //默认地，无法将数据/元素放置到其他元素中。如果需要设置允许放置，我们必须阻止对元素的默认处理方式
+            ev.preventDefault();
+        }
+        //拖动节点的时候,将一些数据放到dataTransfer里面
+        function drag(ev) {
+            //取值并放置, 意在传值
+            //参数类型:(String,String)
+            //参数1随便起,和ev.dataTransfer.getData()方法遥相呼应
+            //参数2只能是字符串
+            ev.dataTransfer.setData("KKK", (ev.target || ev.srcElement).id);
+        }
+        //接收到被拖动过来的节点之后,该做什么?
+        function drop(ev) {
+            ev.preventDefault();
+            // data 就是 img 的 id
+            var data = ev.dataTransfer.getData("KKK");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+</head>
+<body style="width: 500px;margin:auto;">
+<div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<img id="img1" src="https://note.youdao.com/favicon.ico" draggable="true" ondragstart="drag(event)"/>
+<p>拖动图片到矩形框里面~~</p>
+</body>
+</html>
