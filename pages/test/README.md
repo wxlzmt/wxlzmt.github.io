@@ -7,4 +7,5 @@
 - [test_js.html](test_js.html)
 - [url_en_decode.html](url_en_decode.html)
 - [mini-cell-move/index.html](mini-cell-move/index.html)
+- [test-clappr.html](test-clappr.html)
 - [README.md](README.md)

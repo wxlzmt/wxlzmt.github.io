@@ -50,7 +50,8 @@
     - 在线文本编辑器OnlineNotepad [contenteditable.html](simple/contenteditable.html)
 	- 生成二维码 [gen_qrcode.html](simple/gen_qrcode.html)
 	- 气泡(三角) [toast.html](simple/toast.html)
-
+	- 景深 [perspective/perspective.html](simple/perspective/perspective.html)
+	
 - [test](test)
     - 自定义滚动条  [test/custom_scroll_bar.html](test/custom_scroll_bar.html)
 	- div布局 [test/i-layout-div.html](test/i-layout-div.html)
@@ -59,6 +60,7 @@
     - 测试HTML_js  [test/test_js.html](test/test_js.html)
     - URL encode/decode  [test/url_en_decode.html](test/url_en_decode.html)
     - mini-cell-move [test/mini-cell-move/index.html](test/mini-cell-move/index.html)
+	- HTML5播放器clappr [test/test-clappr.html](test/test-clappr.html)
 
 - 进度圈  [throbber/placeholder.html](throbber/placeholder.html)
 - [throbber/throbber_small.svg](throbber/throbber_small.svg)
