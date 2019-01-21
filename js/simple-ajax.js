@@ -15,13 +15,15 @@
         opt.url = opt.url || '';
         opt.async = opt.async || true;
         opt.data = opt.data || null;
+        opt.dataType = opt.dataType || "text/html";
+        opt.header = opt.header || null;
         opt.success = opt.success || function () {};
 		opt.error = opt.error || function () {};
         var xmlHttp = getXHRInstance();
 		if(xmlHttp==null)return;
 		var params = [];
         for (var key in opt.data){
-            params.push(key + '=' + opt.data[key]);
+            params.push(key + '=' + encodeURIComponent(opt.data[key]));
         }
         var postData = params.join('&');
 		var _url = opt.url;
@@ -40,29 +42,36 @@
 				}
             }
         };
+		var body = null;
         if (opt.method.toUpperCase() === 'POST') {
-            xmlHttp.open(opt.method, _url, opt.async);
+            body = postData;
+        }
+        xmlHttp.open(opt.method, _url, opt.async);
+        if(opt.header!=null){
+            for(kk in opt.header){
+                var val = opt.header[kk];
+                xmlHttp.setRequestHeader(kk,val);
+            }
+        }else{
             xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-            xmlHttp.send(postData);
-        } else if (opt.method.toUpperCase() === 'GET') {
-            xmlHttp.open(opt.method, _url, opt.async);
-            xmlHttp.send(null);
-        } 
+        }
+        xmlHttp.send(body);
     }
 	window.$$ = {
 		"ajax":ajax
 	};
 })();
 
-//how to use
-//$$.ajax({
-//		url:"../../resource/cdnjs.cloudflare.com.json",
-//		data:{key1:val1,key2:val2},
-//		success:function(response,status,statusText){
-//			//console.log(response);
-//		},
-//		error:function(response,status,statusText){
-//			
-//		}
-//	});
-//
+/*how to use
+$$.ajax({
+		url:"https://api.cdnjs.com/libraries",
+		data:{key1:"val1",key2:"val2"},
+		header:{"Content-Type":"application/json;charset=utf-8"},
+		success:function(response,status,statusText){
+			console.log(response);
+		},
+		error:function(response,status,statusText){
+
+	}
+});
+*/
