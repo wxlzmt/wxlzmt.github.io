@@ -61,6 +61,8 @@
     - URL encode/decode  [test/url_en_decode.html](test/url_en_decode.html)
     - mini-cell-move [test/mini-cell-move/index.html](test/mini-cell-move/index.html)
 	- HTML5播放器clappr [test/test-clappr.html](test/test-clappr.html)
+	- CSS flex justify-content[test/test-flex-justify-content.html](test/test-flex-justify-content.html)
+	- CSS flex align-items[test/test-flex-align-items.html](test/test-flex-align-items.html)
 
 - 进度圈  [throbber/placeholder.html](throbber/placeholder.html)
 - [throbber/throbber_small.svg](throbber/throbber_small.svg)

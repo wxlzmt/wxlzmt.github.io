@@ -8,4 +8,6 @@
 - [url_en_decode.html](url_en_decode.html)
 - [mini-cell-move/index.html](mini-cell-move/index.html)
 - [test-clappr.html](test-clappr.html)
+- [test-flex-justify-content.html](test-flex-justify-content.html)
+- [test-flex-align-items.html](test-flex-align-items.html)
 - [README.md](README.md)
