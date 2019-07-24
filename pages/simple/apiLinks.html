@@ -538,7 +538,7 @@ function load(){
 			div.innerHTML="<h3>"+dataRowTitle+"</h3>";
 			row.appendChild(div);
 		}
-		row.className="row";
+		row.className="row flex-container";
 		var lenPieces = dataRow.pieces==null?0:dataRow.pieces.length;
 		for(var j=0;j<lenPieces;j++){
 			var row_div = document.createElement("div");
@@ -625,7 +625,16 @@ a{
     outline: 1px;
 }
 
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
 
+    -webkit-flex-flow: row wrap; /* Safari 6.1+ */
+    flex-flow: row wrap;/*是 flex-direction 和 flex-wrap 的简写*/
+}
+.flex-container>div {
+    
+}
 </style>
 
 </head>
