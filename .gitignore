@@ -26,4 +26,8 @@ start.bat
 #自定义忽略文件夹--start
 .settings
 .project
+
+.idea
+.svn
+
 #自定义忽略文件夹--end

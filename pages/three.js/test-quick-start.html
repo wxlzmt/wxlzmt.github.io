@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-transform,no-cache"/>
+    <meta name="description" content="test quick start three.js">
+    <meta name="keywords" content="test quick start three.js">
+    <meta name="author" content="zdd">
+    <title>test quick start three.js</title>
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-width: 100%;
+            min-height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .i-layout-box, body {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            overflow: auto;
+        }
+    </style>
+    <script src="../../plugins/three.js/r108/three.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      //使用onload开始渲染是因为如果不等待body标签渲染完成就进行 document.body.appendChild 操作，会报空指针异常的。
+      function quickStart() {
+        var sence = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+      }
+    </script>
+</head>
+<!-- 使用 font-size: 0px; 是为了避免空白符导致的滚动条 -->
+<body style="font-size: 0px;" onload="quickStart();">
+    <!-- 绘制时，此处将会添加canvas画布 -->
+</body>
+</html>
