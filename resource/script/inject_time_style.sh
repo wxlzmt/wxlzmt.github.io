@@ -2,7 +2,7 @@
 # 本脚本的作用：linux 修改ls显示的时间格式，适用于centos，其他系统未做测试。本脚本有防止重复执行的机制。
 
 # 放在github上方便下载使用，使用命令如下：
-# wget -O /root/inject_time_style.sh https://raw.githubusercontent.com/wxlzmt/wxlzmt.github.io/master/resource/script/inject_time_style.sh
+# wget -O /root/inject_time_style.sh https://wxlzmt.github.io/resource/script/inject_time_style.sh
 # su root
 # chmod +x /root/inject_time_style.sh
 # /root/inject_time_style.sh
