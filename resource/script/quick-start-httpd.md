@@ -15,7 +15,7 @@ yum -y install httpd php
 如果嫌修改起来麻烦,直接下载我改好的
 ```shell
 mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
-wget -P /etc/httpd/conf https://raw.githubusercontent.com/wxlzmt/wxlzmt.github.io/master/resource/script/httpd.conf
+wget -P /etc/httpd/conf https://wxlzmt.github.io/resource/script/httpd.conf
 ```
 **端口:976,已优化小内存服务器.已解决启动httpd时,报错Could not reliably determine the server's fully qualified domain name, using ::1 for ServerName的问题, 已关闭ServerSignature.**    
 
@@ -32,15 +32,16 @@ chkconfig --level 2345 httpd on
 ```
 4.给网站放一些数据 
 
-```plain
+```shell
 禁止搜索引擎搜到
-wget -P /var/www/html https://raw.githubusercontent.com/wxlzmt/wxlzmt.github.io/master/resource/script/robots.txt
+wget -P /var/www/html https://wxlzmt.github.io/resource/script/robots.txt
 
 探针(简体中文)
-wget -P /var/www/html https://raw.githubusercontent.com/wxlzmt/wxlzmt.github.io/master/resource/script/tz.php
+wget -P /var/www/html https://wxlzmt.github.io/resource/script/tz.php
 
 放一个静态网站
 wget https://raw.githubusercontent.com/wxlzmt/bigfiles/master/jdk1.8-api.zip
+#由于github的原因,下载地址可能不好使,详见 https://github.com/wxlzmt/bigfiles
 unzip -n jdk1.8-api.zip -d /var/www/html
 ```
 
