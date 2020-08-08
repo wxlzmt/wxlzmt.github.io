@@ -10,7 +10,7 @@
 <script type="text/javascript" src="./regexptest_files/jq-public.js"></script>
 
 <link rel="stylesheet" href="./regexptest_files/toolstyle.css" type="text/css">
-<script src="./regexptest_files/jq-tools.js" charset="gb2312" type="text/javascript"></script>
+<script src="./regexptest_files/jq-tools.js" type="text/javascript"></script>
 
 </head>
 
@@ -20,11 +20,11 @@
 .smartField {position:relative; overflow:auto; border:1px solid #ABADB3;}
 #input {height:375px; width:99.75%; margin-top:10px;}
 .smartField pre, .smartField textarea {
-	white-space: 
+	white-space:
 	-moz-pre-wrap;/* Mozilla, since 1999 */
-	white-space: 
+	white-space:
 	-pre-wrap;/* Opera 4-6 */
-	white-space: 
+	white-space:
 	-o-pre-wrap;/* Opera 7 */
 	white-space: pre-wrap;/* css-3 */
 	word-wrap: break-word;/* Internet Explorer 5.5+ */
@@ -48,7 +48,7 @@ b,i,u{font-style:normal;font-weight:normal;text-decoration:none;}#input b{backgr
 .ResultContWrap{ width:1150px;}
 </style>
 <!--ToolMain02-begin-->
-<div class="wrapper pt20 pb20"> 
+<div class="wrapper pt20 pb20">
  	<div class="RegularWrap DelHeadFilter">
    		<!--RegbuttonBarWrap-begin-->
     	<div class="RegbuttonBarWrap bg-list">
@@ -60,15 +60,15 @@ b,i,u{font-style:normal;font-weight:normal;text-decoration:none;}#input b{backgr
             </p>
         </div>
    		<!--RegbuttonBarWrap-end-->
-   	
-    
-        <div class="filter-contlist pr clearfix casual pt15"> 
-            <div class="RegularSearWrite-wrap fl clearfix"> 
+
+
+        <div class="filter-contlist pr clearfix casual pt15">
+            <div class="RegularSearWrite-wrap fl clearfix">
                 <span class="pr fl w600 smartField h64" id="search">
                 <pre id="searchBg" class=""></pre><textarea spellcheck="false" id="searchText" class="RegularSearWrite-cont WrapHid w600 fz12" style="margin-left: 0px;"></textarea>
-                
-             </div>  
-            <div class="RegularSearWrite-wrap fr clearfix ml15" style="margin-top:25px;"> 
+
+             </div>
+            <div class="RegularSearWrite-wrap fr clearfix ml15" style="margin-top:25px;">
                 <span class="RegularSearWrite-left pr fl w412"><input type="text" class="RegularSearWrite-cont WrapHid w350 fz12" id="reptext"  spellcheck="false" autocapitalize="off" autocorrect="off" ><a href="javascript:" title="清空" class="quickdelete _CentHid"></a><b class="search-hint CentHid fz12">输入要替换的文本</b></span>
                 <span class="RegularSearWrite-right fl"><input class="RegularSearWrite-btn fz12" type="button" id="repbtn" value="替换匹配文本"></span>
              </div>
@@ -77,19 +77,19 @@ b,i,u{font-style:normal;font-weight:normal;text-decoration:none;}#input b{backgr
     <!--ResultContWrap-begin-->
     <div class="ResultContWrap bg-list auto">
         <div class="ResultContHead clearfix pb10">
-            <div class="filter-contlist pr clearfix casual fl pt5"> 
-                <ol class="item js-FilterItem h24 _chkboxhide" id="_chkboxhide"> 
+            <div class="filter-contlist pr clearfix casual fl pt5">
+                <ol class="item js-FilterItem h24 _chkboxhide" id="_chkboxhide">
                     <li class="pr PLcx"><p><label hidefocus="on">不区分大小写</label></p></li>
-                    <li class="pr PLcx"><p><label hidefocus="on">对^$前后换行也支持</label></p></li> 
-                    <li class="pr PLcx"><p><label hidefocus="on">符号.匹配所有</label></p></li>                                                                                    
-                    <li class="autohide"></li> 
+                    <li class="pr PLcx"><p><label hidefocus="on">对^$前后换行也支持</label></p></li>
+                    <li class="pr PLcx"><p><label hidefocus="on">符号.匹配所有</label></p></li>
+                    <li class="autohide"></li>
                     <li class="pr PLcx selected"><p><label hidefocus="on">对正则着色</label></p></li>
-                    <li class="pr PLcx selected"><p><label hidefocus="on">对匹配结果着色</label></p></li> 
-                    <li class="pr PLcx"><p><label hidefocus="on">对无匹配结果着色</label></p></li> 
-                </ol> 
+                    <li class="pr PLcx selected"><p><label hidefocus="on">对匹配结果着色</label></p></li>
+                    <li class="pr PLcx"><p><label hidefocus="on">对无匹配结果着色</label></p></li>
+                </ol>
             <div id="chkboxhide" class="autohide"><input type="checkbox" id="toolI"><input type="checkbox" id="toolM"><input type="checkbox" id="toolS"><input type="checkbox" checked="checked" id="toolG"><input type="checkbox" checked="checked" id="highSyntax"><input type="checkbox" checked="checked" id="highMatch"><input type="checkbox" id="invertMatch"></div>
-            </div> 
-            
+            </div>
+
         </div>
         <div class="auto smartField" id="input" style="height: 200px; background: rgb(255, 255, 255);">
                   <!--GuoLvWrap-begin-->
@@ -115,91 +115,11 @@ b,i,u{font-style:normal;font-weight:normal;text-decoration:none;}#input b{backgr
          <div class="ToolAbout wrapper03">
     <div class="clearfix"><h4 class="HeadH4 YaHei fz16 col-blue02 fwnone fl">工具简介</h4>
         <div class="fr fz14" id="toolsIntro">
-        
+
         </div>
      </div>
     <div class="col-gray01 ToolAbCont"><div class="lh30 plr20"><b class="fb col-gray03">到底什么是正则表达式？</b></div><div class="lh30 plr20">在编写处理字符串的程序或网页时，经常有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。</div><div class="clearfix ptb10"><div class="fl pl20 pr20"><div class="lh30"><b class="fb col-gray03">常用元字符</b></div><table cellspacing="0"><thead><tr><th scope="col">代码</th><th scope="col">说明</th></tr></thead><tbody><tr><td><span class="code">.</span></td><td><span class="desc">匹配除换行符以外的任意字符</span></td></tr><tr><td><span class="code">\w</span></td><td><span class="desc">匹配字母或数字或下划线</span></td></tr><tr><td><span class="code">\s</span></td><td><span class="desc">匹配任意的空白符</span></td></tr><tr><td><span class="code">\d</span></td><td><span class="desc">匹配数字</span></td></tr><tr><td><span class="code">\b</span></td><td><span class="desc">匹配单词的开始或结束</span></td></tr><tr><td><span class="code">^</span></td><td><span class="desc">匹配字符串的开始</span></td></tr><tr><td><span class="code">$</span></td><td><span class="desc">匹配字符串的结束</span></td></tr></tbody></table></div><div class="fl pl20 pr20"><div class="lh30"><b class="fb col-gray03">常用限定符</b></div><table cellspacing="0"><thead><tr><th scope="col">代码/语法</th><th scope="col">说明</th></tr></thead><tbody><tr><td><span class="code">*</span></td><td><span class="desc">重复零次或更多次</span></td></tr><tr><td><span class="code">+</span></td><td><span class="desc">重复一次或更多次</span></td></tr><tr><td><span class="code">?</span></td><td><span class="desc">重复零次或一次</span></td></tr><tr><td><span class="code">{n}</span></td><td><span class="desc">重复n次</span></td></tr><tr><td><span class="code">{n,}</span></td><td><span class="desc">重复n次或更多次</span></td></tr><tr><td><span class="code">{n,m}</span></td><td><span class="desc">重复n到m次</span></td></tr></tbody></table></div><div class="fl pl20"><div class="lh30"><b class="fb col-gray03">常用反义词</b></div><table cellspacing="0"><thead><tr><th scope="col">代码/语法</th><th scope="col">说明</th></tr></thead><tbody><tr><td><span class="code">\W</span></td><td><span class="desc">匹配任意不是字母，数字，下划线，汉字的字符</span></td></tr><tr><td><span class="code">\S</span></td><td><span class="desc">匹配任意不是空白符的字符</span></td></tr><tr><td><span class="code">\D</span></td><td><span class="desc">匹配任意非数字的字符</span></td></tr><tr><td><span class="code">\B</span></td><td><span class="desc">匹配不是单词开头或结束的位置</span></td></tr><tr><td><span class="code">[^x]</span></td><td><span class="desc">匹配除了x以外的任意字符</span></td></tr><tr><td><span class="code">[^aeiou]</span></td><td><span class="desc">匹配除了aeiou这几个字母以外的任意字符</span></td></tr></tbody></table></div></div></div>
     </div>
         </div>
-
-         <div class="GMFocusBox auto autohide">     
-             <div>    
-                <div class="tFull">
-                    <div class="GMFimglist02 pr">
-                    	<div class="Fotline"></div>
-                        <ul class="siteBar wrapper clearfix">
-                            <li class="fl bor-r1s">
-                        <h5 class="fz14 fwnone col-blue02 pb5">配色/在线汉字</h5>
-                        <p class="plist">
-                            <a href="http://tool.chinaz.com/Tools/cj" target="_blank">中日传统色彩</a>
-                            <a href="http://tool.chinaz.com/Tools/pinyindictionary.aspx" target="_blank">拼音字典</a>
-                            <a href="http://tool.chinaz.com/Tools/img" target="_blank">传图识色</a>
-                            <a href="http://tool.chinaz.com/Tools/word_spell.aspx" target="_blank">汉字拼音</a>
-                            <a href="http://tool.chinaz.com/Tools/web" target="_blank">WEB安全色</a>
-                            <a href="http://tool.chinaz.com/Tools/lowercase-uppercase.aspx" target="_blank">英文大小写</a>
-                            <a href="http://tool.chinaz.com/Tools/use" target="_blank">网页常用色彩</a>
-                            <a href="http://tool.chinaz.com/Tools/gb_big.aspx" target="_blank">繁/简/火星文</a> 
-                        </p>
-                    </li>
-                    <li class="fl bor-r1s">
-                        <h5 class="fz14 fwnone col-blue02 pb5">WEB相关</h5>
-                        <p class="plist">
-                            <a href="http://tool.chinaz.com/htmlcheck.aspx" target="_blank">Html标签检测</a>
-                            <a href="http://tool.chinaz.com/Tools/httptest.aspx" target="_blank">Http接口测试</a>
-                            <a href="http://tool.chinaz.com/Tools/htmlchar.aspx" target="_blank">Html特殊符号</a>
-                            <a href="http://tool.chinaz.com/Tools/regexgenerate" target="_blank">正则表达式生成</a>
-                            <a href="http://tool.chinaz.com/Tools/cssdesigner.aspx" target="_blank">Css在线编辑</a>
-                            <a href="http://tool.chinaz.com/webscan" target="_blank">网站安全检测</a>
-                            <a href="http://tool.chinaz.com/Tools/pagecode.aspx" target="_blank">查看网页源代码</a>
-                            <a href="http://tool.chinaz.com/Tools/wordcounter" target="_blank">在线字符统计</a> 
-                        </p>
-                    </li>
-                    <li class="fl bor-r1s">
-                        <h5 class="fz14 fwnone col-blue02 pb5">加密解密</h5>
-                        <p class="plist">
-                            <a href="http://tool.chinaz.com/Tools/md5.aspx" target="_blank">MD5加密</a>
-                            <a href="http://tool.chinaz.com/Tools/jscodeconfusion.aspx" target="_blank">Js代码混淆</a>
-                            <a href="http://tool.chinaz.com/Tools/escape.aspx" target="_blank">Escape加/解密</a>
-                            <a href="http://tool.chinaz.com/Tools/jsformat.aspx" target="_blank">Js/Html格式化</a>
-                            <a href="http://tool.chinaz.com/Tools/urlcrypt.aspx" target="_blank">Url16进制</a>
-                            <a href="http://tool.chinaz.com/js.aspx" target="_blank">Js混淆压缩</a>
-                            <a href="http://tool.chinaz.com/Tools/thunder_flashget.aspx" target="_blank">Url加/解密</a>
-                            <a href="http://tool.chinaz.com/Tools/textencrypt.aspx" target="_blank">文字加/解密</a> 
-                        </p>
-                    </li>
-                    <li class="fl bor-r1s">
-                        <h5 class="fz14 fwnone col-blue02 pb5">单位换算</h5>
-                        <p class="plist">
-                            <a href="http://tool.chinaz.com/Tools/angle" target="_blank">角度换算</a>
-                            <a href="http://tool.chinaz.com/Tools/time" target="_blank">时间换算</a>
-                            <a href="http://tool.chinaz.com/Tools/heat" target="_blank">热量换算</a>
-                            <a href="http://tool.chinaz.com/Tools/length" target="_blank">长度换算</a>
-                            <a href="http://tool.chinaz.com/Tools/area" target="_blank">面积换算</a>
-                            <a href="http://tool.chinaz.com/Tools/calculator" target="_blank">计算器</a>
-                            <a href="http://tool.chinaz.com/Tools/datastore" target="_blank">数据存储</a>
-                            <a href="http://tool.chinaz.com/Tools/subnetmask" target="_blank">子网掩码</a>
-                        </p>
-                    </li>
-                
-                    <li class="fl">
-                        <h5 class="fz14 fwnone col-blue02 pb5">编码转换</h5>
-                        <p class="plist">
-                            <a href="http://tool.chinaz.com/Tools/unicode.aspx" target="_blank">Unicode</a>
-                            <a href="http://tool.chinaz.com/Tools/html_ubb.aspx" target="_blank">Html/UBB</a>
-                            <a href="http://tool.chinaz.com/Tools/unixtime.aspx" target="_blank">Unix时间戳</a>
-                            <a href="http://tool.chinaz.com/Tools/urlencode.aspx" target="_blank">UrlEncode</a>
-                            <a href="http://tool.chinaz.com/Tools/native_ascii.aspx" target="_blank">NATIVE/ASCII</a>
-                            <a href="http://tool.chinaz.com/qrcode" target="_blank">二维码生成</a>
-                            <a href="http://tool.chinaz.com/Tools/utf-8.aspx" target="_blank">UTF-8编码</a>
-                            <a href="http://tool.chinaz.com/tools/html_js.aspx" target="_blank">HTML/JS转换</a>
-                        </p>
-                    </li>
-                        </ul>
-                    </div>
-                 </div> 
-              </div>
-
-        </div>
-        <!--siteBar-end-->
-        
-</body></html>
+</body>
+</html>
