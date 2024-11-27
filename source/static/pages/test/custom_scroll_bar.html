@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+<title>custom_scroll_bar</title>
+<style type="text/css">
+.div_tb{
+    display: table;
+    margin:0px;
+    padding-left: 50px;
+    padding-top: 50px;
+    overflow: scroll;
+}
+.div_tb>div{
+    display: table-row;
+}
+.div_tb>div>div{
+    display: table-cell;
+    padding: 5px;
+    vertical-align: middle;
+}
+.div_hover:hover{
+	border: 1px solid #008B8B;
+	box-shadow: 0 0 5px RGBA(0,0,0,0.7);
+}
+
+/*自定义滚动条*/
+.custom_scroll_bar::-webkit-scrollbar{
+	height:8px;
+	width:6px;
+	background:rgba(118,176,243,.3);
+	border-radius:5px;
+}
+.custom_scroll_bar::-webkit-scrollbar-button{
+	display:none;
+}
+.custom_scroll_bar::-webkit-scrollbar-track{
+	background-color:#fff;
+}
+.custom_scroll_bar::-webkit-scrollbar-track-piece{
+	background:#fff;
+}
+.custom_scroll_bar::-webkit-scrollbar-thumb{
+	width:8px;
+	min-height:15px;
+	background:rgba(3,118,85,.2);
+	border-radius:5px;
+}
+.custom_scroll_bar::-webkit-scrollbar-thumb:hover{
+	background:rgba(3,118,85,.6);
+}
+.custom_scroll_bar::-webkit-scrollbar-thumb:active{
+	background:rgba(3,118,85,.8);
+}
+
+</style>
+<script type="text/javascript">
+function load(){
+	var textarea= document.getElementById("idArea01");
+	var val1 = "段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 \r\n段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 \r\n段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 \r\n段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 \r\n段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落 段落";
+	textarea.value=val1;
+
+	var div = document.getElementById("idDiv01");
+	var val2 = "<p>段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落</p><p>段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2</p><p>段落3 段落3 段落3 段落3 段落</p><p>段落</p><p>段落5 段落5 段落5 段落5 段落5 段落5 段</p><p>段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落</p><p>段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2</p><p>段落3 段落3 段落3 段落3 段落</p><p>段落</p><p>段落5 段落5 段落5 段落5 段落5 段落5 段</p><p>段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落1 段落</p><p>段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2 段落2</p><p>段落3 段落3 段落3 段落3 段落</p><p>段落</p><p>段落5 段落5 段落5 段落5 段落5 段落5 段</p>";
+	div.innerHTML = val2;
+}
+</script>
+</head>
+<body onload="load();" >
+<div style="display: table-cell;vertical-align: middle; width: 100%;height: 100%; " align="center" >
+	<div style="width: 100%;margin-top: 20px;margin-bottom: 20px;margin-left: 40px; ">
+		<span style="font-size: 20px; " >chrome下有效果，没效果的渣渣浏览器洗洗睡吧</span>
+	</div>
+</div>
+	<div class="div_tb" style="height:100%;padding-left:40px;padding-top:0px;">
+		<div>
+			<div align="center">
+				<div align="left" style="position: relative;margin-bottom: 10px; " ><strong>textarea</strong></div>
+				<div style="position: relative;width:500px;height:500px;background-color:#FFFAFA">
+
+<textarea id="idArea01"  spellcheck="false" autocapitalize="off" autocorrect="off"  class='custom_scroll_bar' style="overflow:scroll;display:inline; width: 300px;height: 300px;position:absolute;top: 100px;left: 100px;"></textarea>
+
+				</div>
+			</div>
+			<div align="center">
+			<div align="left" style="position: relative;margin-bottom: 10px; " ><strong>div</strong></div>
+				<div style="position: relative; width:500px;height:500px;background-color:#FFFAFA; ">
+					<div id="idDiv01" class='custom_scroll_bar' align="left" style="display:inline;white-space:nowrap;overflow: scroll;width: 300px;height: 300px;position:absolute;top: 100px;left: 100px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

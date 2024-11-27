@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-transform,no-cache"/>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <title>clappr播放器测试</title>
+	<link href="https://cdn.bootcss.com/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        #player{
+			width:500px;
+			height:400px;
+			margin:auto;
+		}
+    </style>
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <script type="text/javascript">
+		$(function(){
+			var player = new Clappr.Player({source: "http://www.runoob.com/try/demo_source/movie.mp4", parentId: "#player"});
+			
+		});
+    </script>
+</head>
+<body class="container">
+	<p>HTML5 Web 视频播放器示例 , 来自<a href="https://github.com/clappr/clappr" target="_blank">https://github.com/clappr/clappr</a></p>
+    <div id="player">
+		
+	</div>
+</body>
+</html>

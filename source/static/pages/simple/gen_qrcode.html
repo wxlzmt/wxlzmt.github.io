@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="生成二维码">
+  <meta name="keywords" content="生成二维码,二维码">
+  <meta name="author" content="wxlzmt">
+
+  <link rel="icon" href="/favicon.jpg"/>
+  <link rel="shortcut icon" href="/favicon.jpg"/>
+  <link rel="bookmark" href="/favicon.jpg"/>
+
+  <meta itemprop="name" content="生成二维码"/>
+  <meta itemprop="image" content="/favicon.jpg"/>
+  <meta name="description" itemprop="description" content="生成二维码"/>
+
+  <meta name="sharecontent"
+        data-msg-img="/favicon.jpg"
+        data-msg-title="生成二维码"
+        data-msg-content="生成二维码"
+        data-msg-callBack=""
+        data-line-img="/favicon.jpg"
+        data-line-title="生成二维码"
+        data-line-callBack=""/>
+  <meta name="keywords" content="生成二维码"/>
+
+  <title>生成二维码</title>
+  <style type="text/css">
+    p {
+      word-break: break-word;
+      word-wrap: break-word; /*firefox兼容语句*/
+    }
+  </style>
+  <script src="../../plugins/jquery/3.2.1/jquery.min.js"></script>
+  <script src="../../plugins/jquery-qrcode/jquery.qrcode.min.js"></script>
+  <script type="text/javascript">
+    function genCode() {
+      var error = null;
+      $('#code').html("");
+      var inputstr = $("#idInputArea").val();
+      if (inputstr != null && inputstr !== "") {
+        var len = getAppropriateLen(inputstr.length);
+        console.log("二维码边长:" + len);
+        try {
+          $('#code').qrcode({
+            render: "canvas", //另外还可以选用'table'方式
+            width: len, //宽度
+            height: len, //高度
+            text: toUtf8(inputstr) //任意内容
+          });
+          var $canvas = $('#code>canvas');
+          if ($canvas.length > 0) {
+            var src = $canvas[0].toDataURL();
+            $canvas.hide();
+            $("<img></img>").attr("src", src).appendTo("#code");
+          }
+        } catch (e) {
+          console.log(e);
+          error = e;
+        }
+      }
+      if (error == null) {
+        $("#idPInfo").text(inputstr);
+        $("#idDebugInfo").text("字符长度:" + inputstr.length);
+      } else {
+        $("#idPInfo").html("");
+        $("#idDebugInfo").text("发生异常错误:" + error);
+        alert(error);
+      }
+    }
+
+    function toUtf8(str) {
+      var out, i, len, c;
+      out = "";
+      len = str.length;
+      for (i = 0; i < len; i++) {
+        c = str.charCodeAt(i);
+        if ((c >= 0x0001) && (c <= 0x007F)) {
+          out += str.charAt(i);
+        } else if (c > 0x07FF) {
+          out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+          out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+          out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+        } else {
+          out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+          out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+        }
+      }
+      return out;
+    }
+
+    function getAppropriateLen(txtLen) {
+      var len = 0;
+      var max = $("#idInputArea").width();
+      if (!$("#idCheckAuto").prop('checked')) {
+        var len = parseInt($("#idInputLen").val());
+        if (!isNaN(len)) {
+          if (len > max) {
+            len = max;
+          } else if (len < 100) {
+            len = 100;
+          }
+          return len;
+        }
+      }
+      len = 0;
+      if (txtLen <= 128) {
+        len = 256;
+      } else if (txtLen <= 256) {
+        len = 300;
+      } else if (txtLen <= 512) {
+        len = 400;
+      } else {
+        len = Math.round(txtLen / (512 / 400));
+      }
+      //最后略作矫正
+
+      if (len > max) len = max;
+      return len;
+    }
+
+    function checkAuto() {
+      var isChecked = $("#idCheckAuto").prop('checked');
+      if (isChecked) {
+        $("#idInputLen").prop("disabled", true);
+        $("#idGroupLen").hide();
+      } else {
+        $("#idInputLen").prop("disabled", false);
+        $("#idGroupLen").show();
+      }
+    }
+
+    $(function () {
+      var q = new URL(location.href).searchParams.get("q");
+      if (q) {
+        setTimeout(function () {
+          $("#idInputArea").val(q);
+          genCode();
+        }, 10);
+      }
+    });
+  </script>
+</head>
+
+<body>
+<div class="container">
+
+  <h3>将文字转为二维码</h3>
+  <hr/>
+
+  <div class="form-inline" style="margin-bottom:15px;">
+    <div class="form-group">
+      <label>
+        <input type="checkbox" checked="checked" onclick="checkAuto();" id="idCheckAuto"/>自动边长
+      </label>
+    </div>
+    <div class="form-group" id="idGroupLen" style="display:none;padding-left:25px;">
+      <label for="idInputLen">二维码边长:</label>
+      <input type="number" min="200" max="2000" step="10" value="200" disabled id="idInputLen" class="input"/>
+    </div>
+  </div>
+
+  <div class="form-group" style="display: flex;">
+		<textarea id="idInputArea" class="form-control" rows="2" placeholder="在此输入任意字符..."
+              spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+    <button type="button" class="btn btn-primary" style="margin-left: 1vw;" onclick="genCode()">生成二维码</button>
+  </div>
+
+  <div class="form-group" style="">
+    <div id="code"></div>
+  </div>
+
+  <div class="form-group">
+    <label>当前二维码内容:</label>
+    <p class="bg-info" id="idPInfo"></p>
+  </div>
+
+  <hr/>
+  <div class="form-group">
+    <label>debug:</label>
+    <p class="bg-info" id="idDebugInfo"></p>
+  </div>
+
+  <hr/>
+  <p class="text-info">
+    <strong>移动端长按二维码可分享、复制或保存为图片.</strong><br/>
+    本页面可接收url参数,例如:
+    <a href="/static/pages/simple/gen_qrcode.html?q=123%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87456">gen_qrcode.html?q=123支持中文456</a>
+  </p>
+</div>
+<link rel="stylesheet" href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit"/>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-transform,no-cache"/>
+
+  <link rel="icon" href="/favicon.png"/>
+  <link rel="shortcut icon" href="/favicon.png"/>
+  <link rel="bookmark" href="/favicon.png"/>
+
+  <meta itemprop="name" content="vue3测试"/>
+  <meta itemprop="image" content="/favicon.png"/>
+  <meta name="description" itemprop="description" content="vue3测试页"/>
+
+  <meta name="sharecontent"
+        data-msg-img="/favicon.png"
+        data-msg-title="vue3测试"
+        data-msg-content="vue3测试页"
+        data-msg-callBack=""
+        data-line-img="/favicon.png"
+        data-line-title="vue3测试"
+        data-line-callBack=""/>
+  <meta name="keywords" content="vue3测试"/>
+
+  <title>vue3测试</title>
+</head>
+<body>
+<div id="app">
+  <div ref="loadingRef">当你看到这句话时,说明网页还没加载好,请等一下...</div>
+  <div v-html="hello"></div>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script type="text/javascript">
+  window.app = Vue.createApp({
+    setup() {
+      const loadingRef = Vue.ref();
+      const hello = Vue.ref("Vue3实例已创建, 访问 window.app 可以获取到当前实例. 如需测试Vue3的一些方法,直接在console实验, 例如: Vue.ref() , Vue.reactive({}) 等.");
+      Vue.onMounted(() => {
+        loadingRef.value.remove();
+      });
+      return {
+        loadingRef,
+        hello
+      };
+    }
+  });
+  window.app.mount("#app");
+</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   	<title>图片转BASE64编码</title>
+	    <!-- Bootstrap Core CSS -->
+    <link href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="./BASE64_files/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../../plugins/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="./BASE64_files/style.css">
+
+<script src="../../plugins/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">	
+<style type="text/css">
+
+
+#base64-buttons-container {  
+	margin:0 auto;
+	width:80%;
+	height:auto;
+}
+.editorMain{
+      margin:4% auto 2% auto;
+      width:80%;
+      height:60%;
+      border:2px dashed #333;
+      border-radius:10px;
+      -webkit-border-radius:10px;
+      text-align:center;
+      padding:30px 0 80px 0;
+      text-align:center;
+      cursor:pointer;
+}
+
+.fileInputStyle{
+      position:absolute;
+      left:-9999px;
+      top:-9999px;
+      z-index:-9999;
+}
+</style>
+
+<div class="row">
+
+	<div class="col-md-12">
+		<div class="panel panel-default">
+					<div id="compiler" class="panel-heading">
+			<strong style="font-size: 16px"><i class="fa fa-picture-o"></i> 图片转BASE64编码</strong>
+			</div>
+			<div class="panel-body">
+			
+              <div class="form-group">
+                <div class="row">
+					<div class="col-md-12">
+		                 <div class="picEditor">
+						    <div class="editorMain" id="drop_area">
+						    <i class="fa fa-cloud-upload" style="font-size:64px;"></i><br>
+						      <h4>拖曳图片至此处，将图片转为base64格式<br>
+						      <small>只支持单图上传</small></h4>
+						    </div>
+						    <input type="file" id="fileInput" class="fileInputStyle">
+						    <section class="editorResult">
+						      <ul class="editorResult_list"></ul>
+						    </section>
+						  </div>
+					</div>
+					
+             
+                </div>
+                
+                
+               
+                <div class="row" id="manual" style="display:none;">
+	               <div class="col-md-12">
+				        <div id="base64-buttons-container">
+				       		<form class="form-inline" role="form">
+							   <button type="button" class="btn btn-success">预览</button>&nbsp;&nbsp;
+							   <div class="checkbox" style="font-size: 18px;">
+							      <label>
+							      <input type="checkbox"> 包含CSS
+							      </label>
+							   </div>
+							      
+							</form><br>
+				      	<img src="http://c.runoob.com/front-end/59" class="img-rounded" style="display:none;">
+				    </div>
+    				</div>
+    			</div>
+                 <div class="row">
+               		
+	                <div class="col-md-12">
+		                <div class="resultPlan">
+		  				</div>
+	                </div>
+	               
+	              </div>
+                </div>
+              </div>
+             
+             
+            
+			</div>
+			
+		</div>
+	
+	
+	<div class="col-md-12">
+		<div id="about" class="panel panel-default">
+			<div class="panel-heading">概述</div>
+			<div class="panel-body">
+			<p>图片转BASE64编码工具提供了 <strong>PNG转换Base64</strong>，<strong>GIF转换Base64</strong>，<strong>JPEG转换Data64</strong>等各种图片的格式转换,你只需拖动图片到指定区域，即可完成操作！</p>
+<h3>Base64格式</h3>
+<pre class="prettyprint">data:[][;charset=][;base64],
+</pre>
+<h3>
+Base64 在CSS中的使用</h3>
+<pre class="prettyprint">.demoImg{ background-image: url("data:image/jpg;base64,/9j/4QMZRXhpZgAASUkqAAgAAAAL...."); }
+</pre>
+<h3>Base64 在HTML中的使用</h3>
+<pre class="prettyprint">&lt;img width="40" height="30" src="data:image/jpg;base64,/9j/4QMZRXhpZgAASUkqAAgAAAAL...." /&gt;
+</pre>			</div>
+        </div>
+
+	</div>
+</div>
+<script>
+
+function generateMixed(n) {
+    var chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    var res = "";
+    for(var i = 0; i < n ; i ++) {
+      var id = Math.ceil(Math.random()*35);
+      res += chars[id];
+    }
+    return res;
+}
+
+$(function(){
+    //阻止浏览器默认行。
+    $(document).on({
+      dragleave:function(e){		//拖离
+        e.preventDefault();
+      },
+      drop:function(e){			//拖后放
+        e.preventDefault();
+      },
+      dragenter:function(e){		//拖进
+        e.preventDefault();
+      },
+      dragover:function(e){		//拖来拖去
+        e.preventDefault();
+      }
+    });
+
+    function setUpload(fileList){
+    	
+      var myfile = fileList[0],
+          reader = new FileReader();
+      var resultPlan = '<textarea class="resultBox" style="margin:50px auto;width:80%;height:300px; margin: auto 10%;"  spellcheck="false" autocapitalize="off" autocorrect="off" ></textarea>';
+      var len = $(".resultBox").length;
+      reader.readAsDataURL(myfile);
+      reader.onload = function(e) {
+        len <= 0 && $(resultPlan).appendTo(".resultPlan");
+        $(".resultBox").val(e.target.result);
+        $(".img-rounded").attr("src", e.target.result);
+      }
+      $("input[type='checkbox']").prop('disabled', false);
+      $("input[type='checkbox']").prop('checked', false);
+      $("#manual").show();
+    };
+    function dragUpload(e){
+      e.preventDefault();
+      setUpload(e.dataTransfer.files);
+    }
+
+    function clickUpload(){
+      var fileinput = $("#fileInput");
+      fileinput.trigger("click");
+      fileinput.on("change",function(e){
+        e.preventDefault();
+        setUpload(this.files);
+      });
+    };
+
+    var box = document.getElementById('drop_area'); //拖拽区域
+
+    box.addEventListener("drop", dragUpload, false);
+    box.addEventListener("click", clickUpload, false);
+   
+    $("input[type='checkbox']").click(function() {
+    	var base64Data = $(".resultBox").val();
+    	if( base64Data == ""  || typeof(base64Data)=="undefined"){
+			return;	
+		}
+    	data = base64Data;
+    	if( $(this).prop("checked")){
+			data = "background-image: url(\"" + data + "\");";
+			$(".resultBox").val(data);
+			$(this).prop('disabled', true);
+		}
+    })
+    $(".btn-success").click(function() {
+    	var base64Data = $(".resultBox").val();
+    	if( base64Data == "" || typeof(base64Data)=="undefined" ){
+			return;	
+		}
+    	
+    	$(".img-rounded").toggle(500);
+    	$(".img-rounded").css({"margin-bottom":"12px"});
+		
+    })
+  });
+
+
+</script>
+
+<hr />
+
+</div>
+
+<script src="../../plugins/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+</body></html>

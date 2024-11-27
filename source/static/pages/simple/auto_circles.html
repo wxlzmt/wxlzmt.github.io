@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>auto_circles</title>
+<script type="text/javascript">
+
+var max = 9999;
+var interval = 10;
+var isAdd = true;
+
+function add(){
+	var div = document.createElement('div');
+	div.className = 'div-circle';
+	div.style.backgroundColor = 'rgb('+Math.ceil(Math.random()*255)+','+Math.ceil(Math.random()*255)+','+Math.ceil(Math.random()*255)+')';
+	div.style.top = Math.ceil(Math.random()*(window.innerHeight-20))+'px';
+	div.style.left = Math.ceil(Math.random()*(window.innerWidth-20))+'px';
+	var body = document.getElementsByTagName('body')[0];
+	body.appendChild(div);
+	if(body.childElementCount>max){
+		isAdd = false;
+	}
+}
+
+function remove(){
+	var body = document.getElementsByTagName('body')[0];
+	if(body.childElementCount===0){
+		isAdd = true;
+	}else{
+		body.childNodes[body.childElementCount-1].remove();
+	}
+}
+
+function func(){
+	if(isAdd){
+		add();
+	}else{
+		remove();
+	}
+	setTimeout(func,interval);
+}
+    
+function resetMax(){
+    max = Math.ceil(window.innerWidth*window.innerHeight/200);
+}
+
+function load(){
+    window.addEventListener("resize",function(){
+		resetMax();
+	});
+    resetMax();
+	func();
+}
+</script>
+<style type="text/css">
+	body{
+	    overflow: hidden;
+	}
+	.div-circle{
+		width:20px;
+		height:20px;
+		border-radius:10px;
+		z-index:99999;
+		position:absolute;
+	}
+</style>
+</head>
+<body onload="load();">
+	
+</body>
+</html>

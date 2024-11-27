@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   	<title>JSON格式化工具</title>
+	<script src="./jsonformat_files/codemirror.min.js"></script>
+	<link rel="stylesheet" href="./jsonformat_files/codemirror.css">
+	<script src="./jsonformat_files/javascript.js"></script>
+	<script src="./jsonformat_files/json-format.js"></script>
+	<!-- Bootstrap Core CSS -->
+    <link href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="./jsonformat_files/modern-business.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../../plugins/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./jsonformat_files/style.css">
+	<!-- jQuery -->
+	<script src="../../plugins/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body style="padding-top:5px;" >
+<div class="container">
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div id="compiler" class="panel-heading">
+			<form class="form-inline" role="form">
+			    <button type="button" class="btn btn-success" id="submitBTN">
+				<i class="fa fa-expand"></i>格式化</button>
+                <label class="pull-right">
+					<strong style="font-size: 16px">
+					<i class="fa fa-cogs"></i>JSON 格式化工具</strong>
+				</label>
+			</form>
+			</div>
+			<div class="panel-body">
+			<!--提示信息-->
+			<div class="col-md-12" id="warning" style="display: none;">
+				<div class="alert alert-warning">
+				   <p><strong>警告！</strong>JSON 格式错误。</p>
+				   <p id="warning-info"></p>
+				</div>
+			</div>
+			<form role="form" id="compiler-form">
+              <div class="form-group">
+                <div class="row">
+					<!--源-->
+				  <div class="row-md-6">
+					<textarea class="form-control" id="code" name="code" 
+					rows="10" style="display: none;">{"name":"aaa", "site":"bbb"}</textarea>
+				  </div>
+				  <!--格式化之后-->
+                  <div class="row-md-6">
+                    <textarea placeholder="运行结果……" class="form-control" 
+					id="compiler-textarea-result" rows="10" style="display: none;"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+var editor1 = CodeMirror.fromTextArea(document.getElementById("code"), {
+	lineNumbers: true,
+	matchBrackets: true,
+	mode: "application/ld+json",
+	indentUnit: 4,
+	indentWithTabs: true,
+});
+var editor2 = CodeMirror.fromTextArea(document.getElementById("compiler-textarea-result"), {
+	lineNumbers: true,
+	lineWrapping: true,
+	matchBrackets: true,
+	mode: "application/ld+json",
+	indentUnit: 4,
+	indentWithTabs: true,
+});
+
+$("#submitBTN").click(function() {
+	
+		
+	loadingdata = '程序正在运行中……';
+	$("#compiler-textarea-result").val(loadingdata);
+ 
+	code = editor1.getValue();
+		
+	    try {
+	        code = JSON.parse(code);
+	        var output =JSON.stringify(code , null, 4);
+	        $('#warning').hide();
+	       
+	    } catch (e) {
+	    	$('#warning').show();
+	    	$('#warning-info').html(e);
+	    	 editor2.getDoc().setValue('');
+	    }
+		
+		editor2.getDoc().setValue(output);
+	//将格式化之后的内容100%高度显示
+	$("#compiler-textarea-result + div").css({"height":"100%"});
+});
+
+//这方法好像没用
+$("#submitBTN2").click(function() {
+	loadingdata = '程序正在运行中……';
+	$("#compiler-textarea-result").val(loadingdata);
+  
+	code = editor1.getValue();
+	if(code) {
+		var result = style_html(code, 1, '\t');
+		editor2.getDoc().setValue(result);
+		$("#compiler-textarea-result + div").css({"height":"100%"});
+	}
+});
+</script>
+</div>
+<script src="../../plugins/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-transform,no-cache"/>
+  <meta name="description" content="Excel转JSON">
+  <meta name="keywords" content="Excel转JSON">
+  <title>Excel转JSON</title>
+  <link rel="stylesheet" href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <style type="text/css">
+    html, body {
+      width: 100%;
+    }
+
+    input[type=file] {
+      display: inline-block;
+    }
+
+    .form-file {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .uploader_container {
+      position: relative;
+      flex: 1;
+      border: 2px dashed #a9a4a4;
+      margin: 0px 20px 0px 0px;
+      border-radius: 5px;
+      padding: 0px 0px 0px 5px;
+      background: #f9f7f7;
+    }
+
+    .uploader_input {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      line-height: 45px;
+    }
+
+    .bottom-toast {
+      text-align: right;
+      color: #999999;
+    }
+  </style>
+</head>
+<body>
+<div id="app" class="container">
+  <h1>Excel转JSON</h1>
+  <div class="form" style="margin-top: 15px;">
+    <div class="form-group form-file">
+      <div class="uploader_container">
+        <input type="file" id="inputfile" class="uploader_input" @change="onChangeFile"
+               accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+               title="点击上传文件或拖曳文件至此"/>
+      </div>
+      <button type="button" @click="transfileToJson" class="btn btn-primary">转JSON</button>
+    </div>
+    <div class="form-group" style="margin-top: 15px;">
+      <textarea v-model="input" class="form-control" style="width: 100%;max-width: 100%;" readonly
+                rows="20" :placeholder="placeholder" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+    </div>
+    <div class="bottom-toast">
+      注：本页面使用了一些es6的语法特性，不考虑破旧浏览器的兼容性。<br/>
+      Excel转JSON API详见: <a href="https://github.com/SheetJS/sheetjs/#json" target="_blank">https://github.com/SheetJS/sheetjs/#json</a>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/file-saver"></script>
+<script src="https://cdn.jsdelivr.net/gh/SheetJS/sheetjs@0.16.8/dist/xlsx.full.min.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: '#app',
+    data: {
+      input: "",
+      placeholder: "选择Excel文件，将第一个sheet页转为JSON输出至此。JSON格式为二维数组。"
+    },
+    computed: {},
+    methods: {
+      onChangeFile(e) {
+        let file = e.target.files[0];
+        this.fileToJson(file);
+      },
+      transfileToJson() {
+        let file = document.getElementById("inputfile").files[0];
+        this.fileToJson(file);
+      },
+      fileToJson(file) {
+        if (file) {
+          let reader = new FileReader();
+          reader.onload = (e) => {
+            let data = e.target.result;
+            try {
+              let workbook = XLSX.read(data, {type: 'binary'});
+              // API https://github.com/SheetJS/sheetjs/#json
+              let json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {header: 1, blankrows: false});
+              this.input = JSON.stringify(json);
+              console.log(workbook);
+            } catch (e) {
+              alert(typeof e === "string" ? e : e.msg || e.message || "读取失败");
+            }
+          };
+          reader.readAsBinaryString(file);
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>

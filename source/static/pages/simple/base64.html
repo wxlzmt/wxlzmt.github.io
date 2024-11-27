@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>base64编码/解码</title>
+<script type="text/javascript" src="../../plugins/base64/base64.js" ></script>
+<script type="text/javascript">
+
+//base64解码, 以utf8方式
+function base64DecodeUtf8(){
+	var area = document.getElementById("idArea1");
+	var text = area.value;
+	if(text!=null && text!==""){
+		try{
+			var u = BASE64.decoder(text);
+			var str = convertUnicodeToString(u);
+			var result = str;
+			if(document.getElementById("idCheckBox").checked){
+				result = decodeURI(str);
+			}
+			printOutPut("idArea2",result);
+		}catch(e){
+			console.log(e);
+			alert("解码时发生错误");
+		}	
+	}else{
+		printOutPut("idArea2","");
+	}
+}
+
+//base64编码,以utf8方式
+function base64EncodeUtf8(){
+	var area = document.getElementById("idArea2");
+	var text = area.value;
+	if(text!=null && text!==""){
+		try{
+			var str = BASE64.encoder(text);
+			printOutPut("idArea3",str);
+		}catch(e){
+			console.log(e);
+			alert("编码时发生错误");
+		}	
+	}else{
+		printOutPut("idArea3","");
+	}
+}
+
+//将字符串输出到页面;
+function printOutPut(id,str){
+	var outputArea = document.getElementById(id);
+	outputArea.value = str;
+}
+
+//将unicode字符数组转换为字符串
+function convertUnicodeToString(unicode){
+	var str = '';
+	var len =  unicode.length;
+	for(var i = 0 ; i < len ; ++i){
+		  str += String.fromCharCode(unicode[i]);  
+	}
+	return str;
+}
+
+function load(){
+	//引入Base64.js  
+	//var base64 = BASE64.encoder(str);//返回编码后的字符  
+	//var unicode= BASE64.decoder(base64Str);//返回会解码后的unicode码数组。
+
+	var area1 = document.getElementById("idArea1");
+	
+	//测试数据;
+	//area1.value="aHR0cHM6Ly93eGx6bXQuZ2l0aHViLmlvL3BhZ2VzL3NpbXBsZS9iYXNlNjQuaHRtbA==";
+  
+	var selectAllFunc = function(event){
+		var d = event.target || event.srcElement;
+		if(d.value!=null && d.value!==""){
+			//全选
+			d.setSelectionRange(0,d.value.length);
+		}
+	}
+	
+	area1.addEventListener("focus",selectAllFunc);
+	
+	var idArea2 = document.getElementById("idArea2");
+	idArea2.addEventListener("focus",selectAllFunc);
+	
+	var checkbox = document.getElementById("idCheckBox");
+	checkbox.addEventListener("click",function(event,b,c){
+		base64DecodeUtf8();
+		base64EncodeUtf8();
+	});
+	
+	var idArea3 = document.getElementById("idArea3");
+	idArea3.addEventListener("focus",selectAllFunc);
+	
+	
+}
+</script>
+<style type="text/css">
+.cusBt{
+	margin:5px;
+}
+.cusArea{
+	width:100%;
+	max-width:100%;
+	min-width:100%;
+	min-height:200px;
+}
+body{
+	overflow: hidden;
+}
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: 0;
+    outline: thin dotted \9;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+}
+label, input, button, select, textarea {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+}
+label, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
+    cursor: pointer;
+}
+input, button, select, textarea {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body onload="load();" >
+	<textarea id="idArea1" class="cusArea"  spellcheck="false" autocapitalize="off" autocorrect="off" 
+	placeholder="此处输入已被base64编码之后的字符串.例如:迅雷链接的thunder://后面的部分." ></textarea>
+	
+	<button class="cusBt" onclick="base64DecodeUtf8()" >base64解码(utf8)</button>
+	<input type="checkbox" id="idCheckBox" name="urlDecode" style=" margin-left:10px; " >对输出结果进行URL解码</input>
+	
+	<textarea id="idArea2" class="cusArea"  spellcheck="false" autocapitalize="off" autocorrect="off" 
+	placeholder="此处展示对上面的文本域中的文字进行base64解码之后的结果." ></textarea>
+	
+	<button class="cusBt" onclick="base64EncodeUtf8()" >base64编码(utf8)</button>
+	<textarea id="idArea3" readonly="readonly" class="cusArea"  spellcheck="false" autocapitalize="off" autocorrect="off" 
+	placeholder="此处展示对上面的文本域中的文字进行base64编码之后的结果.上面的文本域可输入."  ></textarea>
+	
+</body>
+</html>

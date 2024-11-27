@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html id="id_html_contenteditable" contenteditable spellcheck="false" 
+	style="
+		font-size: 24px; 
+		border: none; 
+		outline: none;
+		padding:40px 40px 40px 40px;
+		user-modify: read-write-plaintext-only;
+		" 
+		autofocus    >
+		
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta description="On line browser notepad"  keywords="On line browser notepad" />
+	<title>Online notepad</title>
+	<script type="text/javascript">
+		function loadFunc(){
+			console.log("loaded");
+			//document.getElementById("id_html_contenteditable").focus();
+			document.getElementById("id_body_contenteditable").focus();
+		}
+	</script>
+</head>
+
+<body id="id_body_contenteditable" autofocus onload="loadFunc()"
+	style="
+		width: 100%;
+		overflow-y: auto;
+		word-break: break-word;
+		word-wrap: break-word;
+	"></body>
+
+</html>

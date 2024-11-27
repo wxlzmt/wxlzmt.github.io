@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PPI计算器</title>
+<link href="./PPICalculator_files/s.min.css" rel="stylesheet" type="text/css">
+<link href="./PPICalculator_files/site.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!-- Wrap all page content here -->
+<div id="wrap">
+
+<!-- Begin page content -->
+<div class="container">
+
+<div class="box01">
+<fieldset>
+<legend>在线 PPI 计算器</legend>
+
+<form role="form">
+<div class="form-group">
+<label for="Height">屏幕高度(像素)：</label>
+<input type="number" class="form-control" id="Height" placeholder="屏幕高度像素值" data-bind="value: ScreenHeight, valueUpdate: &#39;afterkeydown&#39;">
+</div>
+<div class="form-group">
+<label for="Height">屏幕宽度(像素)：</label>
+<input type="number" class="form-control" id="Height" placeholder="屏幕宽度像素值" data-bind="value: ScreenWidth, valueUpdate: &#39;afterkeydown&#39;">
+</div>
+<div class="form-group">
+<label for="Height">屏幕大小(英寸)：</label>
+<input type="number" class="form-control" id="Height" placeholder="屏幕大小" data-bind="value: ScreenSize, valueUpdate: &#39;afterkeydown&#39;">
+</div>
+<div class="form-group">
+<label for="Height">PPI：</label>
+<input type="number" class="form-control" id="Height" placeholder="屏幕高度像素值" data-bind="value: ScreenPPI" readonly="">
+</div>
+</form>
+
+</fieldset>
+</div>
+
+</div>
+</div>
+
+<script src="./PPICalculator_files/s2.min.js"></script>
+<script src="./PPICalculator_files/app.min.js"></script>
+<script>ko.applyBindings(new PPICalculator());</script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>渲染markdown</title>
+    <script src="../../plugins/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../../plugins/marked/latest/marked.min.js"></script>
+    <link href="../../plugins/highlight/9.12.0/styles/default.css" rel="stylesheet" type="text/css"/>
+    <script src="../../plugins/highlight/9.12.0/highlight.pack.js"></script>
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%;
+            min-width:100%;
+            min-height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        .i-layout-box,body{
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing:border-box;
+            overflow: auto;
+        }
+    </style>
+    <script type="text/javascript">
+        function getRequestParams() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    var arr = strs[i].split("=");
+                    theRequest[arr[0]] = decodeURI(arr[1]);
+                }
+            }
+            return theRequest;
+        }
+
+        var _g_conf_obj = {
+            trapdownBaseUrl: "../../plugins/strapdown/0.2",
+            default_theme: "bootstrap"
+        };
+        var _url_params = {};
+
+        // on ready
+        $(function () {
+            $("#import").click(function () {//点击导入按钮，使files触发点击事件，然后完成读取文件的操作。
+                $("#files").click();
+            });
+
+            _url_params = getRequestParams();
+
+            // Synchronous highlighting with highlight.js
+            marked.setOptions({
+                highlight: function (code) {
+                    return hljs.highlightAuto(code).value;
+                }
+            });
+
+            var themes = ["amelia", "bootstrap", "cerulean", "cyborg", "journal", "readable", "simplex", "slate", "spacelab", "spruce", "superhero", "united"];
+            var theme = _url_params.theme || _g_conf_obj.default_theme;
+            if (!isInArray(themes, theme)) {
+                theme = _g_conf_obj.default_theme;
+            }
+            console.log("theme=", theme);
+
+            var u = _g_conf_obj.trapdownBaseUrl + '/themes/' + theme + '.min.css'
+            $("head").append("<link rel=\"stylesheet\" href=\"" + u + "\" type=\"text/css\" />");
+
+            var u = _g_conf_obj.trapdownBaseUrl + '/strapdown.css';
+            $("head").append("<link rel=\"stylesheet\" href=\"" + u + "\" type=\"text/css\" />");
+
+            var u = _g_conf_obj.trapdownBaseUrl + '/themes/bootstrap-responsive.min.css';
+            $("head").append("<link rel=\"stylesheet\" href=\"" + u + "\" type=\"text/css\" />");
+
+            registerEvent();
+            load();
+        });
+
+        function load() {
+            console.log(_url_params);
+            if (_url_params.url != null && /^(http[s]?:\/\/)|(file:\/\/\/)(data:).*$/i.test(_url_params.url)) {
+                $("#idToastLoading").css({display: "block"});
+
+                $.ajax({
+                    dataType: 'text',
+                    url: _url_params.url,
+                    success: function (data) {
+                        //处理data数据
+                        //console.log(data);
+                        if (typeof(data) == "string" && data != "") {
+                            convertData(data);
+                        }
+                    }
+                    , error: function () {
+                        var countSec = 60;
+                        var func = function () {
+                            $("#idToastLoading>h1").html("ajax请求失败!<br>" + countSec + "秒后自动跳转至帮助页.<br>如果着急进入,请<a href='md_trans.html'>点击此处md_trans.html</a>");
+                            countSec--;
+                            if (countSec < 0) {
+                                window.location.href = "md_trans.html";
+                            } else {
+                                setTimeout(func, 1000);
+                            }
+                        };
+                        setTimeout(func, 1000);
+                    }
+                });
+            }
+        }
+
+        function registerEvent() {
+            //参考 https://blog.csdn.net/lluohuih/article/details/73743384
+            var dropbox = $("body")[0];
+            dropbox.addEventListener("dragenter", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }, false);
+
+            dropbox.addEventListener("dragover", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }, false);
+
+            dropbox.addEventListener("drop", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var files = e.dataTransfer.files;
+                //检测是否是拖拽文件到页面的操作
+                if (files.length == 1) {
+                    doImport(files[0]);
+                }
+            }, false);
+        }
+
+        function convertData(text) {
+            html = marked(text);
+            $("body>div.container").html(html);
+        }
+
+        /**
+         * 使用循环的方式判断一个元素是否存在于一个数组中
+         * @param {Object} arr 数组
+         * @param {Object} value 元素值
+         */
+        function isInArray(arr, value) {
+            for (var i = 0; i < arr.length; i++) {
+                if (value === arr[i]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function _import() {
+            var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
+            doImport(selectedFile);
+        }
+
+        function doImport(file) {
+            var name = file.name;//读取选中文件的文件名
+            var size = file.size;//读取选中文件的大小
+            console.log("文件名:" + name + "大小：" + size);
+            var reader = new FileReader();//这里是核心！！！读取操作就是由它完成的。
+            reader.readAsText(file);//读取文件的内容
+            reader.onload = function () {
+                //console.log(this.result);//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
+                if (this.result != null && this.result !== "") {
+                    convertData(this.result);
+                }
+            };
+        }
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <div id="idToastLoading" style="display:none;width:100%;height:100%;position:absolute;top:0px;left:0px;
+	 z-index:999999; background-color: white; text-align:center; ">
+        <h2>正在载入数据,请稍后...</h2>
+    </div>
+
+    <div>
+        <h3>渲染本地文件使用方法</h3>
+        <ul>
+            <li><input type="file" id="files" style="display:none" onchange="_import();"/>
+                <input type="button" id="import" class="button" value="点击此处打开本地markdown文件"/></li>
+            <li><strong>或者将markdown文件拖入到本网页上的任何位置,将自动打开渲染</strong></li>
+        </ul>
+    </div>
+    <hr/>
+
+    <h3>渲染网络文件使用方法</h3>
+    <strong>根据传入的url指定的markdown文件地址,浏览器客户端尝试载入该markdown文件,并渲染展示到页面上</strong>
+    <table class="table">
+        <tr>
+            <th width="60px">参数</th>
+            <th width="120px">类型</th>
+            <th width="50px">必填</th>
+            <th>说明</th>
+        </tr>
+        <tr>
+            <td>url</td>
+            <td>URL地址字符串</td>
+            <td>是</td>
+            <td>取值:markdown文件地址,参数值以http/https开头</td>
+        </tr>
+        <tr>
+            <td>theme</td>
+            <td>字符串</td>
+            <td>否</td>
+            <td>默认值:bootstrap,
+                取值范围:["amelia","bootstrap","cerulean","cyborg","journal","readable","simplex","slate","spacelab","spruce","superhero","united"]
+            </td>
+        </tr>
+    </table>
+
+    <h4>示例</h4>
+    <br/>
+    <a target="_blank" href="https://wxlzmt.github.io/static/pages/simple/md_trans.html?url=https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/README.md">https://wxlzmt.github.io/static/pages/simple/md_trans.html?url=https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/README.md</a>
+    <br/><br/>
+    <a target="_blank" href="https://wxlzmt.github.io/static/pages/simple/md_trans.html?url=https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/README.md&theme=united">https://wxlzmt.github.io/static/pages/simple/md_trans.html?url=https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/README.md&theme=united</a>
+    <br/><br/>
+    <a target="_blank" href="https://wxlzmt.github.io/static/pages/simple/md_trans.html?url=https://wxlzmt.github.io/static/resource/script/quick-start-httpd.md">https://wxlzmt.github.io/static/pages/simple/md_trans.html?url=https://wxlzmt.github.io/static/resource/script/quick-start-httpd.md</a>
+    <br/><br/>
+
+    <hr/>
+
+    <h4>附</h4>
+<pre>
+解析markdown的引擎来自:
+https://github.com/chjj/marked
+
+部分样式来自
+https://github.com/arturadib/strapdown
+
+代码高亮来自
+https://github.com/hongyangAndroid/Highlight
+</pre>
+
+</div>
+</body>
+</html>

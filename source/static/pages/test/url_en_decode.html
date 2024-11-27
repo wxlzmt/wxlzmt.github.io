@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>url编码/解码</title>
+<style type="text/css">
+.cusBt{
+	margin:5px;
+}
+.cusArea{
+	width:100%;
+	max-width:100%;
+	min-width:100%;
+	min-height:200px;
+}
+body{
+	overflow: hidden;
+}
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: 0;
+    outline: thin dotted \9;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+}
+label, input, button, select, textarea {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+}
+label, select, button, input[type="button"], input[type="reset"], input[type="submit"], input[type="radio"], input[type="checkbox"] {
+    cursor: pointer;
+}
+input, button, select, textarea {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+<script type="text/javascript">
+
+function load(){
+	//引入Base64.js  
+	//var base64 = BASE64.encoder(str);//返回编码后的字符  
+	//var unicode= BASE64.decoder(base64Str);//返回会解码后的unicode码数组。
+
+	var area1 = document.getElementById("idArea1");
+	
+	//测试数据;
+	area1.value="ftp://dygod1:dygod1@d317.dygod.org:8010/陆小凤传奇之血衣之谜/[电影天堂-www.dy2018.net]陆小凤传奇之血衣之谜HD国语中字.mkv";
+	
+	var selectAllFunc = function(event){
+		var d = event.target || event.srcElement;
+		if(d.value!=null && d.value!==""){
+			//全选
+			d.setSelectionRange(0,d.value.length);
+		}
+	}
+	
+	area1.addEventListener("focus",selectAllFunc);
+	
+	var idArea2 = document.getElementById("idArea2");
+	idArea2.addEventListener("focus",selectAllFunc);
+	
+	
+}
+
+function getContent(areaId){
+	var area = document.getElementById(areaId);
+	if(area){
+		return area.value;
+	}
+}
+
+function setContent(areaId,val){
+	var area = document.getElementById(areaId);
+	if(area){
+		area.value = (val==null?"":val);
+	}
+}
+
+function copyToUp(){
+	var val = getContent("idArea2");
+	setContent("idArea1",val);
+	setContent("idArea2","");
+}
+
+function decodeFunc(){
+	var val = getContent("idArea1");
+	var result = decodeURI(val);
+	setContent("idArea2",result);
+}
+
+function encodeFunc(){
+	var val = getContent("idArea1");
+	var result = encodeURI(val);
+	setContent("idArea2",result);
+}
+
+function decodeURIComponentFunc(){
+	var val = getContent("idArea1");
+	var result = decodeURIComponent(val);
+	setContent("idArea2",result);
+}
+
+function encodeURIComponentFunc(){
+	var val = getContent("idArea1");
+	var result = encodeURIComponent(val);
+	setContent("idArea2",result);
+}
+
+</script>
+</head>
+<body onload="load();" >
+	<textarea id="idArea1" class="cusArea"  spellcheck="false" autocapitalize="off" autocorrect="off" 
+	placeholder="可输入..." ></textarea>
+	
+	<button class="cusBt" onclick="decodeFunc()" >decodeURI</button>
+	<button class="cusBt" onclick="encodeFunc()" >encodeURI</button>
+	<button class="cusBt" onclick="copyToUp()" >↑↑↑↑↑</button>
+	<button class="cusBt" onclick="decodeURIComponentFunc()" >decodeURIComponent</button>
+	<button class="cusBt" onclick="encodeURIComponentFunc()" >encodeURIComponent</button>
+	
+	<textarea id="idArea2" class="cusArea" readonly="readonly"  spellcheck="false" autocapitalize="off" autocorrect="off" 
+	placeholder="用于输出的只读域..." ></textarea>
+	
+	<p style=" font-size:13px; color:#898989 " >
+		提示:<br/>
+		&nbsp;&nbsp;【decodeURI】将上面的文本框的文字进行URL<strong>解</strong>码,结果输出到下面的文本框内.<br/>
+		&nbsp;&nbsp;【encodeURI】将上面的文本框的文字进行URL<strong>编</strong>码,结果输出到下面的文本框内.<br/>
+		
+		&nbsp;&nbsp;【↑↑↑↑↑】将下面的文本框的内容复制到上面的文本框内.<br/>
+		
+		&nbsp;&nbsp;【decodeURIComponent】将上面的文本框的文字进行URL<strong>解</strong>码,结果输出到下面的文本框内.<br/>
+		&nbsp;&nbsp;【encodeURIComponent】将上面的文本框的文字进行URL<strong>编</strong>码,结果输出到下面的文本框内.<br/>
+	</p>
+</body>
+</html>

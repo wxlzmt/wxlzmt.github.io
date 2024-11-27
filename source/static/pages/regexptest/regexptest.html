@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>正则表达式在线测试</title>
+
+<link rel="stylesheet" type="text/css" href="./regexptest_files/all-base.css">
+<link rel="stylesheet" type="text/css" href="./regexptest_files/publicstyle.css">
+<script type="text/javascript" src="../../plugins/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./regexptest_files/jq-public.js"></script>
+
+<link rel="stylesheet" href="./regexptest_files/toolstyle.css" type="text/css">
+<script src="./regexptest_files/jq-tools.js" type="text/javascript"></script>
+
+</head>
+
+<body class=" pularge">
+
+ <style type="text/css">
+.smartField {position:relative; overflow:auto; border:1px solid #ABADB3;}
+#input {height:375px; width:99.75%; margin-top:10px;}
+.smartField pre, .smartField textarea {
+	white-space:
+	-moz-pre-wrap;/* Mozilla, since 1999 */
+	white-space:
+	-pre-wrap;/* Opera 4-6 */
+	white-space:
+	-o-pre-wrap;/* Opera 7 */
+	white-space: pre-wrap;/* css-3 */
+	word-wrap: break-word;/* Internet Explorer 5.5+ */
+}
+.smartField pre,.smartField textarea{font:100% "courier new",monospace; width:100%; background:#fff;}
+.smartField pre {padding: 0;background: #fff;border: none;border-radius: 0;}
+td,th{border:1px solid #C0C0C0;border-collapse:collapse;padding:5px;}
+table{border-collapse:collapse;border:1px solid #C0C0C0;}
+.smartField{border:1px solid #CCCCCC;overflow:auto;position:relative;}
+.smartField pre,.smartField textarea{width:100%;padding:0;margin:0;font:100% "courier new",monospace;}
+.smartField pre{text-align:left;color:#F9F9F9;z-index:1;}
+.smartField textarea{background:none repeat scroll 0 0 transparent;border:0 none;height:100%;overflow:hidden;position:absolute;left:0px;top:0px;z-index:2;}
+b,i,u{font-style:normal;font-weight:normal;text-decoration:none;}#input b{background:none repeat scroll 0 0 #FFF000;color:#FFF000;}
+#input i{background:none repeat scroll 0 0 #80C0FF;color:#80C0FF;}#search b{background:none repeat scroll 0 0 #AAD1F7;color:#AAD1F7;}
+#search i{background:none repeat scroll 0 0 #F9CA69;color:#F9CA69;}#search i b{background:none repeat scroll 0 0 #F7A700;color:#F7A700;}
+#search i u{background:none repeat scroll 0 0 #EFBA4A;color:#EFBA4A;}#search b.g1{background:none repeat scroll 0 0 #D2F854;color:#D2F854;}
+#search b.g2{background:none repeat scroll 0 0 #9EC70C;color:#9EC70C;}#search b.g3{background:none repeat scroll 0 0 #ECC9F7;color:#ECC9F7;}
+#search b.g4{background:none repeat scroll 0 0 #54B70B;color:#54B70B;}#search b.g5{background:none repeat scroll 0 0 #B688CF;color:#B688CF;}
+#search b.err{background:none repeat scroll 0 0 #FF4300 !important;color:#FF4300 !important;}
+
+.ResultContWrap{ width:1150px;}
+</style>
+<!--ToolMain02-begin-->
+<div class="wrapper pt20 pb20">
+ 	<div class="RegularWrap DelHeadFilter">
+   		<!--RegbuttonBarWrap-begin-->
+    	<div class="RegbuttonBarWrap bg-list">
+        	<p class="col-blue02 fz14">常用正则表达式</p>
+        	<p class="RegBtnBar clearfix" id="regCommon">
+            	<a href="javascript:" t="chines">中文字符</a><a href="javascript:" t="doubleByte">双字节字符</a><a href="javascript:" t="nullLine">空白行</a><a href="javascript:" t="email">Email地址</a><a href="javascript:" t="url">网址URL</a><a href="javascript:" t="phone">手机（国内）</a><a href="javascript:" t="tel">电话号码（国内）</a><a href="javascript:" t="nFloat">负浮点数</a>
+                <a href="javascript:" t="interger">匹配整数</a><a href="javascript:" t="pFloat">正浮点数</a><a href="javascript:" t="qq">腾讯QQ号</a>
+                <a href="javascript:" t="postal">邮政编码</a><a href="javascript:" t="ip4">IP</a><a href="javascript:" t="cardId">身份证号</a><a href="javascript:" t="date">格式日期</a><a href="javascript:" t="pInterger">正整数</a><a href="javascript:" t="nInterger">负整数</a><a href="javascript:" t="userName">用户名</a>
+            </p>
+        </div>
+   		<!--RegbuttonBarWrap-end-->
+
+
+        <div class="filter-contlist pr clearfix casual pt15">
+            <div class="RegularSearWrite-wrap fl clearfix">
+                <span class="pr fl w600 smartField h64" id="search">
+                <pre id="searchBg" class=""></pre><textarea spellcheck="false" id="searchText" class="RegularSearWrite-cont WrapHid w600 fz12" style="margin-left: 0px;"></textarea>
+
+             </div>
+            <div class="RegularSearWrite-wrap fr clearfix ml15" style="margin-top:25px;">
+                <span class="RegularSearWrite-left pr fl w412"><input type="text" class="RegularSearWrite-cont WrapHid w350 fz12" id="reptext"  spellcheck="false" autocapitalize="off" autocorrect="off" ><a href="javascript:" title="清空" class="quickdelete _CentHid"></a><b class="search-hint CentHid fz12">输入要替换的文本</b></span>
+                <span class="RegularSearWrite-right fl"><input class="RegularSearWrite-btn fz12" type="button" id="repbtn" value="替换匹配文本"></span>
+             </div>
+        </div>
+     </div>
+    <!--ResultContWrap-begin-->
+    <div class="ResultContWrap bg-list auto">
+        <div class="ResultContHead clearfix pb10">
+            <div class="filter-contlist pr clearfix casual fl pt5">
+                <ol class="item js-FilterItem h24 _chkboxhide" id="_chkboxhide">
+                    <li class="pr PLcx"><p><label hidefocus="on">不区分大小写</label></p></li>
+                    <li class="pr PLcx"><p><label hidefocus="on">对^$前后换行也支持</label></p></li>
+                    <li class="pr PLcx"><p><label hidefocus="on">符号.匹配所有</label></p></li>
+                    <li class="autohide"></li>
+                    <li class="pr PLcx selected"><p><label hidefocus="on">对正则着色</label></p></li>
+                    <li class="pr PLcx selected"><p><label hidefocus="on">对匹配结果着色</label></p></li>
+                    <li class="pr PLcx"><p><label hidefocus="on">对无匹配结果着色</label></p></li>
+                </ol>
+            <div id="chkboxhide" class="autohide"><input type="checkbox" id="toolI"><input type="checkbox" id="toolM"><input type="checkbox" id="toolS"><input type="checkbox" checked="checked" id="toolG"><input type="checkbox" checked="checked" id="highSyntax"><input type="checkbox" checked="checked" id="highMatch"><input type="checkbox" id="invertMatch"></div>
+            </div>
+
+        </div>
+        <div class="auto smartField" id="input" style="height: 200px; background: rgb(255, 255, 255);">
+                  <!--GuoLvWrap-begin-->
+			<pre id="inputBg" class=""></pre>
+            <textarea  spellcheck="false" autocapitalize="off" autocorrect="off"  id="inputText" class="ResultContMainTxt h200" style="margin-left: 0px;"></textarea>
+               <!--GuoLvWrap-end-->
+        </div>
+        <div id="result" style=" display:none;">
+        <p class="ptb10">匹配结果：</p>
+			<textarea  spellcheck="false" autocapitalize="off" autocorrect="off"  class="ResultContMainTxt h200" style="width:99.75%"></textarea>
+        </div>
+
+</div>
+</div>
+<!--ToolMain02-end-->
+<script type="text/javascript" src="./regexptest_files/regbase.js"></script>
+<script type="text/javascript" src="./regexptest_files/reg.js"></script>
+<script>    tools.regex.init();</script>
+<!--footer-public-begin-->
+ <div class="wrapper mt10">
+<div id="centerTxt"></div>
+<div class="ToolsWrap" id="centerImg"></div>
+         <div class="ToolAbout wrapper03">
+    <div class="clearfix"><h4 class="HeadH4 YaHei fz16 col-blue02 fwnone fl">工具简介</h4>
+        <div class="fr fz14" id="toolsIntro">
+
+        </div>
+     </div>
+    <div class="col-gray01 ToolAbCont"><div class="lh30 plr20"><b class="fb col-gray03">到底什么是正则表达式？</b></div><div class="lh30 plr20">在编写处理字符串的程序或网页时，经常有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。</div><div class="clearfix ptb10"><div class="fl pl20 pr20"><div class="lh30"><b class="fb col-gray03">常用元字符</b></div><table cellspacing="0"><thead><tr><th scope="col">代码</th><th scope="col">说明</th></tr></thead><tbody><tr><td><span class="code">.</span></td><td><span class="desc">匹配除换行符以外的任意字符</span></td></tr><tr><td><span class="code">\w</span></td><td><span class="desc">匹配字母或数字或下划线</span></td></tr><tr><td><span class="code">\s</span></td><td><span class="desc">匹配任意的空白符</span></td></tr><tr><td><span class="code">\d</span></td><td><span class="desc">匹配数字</span></td></tr><tr><td><span class="code">\b</span></td><td><span class="desc">匹配单词的开始或结束</span></td></tr><tr><td><span class="code">^</span></td><td><span class="desc">匹配字符串的开始</span></td></tr><tr><td><span class="code">$</span></td><td><span class="desc">匹配字符串的结束</span></td></tr></tbody></table></div><div class="fl pl20 pr20"><div class="lh30"><b class="fb col-gray03">常用限定符</b></div><table cellspacing="0"><thead><tr><th scope="col">代码/语法</th><th scope="col">说明</th></tr></thead><tbody><tr><td><span class="code">*</span></td><td><span class="desc">重复零次或更多次</span></td></tr><tr><td><span class="code">+</span></td><td><span class="desc">重复一次或更多次</span></td></tr><tr><td><span class="code">?</span></td><td><span class="desc">重复零次或一次</span></td></tr><tr><td><span class="code">{n}</span></td><td><span class="desc">重复n次</span></td></tr><tr><td><span class="code">{n,}</span></td><td><span class="desc">重复n次或更多次</span></td></tr><tr><td><span class="code">{n,m}</span></td><td><span class="desc">重复n到m次</span></td></tr></tbody></table></div><div class="fl pl20"><div class="lh30"><b class="fb col-gray03">常用反义词</b></div><table cellspacing="0"><thead><tr><th scope="col">代码/语法</th><th scope="col">说明</th></tr></thead><tbody><tr><td><span class="code">\W</span></td><td><span class="desc">匹配任意不是字母，数字，下划线，汉字的字符</span></td></tr><tr><td><span class="code">\S</span></td><td><span class="desc">匹配任意不是空白符的字符</span></td></tr><tr><td><span class="code">\D</span></td><td><span class="desc">匹配任意非数字的字符</span></td></tr><tr><td><span class="code">\B</span></td><td><span class="desc">匹配不是单词开头或结束的位置</span></td></tr><tr><td><span class="code">[^x]</span></td><td><span class="desc">匹配除了x以外的任意字符</span></td></tr><tr><td><span class="code">[^aeiou]</span></td><td><span class="desc">匹配除了aeiou这几个字母以外的任意字符</span></td></tr></tbody></table></div></div></div>
+    </div>
+        </div>
+</body>
+</html>

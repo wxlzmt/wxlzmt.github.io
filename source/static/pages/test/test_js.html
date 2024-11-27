@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="../../plugins/d3/3.5.17/d3.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../../plugins/jquery/2.2.4/jquery.min.js"></script>
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+	<!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+<!--[if lt IE 9]>
+<script src="../../plugins/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script>
+<script src="../../plugins/respond/1.4.2/respond.min.js" type="text/javascript"></script>
+<![endif]-->
+
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="../../plugins/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../../plugins/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
+<script src="../../plugins/angular.js/1.6.8/angular.min.js"></script>
+
+
+<script src="../../plugins/echarts/3.8.5/echarts.min.js"></script>
+
+<script src="https://api.cdnjs.com/libraries" type="text/javascript" ></script>
+
+<script type="text/javascript">
+
+	var foramtTime = function(d,s1,s2){
+		if(s1==null){
+			s1 = "-";
+		}
+		if(s2==null){
+			s2 = ":";
+		}
+		var yyyy = d.getFullYear();
+		var mo = d.getMonth()<9?("0"+eval(d.getMonth()+1)):d.getMonth();
+		var dd = d.getDate()<10?("0"+d.getDate()):d.getDate();
+		var hh = d.getHours()<10?("0"+d.getHours()):d.getHours();
+		var mi = d.getMinutes()<10?("0"+d.getMinutes()):d.getMinutes();
+		var ss = d.getSeconds()<10?("0"+d.getSeconds()):d.getSeconds();
+		return yyyy+s1+mo+s1+dd+" "+hh+s2+mi+s2+ss;
+	}
+
+	var patt = new RegExp("console\\.log","g");
+	function clickBt2(){
+		function str_console_log_print(str){
+				console.log(str);//控制台输出
+				var original = $("#idDivPrint").html();
+				var newHtml = original+"<br/>"+str;
+				$("#idDivPrint").html(newHtml);//页面输出(append方式)
+			}
+			var val = $("#idTextAreaInput1").val();
+			if(val!=null && ""!=val){
+				val = (new String(val)).replace(patt,"str_console_log_print");
+				//console.log(val);
+				eval(val);//运算
+			}
+		}
+		function createHTMLNode(){
+			$("#idDivCanvasInputHtmlTag").html("");
+			$("#idDivCanvasInputHtmlTag").html($("#idTextAreaInput2").val());
+		}
+		function clearBt(){
+			$("#idDivPrint").html("");
+		}
+	</script>
+	<title>html js 测试工具</title>
+<style type="text/css">
+	.row-cell{
+		display: table-row;
+	}
+	.row-cell>div{
+		display: table-cell;
+		align-items: left;
+	}
+</style>
+</head>
+<body>
+	<div style="display:table;width:100%;height:100%;">
+		<div style="display: table-row;width:100%;">
+			<!--菜单导航区域-->
+			<div class="row-cell">
+
+			</div>
+		</div>
+		<div style="display:table-row;width:100%;">
+			<table style="width:1000px;padding-left:10px;padding-top:15px;">
+				<!-- 输入html标签 -->
+				<tr><td colspan="2" align="left" >输入HTML标签↓</td></tr>
+				<tr>
+					<td width="940">
+						<textarea id="idTextAreaInput2" cols="100" rows="10" style="width: 100%; height: 150px;" spellcheck="false" autocapitalize="off" autocorrect="off" ></textarea>
+					</td>
+					<td>
+						<button onclick="createHTMLNode();">生成HTML</button>
+					</td>
+				</tr>
+				<!-- html执行效果 -->
+				<tr><td colspan="2" align="left" >HTML标签执行效果↓</td></tr>
+				<tr>
+					<td colspan="2" style="padding:10px;border:1px solid transparent;">
+						<div id="idDivCanvasInputHtmlTag" style="width: 995px; height: auto;">
+							<!--放一些代码-->
+						</div>
+					</td>
+				</tr>
+				<tr><td colspan="2" align="left" >输入js脚本↓</td></tr>
+				<tr>
+					<td>
+						<textarea id="idTextAreaInput1" cols="100" rows="10" style="width: 995px; height: 150px;" spellcheck="false" autocapitalize="off" autocorrect="off" ></textarea>
+					</td>
+					<td align="right">
+						<button onclick="clickBt2();">执行js脚本</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<button onclick="clearBt();">清空控制台↓</button>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2">
+						<div id="idDivPrint" style="overflow-y:scroll;width:1000px;height:400px;background-color:#99FFFF;"></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>api links</title>
+<script type="text/javascript">
+function load(){
+	//数据
+	var source = [
+	{//rows[0]
+		title:"",
+		pieces:[
+			//区块0
+			{
+				title:"javaSE",
+				color:"black",
+				url:"http://www.oracle.com/technetwork/java/javase/downloads/index.html",
+				urls:[
+					{
+						name:"jdk-8",
+						href:"https://docs.oracle.com/javase/8/docs/api/",
+						title:"https://docs.oracle.com/javase/8/docs/api/"
+					},
+					{
+						name:"jdk-7",
+						href:"https://docs.oracle.com/javase/7/docs/api/",
+						title:"https://docs.oracle.com/javase/7/docs/api/"
+					},
+					{
+						name:"jdk-6",
+						href:"https://docs.oracle.com/javase/6/docs/api/",
+						title:"https://docs.oracle.com/javase/6/docs/api/"
+					},
+					{
+						name:"oschina-jdk-6-中文",
+						href:"http://tool.oschina.net/uploads/apidocs/jdk-zh/index.html",
+						title:"http://tool.oschina.net/uploads/apidocs/jdk-zh/index.html"
+					},
+					{
+						name:"jdk-6-中文",
+						href:"http://download.oracle.com/technetwork/java/javase/6/docs/zh/api/overview-summary.html",
+						title:"http://download.oracle.com/technetwork/java/javase/6/docs/zh/api/overview-summary.html"
+					},
+					{
+						name:"jdk-5",
+						href:"https://docs.oracle.com/javase/1.5.0/docs/api/",
+						title:"https://docs.oracle.com/javase/1.5.0/docs/api/"
+					}
+				]
+			}
+			,{
+				title:"javaEE",
+				color:"black",
+				url:"http://www.oracle.com/technetwork/java/javaee/downloads/index.html",
+				urls:[
+					{
+						name:"java-EE-7",
+						href:"https://docs.oracle.com/javaee/7/api/",
+						title:"https://docs.oracle.com/javaee/7/api/"
+					},
+					{
+						name:"java-EE-6",
+						href:"https://docs.oracle.com/javaee/6/api/",
+						title:"https://docs.oracle.com/javaee/6/api/"
+					},
+					{
+						name:"java-EE-5",
+						href:"https://docs.oracle.com/javaee/5/api/",
+						title:"https://docs.oracle.com/javaee/5/api/"
+					},
+					{
+						name:"java-EE-1.4",
+						href:"https://docs.oracle.com/javaee/1.4/api/",
+						title:"https://docs.oracle.com/javaee/1.4/api/"
+					},
+					{
+						name:"java-EE-1.3",
+						href:"https://docs.oracle.com/javaee/1.3/api/",
+						title:"https://docs.oracle.com/javaee/1.3/api/"
+					},
+					{
+						name:"java-EE-1.2.1",
+						href:"https://docs.oracle.com/javaee/1.2.1/api/",
+						title:"https://docs.oracle.com/javaee/1.2.1/api/"
+					}
+				]
+			}
+			,{
+				title:"HTML",
+				color:"black",
+				url:"https://developer.mozilla.org/zh-CN/docs/Web/HTML",
+				urls:[
+					{
+						name:"mozilla",
+						href:"https://developer.mozilla.org/zh-CN/docs/Web/HTML",
+						title:"https://developer.mozilla.org/zh-CN/docs/Web/HTML"
+					},
+					{
+						name:"runoob-html5",
+						href:"http://www.runoob.com/html/html5-intro.html",
+						title:"http://www.runoob.com/html/html5-intro.html"
+					},
+					{
+						name:"w3school-html5",
+						href:"http://www.w3school.com.cn/html5/index.asp",
+						title:"http://www.w3school.com.cn/html5/index.asp"
+					},
+					{
+						name:"runoob-html",
+						href:"http://www.runoob.com/html/html-tutorial.html",
+						title:"http://www.runoob.com/html/html-tutorial.html"
+					},
+					{
+						name:"w3school-html",
+						href:"http://www.w3school.com.cn/html/index.asp",
+						title:"http://www.w3school.com.cn/html/index.asp"
+					}
+				]
+			}
+			,{
+				title:"XML-DOM",
+				color:"black",
+				url:"https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model",
+				urls:[
+					{
+						name:"mozilla",
+						href:"https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model",
+						title:"https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model"
+					},
+					{
+						name:"runoob",
+						href:"http://www.runoob.com/dom/dom-tutorial.html",
+						title:"http://www.runoob.com/dom/dom-tutorial.html"
+					},
+					{
+						name:"w3school",
+						href:"http://www.w3school.com.cn/xmldom/index.asp",
+						title:"http://www.w3school.com.cn/xmldom/index.asp"
+					},
+					{
+						name:"DOM对象方法手册",
+						href:"http://www.php100.com/manual/xmldom/index.html",
+						title:"http://www.php100.com/manual/xmldom/index.html"
+					}
+				]
+			}
+			,{
+				title:"javaScript",
+				color:"black",
+				url:"https://developer.mozilla.org/zh-CN/docs/Web/JavaScript",
+				urls:[
+					{
+						name:"mozilla",
+						href:"https://developer.mozilla.org/zh-CN/docs/Web/JavaScript",
+						title:"https://developer.mozilla.org/zh-CN/docs/Web/JavaScript"
+					},
+					{
+						name:"runoob",
+						href:"http://www.runoob.com/js/js-tutorial.html",
+						title:"http://www.runoob.com/js/js-tutorial.html"
+					},
+					{
+						name:"w3school",
+						href:"http://www.w3school.com.cn/js/",
+						title:"http://www.w3school.com.cn/js/"
+					},
+					{
+						name:"js手册",
+						href:"http://shouce.jb51.net/jscript/index.html",
+						title:"http://shouce.jb51.net/jscript/index.html"
+					},
+					{
+						name:"ECMAScript 6 入门",
+						href:"http://es6.ruanyifeng.com",
+						title:"http://es6.ruanyifeng.com"
+					}
+				]
+			}
+			,{
+				title:"jQuery",
+				color:"black",
+				url:"http://jquery.com/",
+				urls:[
+					{
+						name:"api.jquery.com",
+						href:"https://api.jquery.com/",
+						title:"https://api.jquery.com/"
+					},
+					{
+						name:"runoob",
+						href:"http://www.runoob.com/jquery/jquery-tutorial.html",
+						title:"http://www.runoob.com/jquery/jquery-tutorial.html"
+					},
+					{
+						name:"w3school",
+						href:"http://www.w3school.com.cn/jquery/jquery_reference.asp",
+						title:"http://www.w3school.com.cn/jquery/jquery_reference.asp"
+					},
+					{
+						name:"jQuery-1.12.1",
+						href:"http://shouce.jb51.net/jquery/index.html",
+						title:"http://shouce.jb51.net/jquery/index.html"
+					},
+					{
+						name:"jQuery-1.10.3",
+						href:"http://www.runoob.com/manual/jquery/",
+						title:"http://www.runoob.com/manual/jquery/"
+					},
+					{
+						name:"jqapi.com",
+						href:"http://jqapi.com/",
+						title:"http://jqapi.com/"
+					},
+					{
+						name:"github",
+						href:"https://github.com/jquery/jquery",
+						title:"https://github.com/jquery/jquery"
+					}
+				]
+			}
+			,{
+				title:"CSS",
+				color:"black",
+				url:"https://developer.mozilla.org/zh-CN/docs/Web/CSS",
+				urls:[
+					{
+						name:"mozilla",
+						href:"https://developer.mozilla.org/zh-CN/docs/Web/CSS/Reference",
+						title:"https://developer.mozilla.org/zh-CN/docs/Web/CSS/Reference"
+					},
+					{
+						name:"oschina-css3",
+						href:"http://tool.oschina.net/uploads/apidocs/css3/",
+						title:"http://tool.oschina.net/uploads/apidocs/css3/"
+					},
+					{
+						name:"oschina-css2",
+						href:"http://tool.oschina.net/uploads/apidocs/css2/",
+						title:"http://tool.oschina.net/uploads/apidocs/css2/"
+					},
+					{
+						name:"runoob-css3",
+						href:"http://www.runoob.com/css3/css3-tutorial.html",
+						title:"http://www.runoob.com/css3/css3-tutorial.html"
+					},
+					{
+						name:"w3school-css3",
+						href:"http://www.w3school.com.cn/css3/index.asp",
+						title:"http://www.w3school.com.cn/css3/index.asp"
+					},
+					{
+						name:"runoob-css",
+						href:"http://www.runoob.com/css/css-tutorial.html",
+						title:"http://www.runoob.com/css/css-tutorial.html"
+					},
+					{
+						name:"w3school-css",
+						href:"http://www.w3school.com.cn/css/index.asp",
+						title:"http://www.w3school.com.cn/css/index.asp"
+					},
+					{
+						name:"jb51-css2.0",
+						href:"http://shouce.jb51.net/css/index.html",
+						title:"http://shouce.jb51.net/css/index.html"
+					},
+					{
+						name:"doyoe-css",
+						href:"http://css.doyoe.com/index.htm",
+						title:"http://css.doyoe.com/index.htm"
+					}
+				]
+			}
+			,{
+				title:"Spring",
+				color:"black",
+				url:"https://spring.io/",
+				urls:[
+					{
+						name:"Spring-current-api",
+						href:"http://docs.spring.io/spring/docs/current/javadoc-api/",
+						title:"http://docs.spring.io/spring/docs/current/javadoc-api/"
+					},
+					{
+						name:"Spring-3.1.1",
+						href:"http://tool.oschina.net/uploads/apidocs/Spring-3.1.1/index.html",
+						title:"http://tool.oschina.net/uploads/apidocs/Spring-3.1.1/index.html"
+					},
+					{
+						name:"Spring-Security-3.1.2",
+						href:"http://tool.oschina.net/uploads/apidocs/spring-security-3.1.2/apidocs/",
+						title:"http://tool.oschina.net/uploads/apidocs/spring-security-3.1.2/apidocs/"
+					},
+					{
+						name:"Spring-Framework",
+						href:"http://shouce.jb51.net/spring/",
+						title:"http://shouce.jb51.net/spring/"
+					}
+				]
+			}
+			,{
+				title:"hibernate",
+				color:"black",
+				url:"http://hibernate.org/",
+				urls:[
+					{
+						name:"hibernate-5.2.10",
+						href:"http://docs.jboss.org/hibernate/orm/5.2/javadocs/",
+						title:"http://docs.jboss.org/hibernate/orm/5.2/javadocs/"
+					},
+					{
+						name:"hibernate-5.1.6",
+						href:"http://docs.jboss.org/hibernate/orm/5.1/javadocs/",
+						title:"http://docs.jboss.org/hibernate/orm/5.1/javadocs/"
+					},
+					{
+						name:"hibernate-5.0.12",
+						href:"http://docs.jboss.org/hibernate/orm/5.0/javadocs/",
+						title:"http://docs.jboss.org/hibernate/orm/5.0/javadocs/"
+					},
+					{
+						name:"hibernate-4.3.11",
+						href:"http://docs.jboss.org/hibernate/orm/4.3/javadocs/",
+						title:"http://docs.jboss.org/hibernate/orm/4.3/javadocs/"
+					},
+					{
+						name:"hibernate-4.2.21",
+						href:"http://docs.jboss.org/hibernate/orm/4.2/javadocs/",
+						title:"http://docs.jboss.org/hibernate/orm/4.2/javadocs/"
+					},
+					{
+						name:"hibernate-4.1.4",
+						href:"http://tool.oschina.net/uploads/apidocs/hibernate-4.1.4/index.html",
+						title:"http://tool.oschina.net/uploads/apidocs/hibernate-4.1.4/index.html"
+					},
+					{
+						name:"hibernate-3.6.10",
+						href:"http://tool.oschina.net/uploads/apidocs/hibernate-3.6.10/index.html",
+						title:"http://tool.oschina.net/uploads/apidocs/hibernate-3.6.10/index.html"
+					}
+				]
+			}
+			,{
+				title:"freemarker.org",
+				color:"black",
+				url:"http://freemarker.org/docs/",
+				urls:[
+					{
+						name:"freemarker",
+						href:"http://freemarker.org/docs/api/index.html",
+						title:"http://freemarker.org/docs/api/index.html"
+					}
+				]
+			}
+			,{
+				title:"Shiro",
+				color:"black",
+				url:"http://shiro.apache.org/documentation.html",
+				urls:[
+					{
+						name:"shiro-1.3.2",
+						href:"http://shiro.apache.org/static/1.3.2/apidocs/",
+						title:"http://shiro.apache.org/static/1.3.2/apidocs/"
+					},
+					{
+						name:"source-1.3.2",
+						href:"http://shiro.apache.org/static/1.3.2/xref/",
+						title:"http://shiro.apache.org/static/1.3.2/xref/"
+					},
+					{
+						name:"shiro-core-1.2.0",
+						href:"http://tool.oschina.net/uploads/apidocs/shiro-core-1.2.0/index.html",
+						title:"http://tool.oschina.net/uploads/apidocs/shiro-core-1.2.0/index.html"
+					}
+				]
+			}
+			,{
+				title:"Lucene",
+				color:"black",
+				url:"https://lucene.apache.org/core/",
+				urls:[
+					{
+						name:"lucene-6.5.1-core",
+						href:"https://lucene.apache.org/core/6_5_1/core/index.html",
+						title:"https://lucene.apache.org/core/6_5_1/core/index.html"
+					},
+					{
+						name:"oschina-4.0.0-core",
+						href:"http://tool.oschina.net/uploads/apidocs/lucene-4.0.0/core/",
+						title:"http://tool.oschina.net/uploads/apidocs/lucene-4.0.0/core/"
+					},
+					{
+						name:"oschina-3.6.0",
+						href:"http://tool.oschina.net/uploads/apidocs/lucene-3.6.0/",
+						title:"http://tool.oschina.net/uploads/apidocs/lucene-3.6.0/"
+					}
+				]
+			}
+			,{
+				title:"jackson",
+				color:"black",
+				url:"http://jackson.codehaus.org/",
+				urls:[
+					{
+						name:"jackson-1.9.9",
+						href:"http://tool.oschina.net/uploads/apidocs/jackson-1.9.9/",
+						title:"http://tool.oschina.net/uploads/apidocs/jackson-1.9.9/"
+					}
+				]
+			}
+			,{
+				title:"bootstrap",
+				color:"black",
+				url:"https://github.com/twbs/bootstrap",
+				urls:[
+					{
+						name:"bootstrap-v3.3.7",
+						href:"https://getbootstrap.com/docs/3.3/components/",
+						title:"https://getbootstrap.com/docs/3.3/components/"
+					}
+					,{
+						name:"bootstrap-v4-中文",
+						href:"https://code.z01.com/v4/docs/",
+						title:"https://code.z01.com/v4/docs/"
+					}
+					,{
+						name:"bootstrap-v3-中文",
+						href:"https://code.z01.com/boot/components.html",
+						title:"https://code.z01.com/boot/components.html"
+					}
+					,{
+						name:"bootstrap-table",
+						href:"http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/",
+						title:"http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/"
+					}
+					,{
+						name:"bootbox.js",
+						href:"http://bootboxjs.com/documentation.html",
+						title:"http://bootboxjs.com/documentation.html"
+					}
+				]
+			}
+			,{
+				title:"Layui",
+				color:"black",
+				url:"http://www.layui.com",
+				urls:[
+					{
+						name:"layui-doc",
+						href:"http://www.layui.com/doc/",
+						title:"http://www.layui.com/doc/"
+					}
+					,{
+						name:"layer",
+						href:"http://www.layui.com/doc/modules/layer.html",
+						title:"http://www.layui.com/doc/modules/layer.html"
+					}
+					,{
+						name:"代码修饰器",
+						href:"http://www.layui.com/doc/modules/code.html",
+						title:"http://www.layui.com/doc/modules/code.html"
+					}
+					,{
+						name:"LayIM即时通讯",
+						href:"http://www.layui.com/doc/modules/layim.html",
+						title:"http://www.layui.com/doc/modules/layim.html"
+					}
+				]
+			}
+			,{
+				title:"BootstrapValidator",
+				color:"black",
+				url:"https://github.com/nghuuphuoc/bootstrapvalidator",
+				urls:[
+					{
+						name:"api",
+						href:"http://bootstrapvalidator.votintsev.ru/api/",
+						title:"http://bootstrapvalidator.votintsev.ru/api/"
+					}
+					,{
+						name:"validators",
+						href:"http://bootstrapvalidator.votintsev.ru/validators/",
+						title:"http://bootstrapvalidator.votintsev.ru/validators/"
+					}
+				]
+			}
+			,{
+				title:"Font-Awesome",
+				color:"black",
+				url:"https://github.com/FortAwesome/Font-Awesome",
+				urls:[
+					{
+						name:"Font-Awesome-官网",
+						href:"http://fontawesome.io",
+						title:"http://fontawesome.io"
+					}
+					,{
+						name:"Font-Awesome-中文网",
+						href:"http://fontawesome.dashgame.com",
+						title:"http://fontawesome.dashgame.com"
+					}
+					,{
+						name:"Font-Awesome-5",
+						href:"https://fontawesome.com",
+						title:"https://fontawesome.com"
+					}
+				]
+			}
+			,{
+				title:"",
+				color:"black",
+				url:"",
+				urls:[
+					{
+						name:"",
+						href:"",
+						title:""
+					}
+				]
+			}
+		]
+	},
+	{//rows[1]
+		//暂无
+	}];
+	
+	var container = document.getElementById("idContainer");
+	//分几个区块
+	var rowSize = source.length;
+	for(var i=0;i<rowSize;i++){
+		//最外层的row标签;
+		var row = document.createElement("div");
+		var dataRow = source[i];
+		var dataRowTitle = dataRow.title;
+		if(dataRowTitle!=null && dataRowTitle!==""){
+			//row区域有标题
+			var div = document.createElement("div");
+			div.innerHTML="<h3>"+dataRowTitle+"</h3>";
+			row.appendChild(div);
+		}
+		row.className="row flex-container";
+		var lenPieces = dataRow.pieces==null?0:dataRow.pieces.length;
+		for(var j=0;j<lenPieces;j++){
+			var row_div = document.createElement("div");
+			row_div.className = "col-xs-12 col-sm-4 col-md-3 col-lg-2 div_piece";
+			var dataPiece = dataRow.pieces[j];
+			var title_div=document.createElement("div");
+			title_div.className="divTitle";
+			var domH = document.createElement("h4");
+			var tColor = "";
+			if(dataPiece.color!=null && dataPiece.color!==""){
+				domH.style.color = dataPiece.color;
+				tColor = dataPiece.color;
+			}
+			if(dataPiece.url!=null && dataPiece.url!==""){
+				var domATitle = document.createElement("a");
+				domATitle.setAttribute("href",dataPiece.url);
+				domATitle.setAttribute("target","_blank");
+				domATitle.innerHTML=dataPiece.title;
+				domATitle.style.color=tColor;
+				domH.appendChild(domATitle);
+			}else{
+				domH.innerHTML=dataPiece.title;			
+			}
+			title_div.appendChild(domH);
+			row_div.appendChild(title_div);
+			
+			var domUl = document.createElement("ul");
+			var lenUrls = dataPiece.urls==null?0:dataPiece.urls.length;
+			for(var k=0;k<lenUrls;k++){
+				var dataUrl = dataPiece.urls[k];
+				if(dataUrl.href!=null && dataUrl.href!==""){
+					var domLi = document.createElement("li");
+					var domA = document.createElement("a");
+					domA.setAttribute("href",dataUrl.href);
+					domA.setAttribute("target","_blank");
+					if(dataUrl.title!=null && dataUrl.title!==""){
+						domA.setAttribute("title",dataUrl.title);
+					}
+					domA.innerHTML = dataUrl.name;
+					domLi.appendChild(domA);
+					domUl.appendChild(domLi);				
+				}
+			}
+			row_div.appendChild(domUl);
+			row.appendChild(row_div);
+		}
+		container.appendChild(row);
+	}
+
+	//end
+	hideMask();
+}
+function hideMask(){
+	document.getElementById("idDivMask").style.display="none";
+}
+</script>
+
+<link href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<style type="text/css">
+body{
+	font-family:'微软雅黑','Helvetica Neue','Helvetica','Arial','sans-serif';
+}
+ul{
+	float: left;
+}
+li{
+	display: block;
+}
+a{
+	color: #0088cc;
+	text-decoration: none;
+}
+.divTitle{
+	padding-left:10px;
+}
+.div_piece{
+	padding:1px;
+	overflow-wrap: break-word;
+	overflow: hidden;
+	border:1px solid #FFFAFA;
+}
+.div_piece:hover{
+	border-color: rgba(215, 225, 232, 0.7);
+    outline: 1px;
+}
+
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-flow: row wrap; /* Safari 6.1+ */
+    flex-flow: row wrap;/*是 flex-direction 和 flex-wrap 的简写*/
+}
+.flex-container>div {
+    
+}
+</style>
+
+</head>
+<body onload="load();" >
+	<!-- 遮罩(防止页面闪烁) ,页面载入并计算完成之后,会隐藏掉 -->
+	<div id="idDivMask" style="display:block;width:100%;height:100%;position:absolute;top:0px;left:0px; 
+	 z-index:999999; background-color: white;" >
+	 </div>
+	
+	<div class="container">
+	<center><h1>api links</h1></center>
+	<hr/>
+	<div id="idContainer" class="container">
+		<!-- 内容由js动态生成 -->
+	</div>
+	<hr/>
+	</div>
+</body>
+</html>

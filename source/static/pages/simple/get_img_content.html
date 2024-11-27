@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style type="text/css">
+	.clearfix:after{visibility:hidden;display:block;font-size:0;content: " ";clear:both;height:0;}   
+	.clearfix{*zoom:1;}
+  </style>
+  <script type="text/javascript">
+	function change(e){
+		var ev = e||event;
+		ev.preventDefault();
+		var dom = ev.target || ev.srcElement;
+		setUpload(dom.files);
+	}
+	function setUpload(fileList){
+	  if(fileList!=null && fileList.length>0){
+		var myfile = fileList[0], reader = new FileReader();
+		reader.readAsDataURL(myfile);
+        reader.onload = function(e) {
+			var src = e.target.result;
+			document.getElementById("idImgResult").src=src;
+		}
+	  }
+    }
+  </script>
+</head>
+<body>
+	<div style="width:100%;float:left;" >
+		<input type="file" id="idFile" name="img" onchange="change(event);" style="width:200px;"></input>
+	</div>
+	<div class="clearfix" style="float:left;padding:10px 10px 10px 10px; margin:10px 10px 10px 10px;border: 1px solid #eeeeee;" >
+		<img id="idImgResult"></img>
+	</div>
+</body>
+</html>

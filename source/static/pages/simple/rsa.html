@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-transform,no-cache"/>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <title>RSA 加密/解密/签名</title>
+    <style type="text/css">
+        #app {
+            box-sizing: border-box;
+            padding: 20px 50px;
+        }
+
+        .acard {
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .acard + .acard {
+            margin-top: 20px;
+        }
+
+        .rtip {
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+<div id="idwait" style="font-weight: bold;font-size: 32px;">稍等一会儿......</div>
+<link href="https://cdn.jsdelivr.net/npm/ant-design-vue@3.2.15/dist/antd.min.css" rel="stylesheet">
+<div id="app" style="display: none;">
+    <a-card title="RSA加密" :bordered="true" class="acard">
+        <template #extra>
+            <div class="rtip">用公钥加密, 支持长文本</div>
+        </template>
+        <a-form ref="form1" :model="form1" v-bind="layout" autocomplete="off">
+            <a-form-item label="公钥" name="publicKey" :rules="[{ required: true, message: '请输入公钥!' }]">
+                <a-textarea v-model:value.trim="form1.publicKey" type="textarea" placeholder="请输入公钥,单行输入"
+                            spellcheck="false" :autosize="true" :allow-clear="true" :show-count="true"/>
+            </a-form-item>
+            <a-form-item label="待加密的明文" name="input"
+                         :rules="[{ required: true, message: '请输入待加密的明文!' }]">
+                <a-textarea v-model:value.trim="form1.input" type="textarea" placeholder="请输入待加密的明文,单行输入"
+                            spellcheck="false" :autosize="true" :allow-clear="true" :show-count="true"/>
+            </a-form-item>
+            <a-form-item label="加密后的密文">
+                <a-textarea v-model:value="form1.output" type="textarea"
+                            placeholder="此处输出加密后的密文,注意:每次加密后的密文都不一样" readonly
+                            spellcheck="false" :autosize="true" :allow-clear="true" :show-count="true"/>
+            </a-form-item>
+            <a-form-item v-bind="formItemLayoutWithOutLabel">
+                <a-button type="primary" html-type="submit" @click="onSubmitForm1">加密</a-button>
+                <a-button style="margin-left: 10px" @click="resetForm1Result">清空结果</a-button>
+            </a-form-item>
+        </a-form>
+    </a-card>
+    <a-card title="RSA解密" :bordered="true" class="acard">
+        <template #extra>
+            <div class="rtip">用私钥解密, 支持长文本</div>
+        </template>
+        <a-form ref="form2" :model="form2" v-bind="layout" autocomplete="off" spellcheck="false">
+            <a-form-item label="私钥" name="privateKey" :rules="[{ required: true, message: '请输入私钥!' }]">
+                <a-textarea v-model:value.trim="form2.privateKey" type="textarea" placeholder="请输入私钥,单行输入"
+                            spellcheck="false" :autosize="true" :allow-clear="true" :show-count="true"/>
+            </a-form-item>
+            <a-form-item label="待解密的密文" name="input"
+                         :rules="[{ required: true, message: '请输入待解密的密文!' }]">
+                <a-textarea v-model:value.trim="form2.input" type="textarea" placeholder="请输入待解密的密文,单行输入"
+                            spellcheck="false" :autosize="true" :allow-clear="true" :show-count="true"/>
+            </a-form-item>
+            <a-form-item label="解密后的明文">
+                <a-textarea v-model:value="form2.output" type="textarea"
+                            placeholder="此处输出解密后的明文" readonly
+                            spellcheck="false" :autosize="true" :allow-clear="true" :show-count="true"/>
+            </a-form-item>
+            <a-form-item v-bind="formItemLayoutWithOutLabel">
+                <a-button type="primary" html-type="submit" @click="onSubmitForm2">解密</a-button>
+                <a-button style="margin-left: 10px" @click="resetForm2Result">清空结果</a-button>
+            </a-form-item>
+        </a-form>
+    </a-card>
+    <a-card title="RSA - Sign - SHA256WithRSA" :bordered="true" class="acard">
+        <template #extra>
+            <div class="rtip">用私钥对信息生成数字签名</div>
+        </template>
+        <a-form ref="form3" :model="form3" v-bind="layout" autocomplete="off" spellcheck="false">
+            <a-form-item label="私钥" name="privateKey" :rules="[{ required: true, message: '请输入私钥!' }]">
+                <a-textarea v-model:value.trim="form3.privateKey" type="textarea" placeholder="请输入私钥,单行输入"
+                            spellcheck="false" :autosize="true" :allow-clear="true" :show-count="true"/>
+            </a-form-item>
+            <a-form-item label="待签名字符串" name="input"
+                         :rules="[{ required: true, message: '请输入待签名字符串!' }]">
+                <a-textarea v-model:value.trim="form3.input" type="textarea" placeholder="请输入待签名字符串,单行输入"
+                            spellcheck="false" :autosize="true" :allow-clear="true" :show-count="true"/>
+            </a-form-item>
+            <a-form-item label="签名结果">
+                <a-textarea v-model:value="form3.output" type="textarea"
+                            placeholder="此处输出签名结果" readonly
+                            spellcheck="false" :autosize="true" :allow-clear="true" :show-count="true"/>
+            </a-form-item>
+            <a-form-item v-bind="formItemLayoutWithOutLabel">
+                <a-button type="primary" html-type="submit" @click="onSubmitForm3">生成签名</a-button>
+                <a-button style="margin-left: 10px" @click="resetForm3Result">清空结果</a-button>
+            </a-form-item>
+        </a-form>
+    </a-card>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/plugin/customParseFormat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/plugin/advancedFormat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/plugin/weekday.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/plugin/localeData.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/plugin/weekOfYear.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/plugin/weekYear.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ant-design-vue@3.2.15/dist/antd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsencrypt-ext@1.1.1/lib/jsencrypt.js"></script>
+<script type="text/javascript">
+    const app = Vue.createApp({
+        data() {
+            return {
+                layout: {
+                    labelCol: {span: 4},
+                    wrapperCol: {span: 20},
+                },
+                formItemLayoutWithOutLabel: {
+                    wrapperCol: {offset: 4, span: 20,},
+                },
+                form1: {
+                    publicKey: "",
+                    input: "",
+                    output: ""
+                },
+                form2: {
+                    privateKey: "",
+                    input: "",
+                    output: ""
+                },
+                form3: {
+                    privateKey: "",
+                    input: "",
+                    output: ""
+                }
+            }
+        },
+        methods: {
+            onSubmitForm1() {
+                this.$refs.form1.validate().then(() => {
+                    this.form1.output = this.enc(this.form1.input, this.form1.publicKey);
+                })
+            },
+            resetForm1Result() {
+                this.form1.output = "";
+            },
+            onSubmitForm2() {
+                this.$refs.form2.validate().then(() => {
+                    this.form2.output = this.dec(this.form2.input, this.form2.privateKey);
+                })
+            },
+            resetForm2Result() {
+                this.form2.output = "";
+            },
+            onSubmitForm3() {
+                this.$refs.form3.validate().then(() => {
+                    this.form3.output = this.sign(this.form3.input, this.form3.privateKey);
+                })
+            },
+            resetForm3Result() {
+                this.form3.output = "";
+            },
+            enc(input, publicKey) {
+                // Encrypt with the public key...
+                const jsEncrypt = new JSEncrypt();
+                jsEncrypt.setPublicKey(publicKey);
+                return jsEncrypt.encrypt(input);
+            },
+            dec(input, privateKey) {
+                // Decrypt with the private key...
+                const jsEncrypt = new JSEncrypt();
+                jsEncrypt.setPrivateKey(privateKey);
+                return jsEncrypt.decrypt(input);
+            },
+            sign(input, privateKey) {
+                // Sign with the private key...
+                const sign = new JSEncrypt();
+                sign.setPrivateKey(privateKey);
+                return sign.sign(input, CryptoJS.SHA256, 'sha256');
+            },
+            initKey() {
+                this.form1.publicKey = "";
+                this.form2.privateKey = "";
+                this.form3.privateKey = "";
+            }
+        },
+        mounted() {
+            this.initKey();
+        }
+    });
+    app.use(antd);
+    document.getElementById('idwait').style.display = 'none';
+    app.mount('#app')
+    document.getElementById('app').style.display = '';
+</script>
+</body>
+</html>

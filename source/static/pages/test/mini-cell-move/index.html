@@ -1,0 +1,369 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <title>mini-cell-move</title>
+  <script type="text/javascript" src="../../../plugins/jquery/2.2.4/jquery.min.js"></script>
+  <style type="text/css">
+  
+	/*为了达到100%铺开效果 */
+	html {
+		height: 100%;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+	
+	body {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	.i-layout-div{
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing:border-box;
+		overflow: auto;
+		position:relative;
+	}
+	.ico-small-arrow {
+		width: 24px;
+		height: 24px;
+		margin-top: 3px;
+		margin-right: 6px;
+		cursor: pointer;
+	}
+	
+	.ico-small-arrow-up {
+		background: url('arrow_small_up.png') no-repeat;
+		background-position: 5px 5px;
+	}
+	
+	.ico-small-arrow-down {
+		background: url('arrow_small_down.png') no-repeat;
+		background-position: 5px 5px;
+	}
+	
+	.top-dialog-container {
+		position: absolute;
+		width: 370px;
+		table-layout:fixed;/*防止被内容意外撑大 */
+		height: 130px;
+		color: #ffffff;
+	}
+	
+	.top-dialog-container>div {
+		width: 100%;
+		float: left;
+		display: block;
+		padding-left: 12px;
+	}
+	
+	.top-dialog-title {
+		background: rgba(231, 70, 22, 0.85);
+		color: #ffffff;
+		font-size: 12px;
+		height: 36px;
+		line-height: 36px;
+		cursor: move;
+	}
+	
+	.top-dialog-title>span {
+		float: left;
+	}
+	
+	.top-dialog-title>div {
+		float: right;
+	}
+	
+	.top-dialog-content {
+		background: rgba(255, 255, 255, 0.85);
+		color: #f86d5a;
+		font-size: 12px;
+		padding-top: 12px;
+		padding-right: 12px;
+		height: 94px;
+		overflow: hidden;
+	}
+	
+	.top-dialog-content li {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 25px;
+	}
+	
+	.top-tj-theme-1>div:nth-child(1) {
+		background: rgba(33, 136, 207, 0.85);
+	}
+	
+	.top-tj-theme-1>div:nth-child(2) {
+		background: rgba(8, 73, 118, 0.85);
+	}
+	
+	.top-tj-theme-2>div:nth-child(1) {
+		background: rgba(61,197,217, 0.85);
+	}
+	
+	.top-tj-theme-2>div:nth-child(2) {
+		background: rgba(28,100,105, 0.85);
+	}
+	
+	.top-tj-container {
+		position: absolute;
+		top: 10px;
+		width: 230px;
+		color: #ffffff;
+	}
+	
+	.top-tj-container>div {
+		width: 100%;
+		float: left;
+		display: block;
+	}
+	
+	.top-tj-title {
+		height: 28px;
+		line-height: 28px;
+		padding: 0px 0px 0px 8px;
+		font-size: 14px;
+		cursor: move;
+	}
+	
+	.top-tj-title>span {
+		float: left;
+	}
+	
+	.top-tj-title>div {
+		float: right;
+	}
+	
+	.top-tj-content {
+		height: 115px;
+		position: relative;
+		padding: 0px 0px 0px 88px;
+	}
+	
+	.top-tj-content>img {
+		position: absolute;
+	    top: 17px;
+	    left: 6px;
+	    cursor: pointer;
+	    width: 76px;
+	    height: 76px;
+		border-radius:38px;
+	}
+	.top-tj-content>img:hover{
+		box-shadow: 0px 0px 2px rgba(193,205,193,0.85);
+	    -moz-box-shadow: 0px 0px 2px rgba(193,205,193,0.85);
+	    -webkit-box-shadow: 0px 0px 2px rgba(193,205,193,0.85);
+	}
+	.top-tj-content>div {
+		width: 100%;
+		height: 100%;
+	}
+	.top-tj-content>div table{
+		width: 100%;
+	}
+	.top-tj-content>div table tr>td:nth-child(1) {
+		font-size: 12px;
+	}
+	
+	.top-tj-content>div table tr>td:nth-child(2) {
+		font-size: 18px;
+	}
+	
+	.div_table_full {
+		display: table;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.div_table_cell_middle {
+		display: table-cell;
+		height: 100%;
+		vertical-align: middle;
+	}
+	
+  </style>
+  <script type="text/javascript">
+  
+	//cell折叠与否 
+	 function showHideCell(t){
+		 var $this = $(t);
+		 var $d = $this.closest("div[type='tj']").children("div:eq(1)");
+		 if($this.attr("status")=="1"){
+			 $d.slideUp();
+			 $this.removeClass("ico-small-arrow-up").addClass("ico-small-arrow-down");
+			 $this.attr("status","0");
+		 }else{
+			 $d.slideDown();
+			 $this.removeClass("ico-small-arrow-down").addClass("ico-small-arrow-up");
+			 $this.attr("status","1");
+		 }
+	 }
+	 
+	 $(function() {
+ 		//拖动效果实现方案: 
+		var validateHandler = function(e) {
+			var target = e.target || e.srcElement;
+			if ($(target).attr("type")=="title") {
+				return target;
+			}
+			return null;
+		}
+		var dragMove = function(validateHandler) {
+			//参数为验证点击区域是否为可移动区域，如果是返回欲移动元素，负责返回null
+			var draggingObj=null; //dragging Dialog
+            var diffX=0;
+            var diffY=0;
+            var isDown = false;
+			function mouseHandler(e) {
+				switch (e.type) {
+				case 'mousedown':
+					draggingObj = validateHandler(e);//验证是否为可点击移动区域
+					if (draggingObj != null) {
+						var $d = $(draggingObj).closest("div[type='tj']");
+						diffX = e.clientX - $d.offset().left;
+						diffY = e.clientY - $d.offset().top;
+						isDown = true;
+					}
+					break;
+				case 'mousemove':
+					if (isDown && draggingObj && e.buttons==1) {
+						var $ptv = $(draggingObj).closest("div[type='tj']");
+						var left = (e.clientX - diffX);
+						var top = (e.clientY - diffY);
+						var maxOffsetX=$("body").outerWidth()-$ptv.outerWidth();
+						var maxOffsetY=$("body").outerHeight()-$ptv.outerHeight();
+						if(left<0){
+							left=0;
+						}else if(left>maxOffsetX){
+							left=maxOffsetX;
+						}
+						if(top<0){
+							top=0;
+						}else if(top>maxOffsetY){
+							top=maxOffsetY;
+						}
+						$ptv.css({"left":left+"px","top":top+"px","bottom":"","right":""});
+					}
+					break;
+				case 'mouseup':
+					draggingObj = null;
+					diffX = 0;
+					diffY = 0;
+					isDown = false;
+					break;
+				}
+			}
+			return {
+				enable : function() {
+					document.addEventListener('mousedown', mouseHandler);
+					document.addEventListener('mousemove', mouseHandler);
+					document.addEventListener('mouseup', mouseHandler);
+				},
+				disable : function() {
+					document.removeEventListener('mousedown', mouseHandler);
+					document.removeEventListener('mousemove', mouseHandler);
+					document.removeEventListener('mouseup', mouseHandler);
+				}
+			};
+		}
+		dragMove(validateHandler).enable();
+		//防止窗口发生变化时,那些固定位置的弹窗跑出屏幕外面去
+		window.addEventListener("resize",function(){
+			$("div[type='tj']").each(function(i,dom){
+				var $ptv = $(dom);
+				var left = $ptv.offset().left;
+				var top = $ptv.offset().top;
+				var maxOffsetX=$("body").innerWidth()-$ptv.outerWidth();
+				var maxOffsetY=$("body").innerHeight()-$ptv.outerHeight();
+				if(left>maxOffsetX){
+					$ptv.css({"left":maxOffsetX+"px"});
+				}
+				if(top>maxOffsetY){
+					$ptv.css({"top":maxOffsetY+"px"});
+				}
+			});
+		});
+	});
+	 
+	 
+  </script>
+</head>
+<body style="background-color:#FAF0E6;margin:0px;padding:0px; ">
+<div style="width:100%;height:100%;">
+   <div id="idiv_tj1" class="i-layout-div top-tj-container top-tj-theme-1" type="tj" style="left:82px;">
+   		<div class="i-layout-div top-tj-title" type="title">
+   			<span>标题1</span>
+   			<div onclick="showHideCell(this);" status="1" class="ico-small-arrow-up ico-small-arrow "></div>
+   		</div>
+   		<div class="i-layout-div top-tj-content">
+   			<img type="switch_ban" status="0" val="ex" src="ex.png" />
+   			<div>
+   				<div class="div_table_full">
+   					<div class="div_table_cell_middle">
+		   				<table>
+		   					<tr>
+		   						<td width="60px">第一行</td>
+		   						<td id="" style="color:#0F94F9;">86</td>
+		   					</tr>
+		   					<tr>
+		   						<td>第二行</td>
+		   						<td id="" style="color:#83d73c;">231</td>
+		   					</tr>
+		   					<tr>
+		   						<td>第三行</td>
+		   						<td id="" style="color:#c87620;">11</td>
+		   					</tr>
+		   					<tr>
+		   						<td>第四行</td>
+		   						<td id="" style="color:#00FFFF;">999</td>
+		   					</tr>
+		   				</table>
+		   			</div>
+		   		</div>
+   			</div>
+   		</div>
+   </div>
+   <div id="idiv_tj2" class="i-layout-div top-tj-container top-tj-theme-2" type="tj" style="left:350px;">
+   		<div class="i-layout-div top-tj-title" type="title">
+   			<span>第二个</span>
+   			<div onclick="showHideCell(this);" status="1" class="ico-small-arrow-up ico-small-arrow "></div>
+   		</div>
+   		<div class="i-layout-div top-tj-content">
+   			<img type="switch_ban" status="0" val="ex2" src="ex2.png" />
+   			<div>
+   				<div class="div_table_full">
+   					<div class="div_table_cell_middle">
+		   				<table>
+		   					<tr>
+		   						<td width="60px">第一行</td>
+		   						<td id="" style="color:#0F94F9;">324</td>
+		   					</tr>
+		   					<tr>
+		   						<td>第二行</td>
+		   						<td id="" style="color:#83d73c;">645</td>
+		   					</tr>
+		   					<tr>
+		   						<td>第三行</td>
+		   						<td id="" style="color:#c87620;">121</td>
+		   					</tr>
+		   					<tr>
+		   						<td>第四行</td>
+		   						<td id="" style="color:#00FFFF;">97</td>
+		   					</tr>
+		   				</table>
+		   			</div>
+		   		</div>
+   			</div>
+   		</div>
+   </div>
+</div>
+</body>
+</html>

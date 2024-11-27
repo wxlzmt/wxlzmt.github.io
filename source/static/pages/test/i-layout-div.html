@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i-layout-div</title>
+	<link rel="stylesheet" href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<style type="text/css" >
+	.i-layout-relative {
+		position: relative;
+	}
+	/*必要*/
+	.i-layout-div{
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing:border-box;
+		overflow: auto;
+	}
+	</style>
+</head>
+<body>
+    <div class="container" style="margin-top:20px;">
+		<h4>容器高200px(可以不固定,但是必须要自身拥有实际尺寸),容器分上中下三层,上层60px,下层40px,中层高度自适应填充剩余.</h4>
+		<!--最外层的容器-->
+		<div style="width:100%;height:200px;background-color: #e8dfdf;" >
+			<div class="i-layout-div i-layout-relative" style="width:100%;height:100%; 
+			padding-top:60px;padding-bottom:40px;" >
+				<div style="width:100%;height:60px;position:absolute;top:0px;background-color:#f56666;" ></div>
+				<div style="width:100%;height:100%;" ></div>
+				<div style="width:100%;height:40px;position:absolute;bottom:0px;background-color:#333333;" ></div>
+			</div>
+		</div>
+		<hr/>
+		
+		<h4>容器高200px(可以不固定,但是必须要自身拥有实际尺寸),容器分左中右三层,左60px,右40px,中部宽度自适应填充剩余.</h4>
+		<!--最外层的容器-->
+		<div style="width:100%;height:200px;background-color: #e8dfdf;" >
+			<div class="i-layout-div i-layout-relative" style="width:100%;height:100%; 
+			padding-left:60px;padding-right:40px;" >
+				<div style="height:100%;width:60px;position:absolute;left:0px;top:0px;background-color:#f56666;" ></div>
+				<div style="width:100%;height:100%;" ></div>
+				<div style="height:100%;width:40px;position:absolute;right:0px;top:0px;background-color:#333333;" ></div>
+			</div>
+		</div>
+		<hr/>
+		<p>i-layout-div模式可以实现横向或纵向布局,布局块中可以全部是百分比,可以有一块自适应填充剩余控件,其它块固定宽度或高度.</p>
+    </div>
+</body>
+</html>

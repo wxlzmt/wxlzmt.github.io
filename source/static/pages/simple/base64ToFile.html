@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-transform,no-cache"/>
+  <meta name="description" content="base64转二进制,二进制转base64">
+  <meta name="keywords" content="base64,dataURL,binary,file,base64转二进制">
+  <title>Base64 ↔ 二进制</title>
+  <link rel="stylesheet" href="../../plugins/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <style type="text/css">
+    html, body {
+      width: 100%;
+    }
+    input[type=file] {
+      display: inline-block;
+    }
+    .form-file {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .uploader_container {
+      position: relative;
+      flex: 1;
+      border: 2px dashed #a9a4a4;
+      margin: 0px 20px 0px 0px;
+      border-radius: 5px;
+      padding: 0px 0px 0px 5px;
+      background: #f9f7f7;
+    }
+    .uploader_input {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      line-height: 45px;
+    }
+  </style>
+</head>
+<body>
+<div id="app" class="container">
+  <h1>Base64 ↔ 二进制</h1>
+  <div class="form" style="margin-top: 15px;">
+    <div class="form-group form-file">
+      <div class="uploader_container">
+        <input type="file" id="inputfile" class="uploader_input" @change="onChangeFile" title="点击上传文件或拖曳文件至此"/>
+      </div>
+      <button type="button" @click="transFileToDataUrl" class="btn btn-primary">转Base64URL</button>
+    </div>
+    <div class="form-group" style="margin-top: 15px;">
+      <textarea v-model="input" :title="textareaTitle" class="form-control" style="width: 100%;max-width: 100%;"
+                rows="3" :placeholder="placeholder" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+    </div>
+    <div class="form-group" style="text-align:center;margin-top: 15px;">
+      <button type="button" class="btn btn-primary" @click="transInput">转二进制流并下载</button>
+      <button type="button" class="btn" @click="clearInput">清空</button>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/file-saver"></script>
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      input: "",
+      placeholder: "选择文件将之转为base64输出至此, 或者直接粘贴base64字符串至此."
+    },
+    computed:{
+      textareaTitle(){
+        let len = (this.input || "").length;
+        return `文本框当前字符个数: ${len}`;
+      }
+    },
+    methods: {
+      transInput() {
+        if (this.input) {
+          let str = this.input;
+          let i = str.indexOf(",");
+          if (i => 0) {
+            str = str.substring(i + 1);
+          }
+          let blob = this.base64ToBlob(str);
+          saveAs(blob, "result");
+        }
+      },
+      clearInput() {
+        this.input = "";
+      },
+      onChangeFile(e) {
+        let file = e.target.files[0];
+        this.fileToDataUrl(file);
+      },
+      transFileToDataUrl() {
+        let file = document.getElementById("inputfile").files[0];
+        this.fileToDataUrl(file);
+      },
+      fileToDataUrl(file) {
+        if (file) {
+          let blob = this.fileToBlob(file);
+          this.blobToDataURL(blob).then((dataUrl) => {
+            this.input = dataUrl;
+          }).catch(e => {
+            console.error(e);
+          })
+        }
+      },
+      fileToBlob(file) {
+        return new Blob([file], {type: file.type});
+      },
+      base64ToBlob(base64 = "", options = {type: "application/octet-stream"}) {
+        return new Blob([this.base64ToUint8Array(base64)], options);
+      },
+      base64ToUint8Array(base64 = "") {
+        let bstr = atob(base64),
+          n = bstr.length,
+          u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return u8arr;
+      },
+      blobToDataURL(blob, callback) {
+        let ret = undefined;
+        let reader = new FileReader();
+        if (typeof callback === "function") {
+          reader.onload = function (e) {
+            callback(e.target.result);
+          };
+        } else {
+          ret = new Promise((resolve, reject) => {
+            reader.onload = e => {
+              resolve(e.target.result);
+            };
+            reader.onerror = e => {
+              reject(e);
+            };
+          });
+        }
+        reader.readAsDataURL(blob);
+        return ret;
+      }
+    }
+  })
+</script>
+</body>
+</html>
